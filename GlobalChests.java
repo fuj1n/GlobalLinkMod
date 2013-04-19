@@ -33,6 +33,7 @@ public class GlobalChests {
 	public static GlobalChestNBT chestNBTCreative = new GlobalChestNBT("Creative");
 	public static GlobalChestNBT chestNBTSurvival = new GlobalChestNBT("Survival");
 	public static GlobalChestNBT chestNBTAdventure = new GlobalChestNBT("Adventure");
+	public static GlobalChestNBT chestNBTMisc = new GlobalChestNBT("Misc");
 	
 	@SidedProxy(clientSide="fuj1n.globalChestMod.client.ClientProxyGlobalChests", serverSide="fuj1n.globalChestMod.common.CommonProxyGlobalChests")
 	public static CommonProxyGlobalChests proxy;

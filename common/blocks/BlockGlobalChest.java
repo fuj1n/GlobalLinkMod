@@ -2,21 +2,20 @@ package fuj1n.globalChestMod.common.blocks;
 
 import java.util.Random;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryEnderChest;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityEnderChest;
+import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import cpw.mods.fml.common.FMLCommonHandler;
 import fuj1n.globalChestMod.GlobalChests;
 import fuj1n.globalChestMod.client.ClientProxyGlobalChests;
 import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
@@ -36,6 +35,11 @@ public class BlockGlobalChest extends BlockContainer{
 	@Override
 	public boolean renderAsNormalBlock(){
 		return false;
+	}
+	
+	@Override
+	public Icon getBlockTextureFromSideAndMetadata(int par1, int par2){
+		return Block.blockSteel.getBlockTextureFromSideAndMetadata(par1, par2);
 	}
 	
 	@Override
@@ -138,5 +142,8 @@ public class BlockGlobalChest extends BlockContainer{
     		return new TileEntityGlobalChest();
     	}
 	}
+	
+	@Override
+	public void registerIcons(IconRegister par1IconRegister){}
 
 }

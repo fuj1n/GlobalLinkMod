@@ -90,20 +90,20 @@ public class TileEntityGlobalChest extends TileEntity
 
     public void openChest()
     {
+        ++this.numUsingPlayers;
+        this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, Block.enderChest.blockID, 1, this.numUsingPlayers);
         double d1 = (double)this.xCoord + 0.5D;
         double d0 = (double)this.zCoord + 0.5D;
         this.worldObj.playSoundEffect(d1, (double)this.yCoord + 0.5D, d0, "random.chestopen", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
-        ++this.numUsingPlayers;
-        this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, Block.enderChest.blockID, 1, this.numUsingPlayers);
     }
 
     public void closeChest()
     {
+        --this.numUsingPlayers;
+        this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, Block.enderChest.blockID, 1, this.numUsingPlayers);
         double d0 = (double)this.xCoord + 0.5D;
         double d2 = (double)this.zCoord + 0.5D;
         this.worldObj.playSoundEffect(d0, (double)this.yCoord + 0.5D, d2, "random.chestclosed", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
-        --this.numUsingPlayers;
-        this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, Block.enderChest.blockID, 1, this.numUsingPlayers);
     }
 
     public boolean isUseableByPlayer(EntityPlayer par1EntityPlayer)

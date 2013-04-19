@@ -37,7 +37,7 @@ public class InventoryGlobalChest extends InventoryBasic{
 			nbt = GlobalChests.chestNBTCreative.getNBTTagCompound();
 			break;
 		default:
-			nbt = GlobalChests.chestNBTSurvival.getNBTTagCompound();
+			nbt = GlobalChests.chestNBTMisc.getNBTTagCompound();
 			break;
 		}
 		if (nbt == null) {

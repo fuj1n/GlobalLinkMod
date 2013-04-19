@@ -12,10 +12,9 @@ import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
 public class ContainerGlobalChest extends Container{
 
 	protected TileEntityGlobalChest tileEntity;
-	protected EntityPlayer player;
+	public EntityPlayer player;
 	
 	public InventoryGlobalChest inventory;
-	public InventoryEnderChest inventoryEnder;
 	
 	public ContainerGlobalChest(EntityPlayer player, TileEntityGlobalChest te){
 		this.player = player;
