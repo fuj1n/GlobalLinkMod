@@ -10,6 +10,7 @@ import java.io.IOException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.MinecraftException;
 import cpw.mods.fml.common.FMLLog;
 
@@ -23,11 +24,22 @@ public class GlobalChestNBT {
 	private final long milliTime = System.currentTimeMillis();
 	
 	public GlobalChestNBT(String postfix){
-		NBTLocation = new File(Minecraft.getMinecraftDir(), "saves/");
-		NBTFile = new File(Minecraft.getMinecraftDir(), "saves/globalChestData" + postfix + ".dat");
-		NBTLocation.mkdirs();
-		NBTFile.mkdirs();
-		setSessionLock();
+		if(MinecraftServer.getServer() != null && MinecraftServer.getServer().isDedicatedServer()){
+			NBTLocation = new File("null");
+			NBTFile = new File("null");
+		}else{
+			NBTLocation = new File(Minecraft.getMinecraftDir(), "saves/");
+			NBTFile = new File(Minecraft.getMinecraftDir(), "saves/globalChestData" + postfix + ".dat");
+			NBTLocation.mkdirs();
+			try {
+				if(!NBTFile.exists()){
+					NBTFile.createNewFile();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			setSessionLock();
+		}
 	}
 	
 	private void setSessionLock() {
@@ -82,31 +94,35 @@ public class GlobalChestNBT {
 				NBTTagCompound nbttagcompound = CompressedStreamTools.readCompressed(new FileInputStream(file));
 				return nbttagcompound;
 			}
-			catch (Exception exception)
+			catch (Exception e)
 			{
-				exception.printStackTrace();
+				e.printStackTrace();
 			}
 		}
-
-		return null;
+		return new NBTTagCompound();
 	}
 	
 	public void saveNBTData(NBTTagCompound NBTData)
 	{
 		try
 		{
-			File file = NBTFile;
-			
-			if (file.exists())
-			{
-				file.delete();
+			if(NBTData != null){
+				File file = NBTFile;
+				
+				if (file.exists())
+				{
+					file.delete();
+					file.createNewFile();
+				}else{
+					file.createNewFile();
+				}
+				
+				CompressedStreamTools.writeCompressed(NBTData, new FileOutputStream(file));
 			}
-			
-			CompressedStreamTools.writeCompressed(NBTData, new FileOutputStream(file));
 		}
-		catch (Exception exception)
+		catch (Exception e)
 		{
-			exception.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 	

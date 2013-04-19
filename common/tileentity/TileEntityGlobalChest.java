@@ -1,5 +1,6 @@
 package fuj1n.globalChestMod.common.tileentity;
 
+import fuj1n.globalChestMod.GlobalChests;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -35,13 +36,6 @@ public class TileEntityGlobalChest extends TileEntity
         float f = 0.1F;
         double d0;
 
-        if (this.numUsingPlayers > 0 && this.lidAngle == 0.0F)
-        {
-            double d1 = (double)this.xCoord + 0.5D;
-            d0 = (double)this.zCoord + 0.5D;
-            this.worldObj.playSoundEffect(d1, (double)this.yCoord + 0.5D, d0, "random.chestopen", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
-        }
-
         if (this.numUsingPlayers == 0 && this.lidAngle > 0.0F || this.numUsingPlayers > 0 && this.lidAngle < 1.0F)
         {
             float f1 = this.lidAngle;
@@ -61,13 +55,6 @@ public class TileEntityGlobalChest extends TileEntity
             }
 
             float f2 = 0.5F;
-
-            if (this.lidAngle < f2 && f1 >= f2)
-            {
-                d0 = (double)this.xCoord + 0.5D;
-                double d2 = (double)this.zCoord + 0.5D;
-                this.worldObj.playSoundEffect(d0, (double)this.yCoord + 0.5D, d2, "random.chestclosed", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
-            }
 
             if (this.lidAngle < 0.0F)
             {
@@ -103,12 +90,18 @@ public class TileEntityGlobalChest extends TileEntity
 
     public void openChest()
     {
+        double d1 = (double)this.xCoord + 0.5D;
+        double d0 = (double)this.zCoord + 0.5D;
+        this.worldObj.playSoundEffect(d1, (double)this.yCoord + 0.5D, d0, "random.chestopen", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
         ++this.numUsingPlayers;
         this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, Block.enderChest.blockID, 1, this.numUsingPlayers);
     }
 
     public void closeChest()
     {
+        double d0 = (double)this.xCoord + 0.5D;
+        double d2 = (double)this.zCoord + 0.5D;
+        this.worldObj.playSoundEffect(d0, (double)this.yCoord + 0.5D, d2, "random.chestclosed", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
         --this.numUsingPlayers;
         this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, Block.enderChest.blockID, 1, this.numUsingPlayers);
     }

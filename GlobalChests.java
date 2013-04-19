@@ -1,8 +1,11 @@
 package fuj1n.globalChestMod;
 
+import java.util.logging.Level;
+
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.Configuration;
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -26,11 +29,12 @@ import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 
 public class GlobalChests {
-	@SidedProxy(clientSide="fuj1n.globalChestMod.client.ClientProxyGlobalChests", serverSide="fuj1n.globalChestMod.common.CommonPorxyGlobalChests")
+	
 	public static GlobalChestNBT chestNBTCreative = new GlobalChestNBT("Creative");
 	public static GlobalChestNBT chestNBTSurvival = new GlobalChestNBT("Survival");
 	public static GlobalChestNBT chestNBTAdventure = new GlobalChestNBT("Adventure");
 	
+	@SidedProxy(clientSide="fuj1n.globalChestMod.client.ClientProxyGlobalChests", serverSide="fuj1n.globalChestMod.common.CommonProxyGlobalChests")
 	public static CommonProxyGlobalChests proxy;
 	public static Configuration config;
 	
@@ -79,6 +83,10 @@ public class GlobalChests {
 	
 	public void addAllNames(){
 		LanguageRegistry.addName(globalChest, "Global Chest");
+	}
+	
+	public static <var> void log(var s, Level level){
+		FMLLog.log(level, "[Global Chests] %s", s);
 	}
 	
 }

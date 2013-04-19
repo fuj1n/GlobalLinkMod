@@ -2,14 +2,22 @@ package fuj1n.globalChestMod.common.blocks;
 
 import java.util.Random;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
+
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.InventoryEnderChest;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.tileentity.TileEntityEnderChest;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import fuj1n.globalChestMod.GlobalChests;
 import fuj1n.globalChestMod.client.ClientProxyGlobalChests;
 import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
 
@@ -35,6 +43,39 @@ public class BlockGlobalChest extends BlockContainer{
         return ClientProxyGlobalChests.GlobalChestRenderId;
     }
 
+    public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9){
+    	if(FMLCommonHandler.instance().getMinecraftServerInstance() != null && FMLCommonHandler.instance().getMinecraftServerInstance().isDedicatedServer()){
+            InventoryEnderChest inventoryenderchest = par5EntityPlayer.getInventoryEnderChest();
+            TileEntityEnderChest tileentityenderchest = (TileEntityEnderChest)par1World.getBlockTileEntity(par2, par3, par4);
+
+            if (inventoryenderchest != null && tileentityenderchest != null)
+            {
+                if (par1World.isBlockNormalCube(par2, par3 + 1, par4))
+                {
+                    return true;
+                }
+                else if (par1World.isRemote)
+                {
+                    return true;
+                }
+                else
+                {
+                    inventoryenderchest.setAssociatedChest(tileentityenderchest);
+                    par5EntityPlayer.displayGUIChest(inventoryenderchest);
+                    return true;
+                }
+            }
+            else
+            {
+                return true;
+            }
+    	}else if(par1World.getBlockId(par2, par3 + 1, par3) == 0){
+	    	par5EntityPlayer.openGui(GlobalChests.instance, 0, par1World, par2, par3, par4);
+	        return true;
+    	}
+    	return false;
+    }
+	
 	@Override
     public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLiving par5EntityLiving, ItemStack par6ItemStack)
     {
@@ -91,7 +132,11 @@ public class BlockGlobalChest extends BlockContainer{
 	
 	@Override
 	public TileEntity createNewTileEntity(World world) {
-		return new TileEntityGlobalChest();
+    	if(FMLCommonHandler.instance().getMinecraftServerInstance() != null && FMLCommonHandler.instance().getMinecraftServerInstance().isDedicatedServer()){
+    		return Block.enderChest.createTileEntity(world, 0);
+    	}else{
+    		return new TileEntityGlobalChest();
+    	}
 	}
 
 }

@@ -1,8 +1,9 @@
 package fuj1n.globalChestMod.client;
 
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import fuj1n.globalChestMod.client.event.EventSound;
 import fuj1n.globalChestMod.client.render.RenderGlobalChest;
 import fuj1n.globalChestMod.client.render.tileentity.TileEntityGlobalChestRenderer;
 import fuj1n.globalChestMod.common.CommonProxyGlobalChests;
@@ -17,6 +18,7 @@ public class ClientProxyGlobalChests extends CommonProxyGlobalChests{
 		GlobalChestRenderId = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(new RenderGlobalChest());
 		TileEntityRenderer.instance.specialRendererMap.put(TileEntityGlobalChest.class, new TileEntityGlobalChestRenderer());
+		MinecraftForge.EVENT_BUS.register(new EventSound());
 	}
 	@Override
 	public void Init(){}
