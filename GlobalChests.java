@@ -5,6 +5,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.Configuration;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
+import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.Mod.PostInit;
 import cpw.mods.fml.common.Mod.PreInit;
 import cpw.mods.fml.common.SidedProxy;
@@ -12,22 +13,33 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import fuj1n.globalChestMod.client.gui.GuiHandler;
+import fuj1n.globalChestMod.client.nbt.GlobalChestNBT;
 import fuj1n.globalChestMod.common.CommonProxyGlobalChests;
 import fuj1n.globalChestMod.common.blocks.BlockGlobalChest;
+import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
 
 @Mod(modid = "fuj1n.GlobalChests", name = CommonProxyGlobalChests.modName, version = CommonProxyGlobalChests.version)
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 
 public class GlobalChests {
 	@SidedProxy(clientSide="fuj1n.globalChestMod.client.ClientProxyGlobalChests", serverSide="fuj1n.globalChestMod.common.CommonPorxyGlobalChests")
+	public static GlobalChestNBT chestNBTCreative = new GlobalChestNBT("Creative");
+	public static GlobalChestNBT chestNBTSurvival = new GlobalChestNBT("Survival");
+	public static GlobalChestNBT chestNBTAdventure = new GlobalChestNBT("Adventure");
+	
 	public static CommonProxyGlobalChests proxy;
 	public static Configuration config;
 	
 	public static int globalChestId = 2564;
 	
 	public static Block globalChest;
+	
+	@Instance("fuj1n.GlobalChests")
+	public static GlobalChests instance;
 	
 	@PreInit
 	public void PreInit(FMLPreInitializationEvent event){
@@ -43,7 +55,9 @@ public class GlobalChests {
 		proxy.Init();
 		initAllBlocks();
 		registerAllBlocks();
+		mapAllTileEntities();
 		addAllNames();
+		NetworkRegistry.instance().registerGuiHandler(instance, new GuiHandler());
 	}
 	
 	@PostInit
@@ -57,6 +71,10 @@ public class GlobalChests {
 	
 	public void registerAllBlocks(){
 		GameRegistry.registerBlock(globalChest, "fuj1n.globalChests.GlobalChest");
+	}
+	
+	public void mapAllTileEntities(){
+		GameRegistry.registerTileEntity(TileEntityGlobalChest.class, "fuj1n.GlobalChests.tileEntityGlobalChest");
 	}
 	
 	public void addAllNames(){
