@@ -28,8 +28,8 @@ public class GlobalChestNBT {
 			NBTLocation = new File("null");
 			NBTFile = new File("null");
 		}else{
-			NBTLocation = new File(Minecraft.getMinecraftDir(), "saves/");
-			NBTFile = new File(Minecraft.getMinecraftDir(), "saves/globalChestData" + postfix + ".dat");
+			NBTLocation = new File(Minecraft.getMinecraftDir(), "globalChestData");
+			NBTFile = new File(NBTLocation, "globalChestData" + postfix + ".dat");
 			NBTLocation.mkdirs();
 			try {
 				if(!NBTFile.exists()){
