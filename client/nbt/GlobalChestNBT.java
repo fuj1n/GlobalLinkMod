@@ -62,7 +62,7 @@ public class GlobalChestNBT {
 	
 	public void checkSessionLock() throws MinecraftException {
 		try {
-			File file = new File(NBTLocation, "sessionlockGlobalChest.lock");
+			File file = new File(NBTLocation, "sessionlock.lock");
 			DataInputStream datainputstream = new DataInputStream(new FileInputStream(file));
 			try {
 				if (datainputstream.readLong() != milliTime) {
@@ -79,7 +79,7 @@ public class GlobalChestNBT {
 	}
 	
 	public void clearSessionLock(){
-		File file = new File(NBTLocation, "sessionlockGlobalChest.lock");
+		File file = new File(NBTLocation, "sessionlock.lock");
 		if(file.exists()){
 			file.delete();
 		}
