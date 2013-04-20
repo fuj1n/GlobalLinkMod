@@ -44,7 +44,7 @@ public class GlobalChestNBT {
 	
 	private void setSessionLock() {
 		try {
-			File file = new File(NBTLocation, "sessionlockGlobalChest.lock");
+			File file = new File(NBTLocation, "sessionlock.lock");
 			DataOutputStream dataoutputstream = new DataOutputStream(new FileOutputStream(file));
 
 			try {
