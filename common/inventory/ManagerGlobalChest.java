@@ -32,6 +32,7 @@ public class ManagerGlobalChest {
 		addItemToBanList(Block.oreCoal.blockID);
 		addItemToList(Block.wood.blockID, 4);
 		addItemToBanList(Block.oreLapis.blockID);
+		addItemToList(Block.blockLapis.blockID, 9);
 		addItemToList(Block.sandStone.blockID, 1);
 		addItemToList(Block.music.blockID, 16);
 		addItemToBanList(Block.web.blockID);
