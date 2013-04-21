@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.Configuration;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
@@ -34,10 +35,12 @@ import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
 
 public class GlobalChests {
 	
-	public static GlobalChestNBT chestNBTCreative = new GlobalChestNBT("Creative");
-	public static GlobalChestNBT chestNBTSurvival = new GlobalChestNBT("Survival");
-	public static GlobalChestNBT chestNBTAdventure = new GlobalChestNBT("Adventure");
-	public static GlobalChestNBT chestNBTMisc = new GlobalChestNBT("Misc");
+	public static GlobalChestNBT[] chestNBT = {new GlobalChestNBT("Creative"), new GlobalChestNBT("Survival"), new GlobalChestNBT("Adventure"), new GlobalChestNBT("Misc")};
+	
+	public static NBTTagCompound globalChestCreative;
+	public static NBTTagCompound globalChestSurvival;
+	public static NBTTagCompound globalChestAdventure;
+	public static NBTTagCompound globalChestMisc;
 	
 	@SidedProxy(clientSide="fuj1n.globalChestMod.client.ClientProxyGlobalChests", serverSide="fuj1n.globalChestMod.common.CommonProxyGlobalChests")
 	public static CommonProxyGlobalChests proxy;
@@ -116,7 +119,7 @@ public class GlobalChests {
 		});
 		
 		GameRegistry.addRecipe(new ItemStack(globalChest, 1), new Object[]{
-			"IDI", "GLG", "IGI", Character.valueOf('I'), Item.ingotIron, Character.valueOf('D'), Item.diamond, Character.valueOf('L'), globalLink, Character.valueOf('G'), Item.ingotGold
+			"BDB", "GLG", "IGI", Character.valueOf('B'), Block.blockSteel, Character.valueOf('I'), Item.ingotIron, Character.valueOf('D'), Item.diamond, Character.valueOf('L'), globalLink, Character.valueOf('G'), Item.ingotGold
 		});
 	}
 	

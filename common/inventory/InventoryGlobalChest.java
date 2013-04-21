@@ -28,16 +28,16 @@ public class InventoryGlobalChest extends InventoryBasic{
 	public void loadInventory() {
 		switch (gamemode) {
 		case SURVIVAL:
-			nbt = GlobalChests.chestNBTSurvival.getNBTTagCompound();
+			nbt = GlobalChests.globalChestSurvival;
 			break;
 		case ADVENTURE:
-			nbt = GlobalChests.chestNBTAdventure.getNBTTagCompound();
+			nbt = GlobalChests.globalChestAdventure;
 			break;
 		case CREATIVE:
-			nbt = GlobalChests.chestNBTCreative.getNBTTagCompound();
+			nbt = GlobalChests.globalChestCreative;
 			break;
 		default:
-			nbt = GlobalChests.chestNBTMisc.getNBTTagCompound();
+			nbt = GlobalChests.globalChestMisc;
 			break;
 		}
 		if (nbt == null) {
@@ -79,16 +79,16 @@ public class InventoryGlobalChest extends InventoryBasic{
 			nbt.setTag("inventory", nbttaglist);
 			switch (gamemode) {
 			case SURVIVAL:
-				GlobalChests.chestNBTSurvival.saveNBTData(nbt);
+				GlobalChests.globalChestSurvival = nbt;
 				break;
 			case ADVENTURE:
-				GlobalChests.chestNBTAdventure.saveNBTData(nbt);
+				GlobalChests.globalChestAdventure = nbt;
 				break;
 			case CREATIVE:
-				GlobalChests.chestNBTCreative.saveNBTData(nbt);
+				GlobalChests.globalChestCreative = nbt;
 				break;
 			default:
-				GlobalChests.chestNBTSurvival.saveNBTData(nbt);
+				GlobalChests.globalChestMisc = nbt;
 				break;
 			}
 		}

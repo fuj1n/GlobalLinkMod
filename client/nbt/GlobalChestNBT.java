@@ -21,9 +21,12 @@ public class GlobalChestNBT {
 	private final File NBTLocation;
 	private final File NBTFile;
 	
+	private final String postfix;
+	
 	private final long milliTime = System.currentTimeMillis();
 	
 	public GlobalChestNBT(String postfix){
+		this.postfix = postfix;
 		if(MinecraftServer.getServer() != null && MinecraftServer.getServer().isDedicatedServer()){
 			NBTLocation = new File("null");
 			NBTFile = new File("null");
@@ -44,7 +47,7 @@ public class GlobalChestNBT {
 	
 	private void setSessionLock() {
 		try {
-			File file = new File(NBTLocation, "sessionlock.lock");
+			File file = new File(NBTLocation, "sessionlock" + postfix + ".lock");
 			DataOutputStream dataoutputstream = new DataOutputStream(new FileOutputStream(file));
 
 			try {
@@ -62,7 +65,7 @@ public class GlobalChestNBT {
 	
 	public void checkSessionLock() throws MinecraftException {
 		try {
-			File file = new File(NBTLocation, "sessionlock.lock");
+			File file = new File(NBTLocation, "sessionlock" + postfix + ".lock");
 			DataInputStream datainputstream = new DataInputStream(new FileInputStream(file));
 			try {
 				if (datainputstream.readLong() != milliTime) {
@@ -79,7 +82,7 @@ public class GlobalChestNBT {
 	}
 	
 	public void clearSessionLock(){
-		File file = new File(NBTLocation, "sessionlock.lock");
+		File file = new File(NBTLocation, "sessionlock" + postfix + ".lock");
 		if(file.exists()){
 			file.delete();
 		}
@@ -104,6 +107,12 @@ public class GlobalChestNBT {
 	
 	public void saveNBTData(NBTTagCompound NBTData)
 	{
+		try {
+			checkSessionLock();
+		} catch (MinecraftException e1) {
+			System.out.println("Session lock check returned false.");
+			return;
+		}
 		try
 		{
 			if(NBTData != null){
