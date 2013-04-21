@@ -67,7 +67,6 @@ class GuiGlobalChest extends GuiContainer{
         int x = (width - xSize) / 2;
         int y = (height - ySize) / 2;
         this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
-        alignButtons();
 	}
 
 }

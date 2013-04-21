@@ -107,6 +107,10 @@ public class BlockGlobalChest extends BlockContainer{
         }
 
         par1World.setBlockMetadataWithNotify(par2, par3, par4, b0, 2);
+        if(par1World.getBlockTileEntity(par2, par3, par4) != null){
+        	TileEntityGlobalChest te = (TileEntityGlobalChest)par1World.getBlockTileEntity(par2, par3, par4);
+        	te.lidAngle = 1;
+        }
     }
 	
     public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random)
@@ -128,8 +132,7 @@ public class BlockGlobalChest extends BlockContainer{
 				d4 = (double) (par5Random.nextFloat() * 1.0F * (float) j1);
 				double d6 = (double) par2 + 0.5D + 0.25D * (double) i1;
 				d2 = (double) (par5Random.nextFloat() * 1.0F * (float) i1);
-				par1World.spawnParticle("enchantmenttable", d6, d1, d5, d2, d3,
-						d4);
+				par1World.spawnParticle("enchantmenttable", d6, d1, d5, d2, d3, d4);
 			}
     	}
     }

@@ -1,7 +1,5 @@
 package fuj1n.globalChestMod.client.render.tileentity;
 
-import net.minecraft.client.model.ModelChest;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
@@ -9,11 +7,12 @@ import net.minecraft.tileentity.TileEntity;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import fuj1n.globalChestMod.client.render.model.ModelGlobalChest;
 import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
 
 public class TileEntityGlobalChestRenderer extends TileEntitySpecialRenderer{
 
-    private ModelChest globalChestModel = new ModelChest();
+    private ModelGlobalChest globalChestModel = new ModelGlobalChest();
     
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1,
@@ -24,11 +23,8 @@ public class TileEntityGlobalChestRenderer extends TileEntitySpecialRenderer{
 	
 	public void renderGlobalChest(TileEntityGlobalChest par1TileEntityGlobalChest, double par2, double par4, double par6, float par8){
         int i = 0;
-
-        if (par1TileEntityGlobalChest.func_70309_m())
-        {
-            i = par1TileEntityGlobalChest.getBlockMetadata();
-        }
+        
+        i = par1TileEntityGlobalChest.getBlockMetadata();
 
         this.bindTextureByName("/item/globalchest.png");
         GL11.glPushMatrix();

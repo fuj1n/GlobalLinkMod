@@ -23,6 +23,7 @@ public class GlobalChestItemRenderHelper
     public void renderChest(Block par1Block, int par2, float par3)
     {
         if (par1Block.blockID == GlobalChests.globalChest.blockID){
+        	globalChest.blockMetadata = par2;
             TileEntityRenderer.instance.renderTileEntityAt(this.globalChest, 0.0D, 0.0D, 0.0D, 0.0F);
         }
     }

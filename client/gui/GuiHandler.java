@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
 import fuj1n.globalChestMod.common.inventory.ContainerGlobalChest;
+import fuj1n.globalChestMod.common.inventory.ContainerVoidStone;
 import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
 
 public class GuiHandler implements IGuiHandler{
@@ -14,6 +15,8 @@ public class GuiHandler implements IGuiHandler{
 		switch(ID){
 		case 0:
 			return new ContainerGlobalChest(player, (TileEntityGlobalChest)world.getBlockTileEntity(x, y, z));
+		case 1:
+			return new ContainerVoidStone(player.inventory);
 		}
 		return null;
 	}
@@ -24,6 +27,8 @@ public class GuiHandler implements IGuiHandler{
 		switch(ID){
 		case 0:
 			return new GuiGlobalChest(player, (TileEntityGlobalChest)world.getBlockTileEntity(x, y, z));
+		case 1:
+			return new GuiVoidStone(player.inventory);
 		}
 		return null;
 	}
