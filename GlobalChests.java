@@ -27,6 +27,7 @@ import fuj1n.globalChestMod.client.gui.GuiHandler;
 import fuj1n.globalChestMod.client.nbt.GlobalChestNBT;
 import fuj1n.globalChestMod.common.CommonProxyGlobalChests;
 import fuj1n.globalChestMod.common.blocks.BlockGlobalChest;
+import fuj1n.globalChestMod.common.inventory.ManagerGlobalChest;
 import fuj1n.globalChestMod.common.items.ItemGlobalLink;
 import fuj1n.globalChestMod.common.items.ItemVoidStone;
 import fuj1n.globalChestMod.common.items.recipe.RecipeVoidStone;
@@ -57,6 +58,9 @@ public class GlobalChests {
 	public static int globalLinkId = 6328;
 	public static int voidStoneId = 6329;
 	
+	//Misc config
+	public static int maxGlobalChestPrice = 4096;
+	
 	//Blocks
 	public static Block globalChest;
 	
@@ -64,23 +68,28 @@ public class GlobalChests {
 	public static Item globalLink;
 	public static Item voidStone;
 	
+	//Global Chest Manager
+	public static ManagerGlobalChest globalChestManager;
+	
 	@Instance("fuj1n.GlobalChests")
 	public static GlobalChests instance;
 	
 	@PreInit
 	public void PreInit(FMLPreInitializationEvent event){
 		proxy.PreInit();
-		config = new Configuration(event.getSuggestedConfigurationFile());
+		config = new Configuration(event.getSuggestedConfigurationFile(), true);
 		config.load();
 		globalChestId = config.getBlock("Global Chest Id", globalChestId).getInt();
 		globalLinkId = config.getItem("Global Link Id", globalLinkId).getInt();
 		voidStoneId = config.getItem("Void Stone Id", voidStoneId).getInt();
+		maxGlobalChestPrice = config.get("Global Chest Configuration", "Max Total Content Price", maxGlobalChestPrice).getInt();
 		config.save();
 	}
 	
 	@Init
 	public void Init(FMLInitializationEvent event){
 		proxy.Init();
+		globalChestManager = new ManagerGlobalChest(maxGlobalChestPrice);
 		initCreativeTab();
 		initAllBlocks();
 		initAllItems();

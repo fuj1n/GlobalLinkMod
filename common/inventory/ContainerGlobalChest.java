@@ -7,6 +7,7 @@ import net.minecraft.inventory.InventoryEnderChest;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
+import fuj1n.globalChestMod.GlobalChests;
 import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
 
 public class ContainerGlobalChest extends Container{
@@ -16,6 +17,8 @@ public class ContainerGlobalChest extends Container{
 	
 	public InventoryGlobalChest inventory;
 	
+	public int totalPrice = 0;
+	
 	public ContainerGlobalChest(EntityPlayer player, TileEntityGlobalChest te){
 		this.player = player;
 		inventory = new InventoryGlobalChest(player);
@@ -24,6 +27,7 @@ public class ContainerGlobalChest extends Container{
 		te.openChest();
 		createContainerSlots();
          bindPlayerInventory(player.inventory);
+         recalculatePrice();
 	}
 	
 	protected void createContainerSlots() {
@@ -47,9 +51,19 @@ public class ContainerGlobalChest extends Container{
                 addSlotToContainer(new Slot(inventoryPlayer, i, 8 + i * 18, 142));
         }
     }
+    
+    public void recalculatePrice(){
+    	totalPrice = 0;
+    	for(int i = 0; i < inventory.getSizeInventory(); i++){
+    		if(inventory.getStackInSlot(i) != null){
+        		totalPrice += GlobalChests.globalChestManager.getItemPrice(new ItemStack(inventory.getStackInSlot(i).getItem(), inventory.getStackInSlot(i).stackSize));
+    		}
+    	}
+    }
 	
     public void onInventoryUpdated(){
     	inventory.saveInventory();
+    	this.recalculatePrice();
     }
     
 	@Override
