@@ -25,7 +25,7 @@ public class SlotGlobalChest extends Slot{
 			return false;
 		}else if(numOfStack + par1ItemStack.stackSize > stackLimit && stackLimit > 0){
 			return false;
-		}else if(container.totalPrice + itemStackPrice <= GlobalChests.globalChestManager.maxPrice){
+		}else if(container.totalPrice + itemStackPrice <= GlobalChests.globalChestManager.maxWeight){
 			return true;
 		}else{
 			return false;

@@ -82,7 +82,7 @@ public class GlobalChests {
 		globalChestId = config.getBlock("Global Chest Id", globalChestId).getInt();
 		globalLinkId = config.getItem("Global Link Id", globalLinkId).getInt();
 		voidStoneId = config.getItem("Void Stone Id", voidStoneId).getInt();
-		maxGlobalChestPrice = config.get("Global Chest Configuration", "Max Total Content Price", maxGlobalChestPrice).getInt();
+		maxGlobalChestPrice = config.get("Global Chest Configuration", "Max Total Content Weight", maxGlobalChestPrice).getInt();
 		config.save();
 	}
 	

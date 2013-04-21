@@ -15,10 +15,10 @@ public class ManagerGlobalChest {
 	
 	public ArrayList<Integer> stackLimit = new ArrayList();
 	
-	public int maxPrice = 4096;
+	public int maxWeight = 4096;
 	
 	public ManagerGlobalChest(int par1){
-		maxPrice = par1;
+		maxWeight = par1;
 		populatePriceList();
 	}
 	
@@ -170,7 +170,7 @@ public class ManagerGlobalChest {
 		}else if(!banList.contains(par1ItemStack.getItem().itemID)){
 			return 0;
 		}else{
-			return maxPrice + 1;
+			return maxWeight + 1;
 		}
 	}
 	

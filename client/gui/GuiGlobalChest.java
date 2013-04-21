@@ -16,6 +16,7 @@ import org.lwjgl.opengl.GL11;
 
 import fuj1n.globalChestMod.GlobalChests;
 import fuj1n.globalChestMod.common.inventory.ContainerGlobalChest;
+import fuj1n.globalChestMod.common.inventory.ManagerGlobalChest;
 import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
 
 /**
@@ -61,7 +62,8 @@ class GuiGlobalChest extends GuiContainer{
 	protected void drawGuiContainerForegroundLayer(int par1, int par2){
         fontRenderer.drawString("Global Chest", 8, 5, 4210752);
         fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 96 + 3, 4210752);
-        fontRenderer.drawString("Chest Value: " + (container.totalPrice < 0 ? 0 : container.totalPrice), 8, 14, 4210752);
+        fontRenderer.drawString("Chest Weight: " + (container.totalPrice < 0 ? 0 : container.totalPrice), 8, 14, 4210752);
+        fontRenderer.drawString("Max Weight: " + GlobalChests.globalChestManager.maxWeight, 110 - Integer.toString(GlobalChests.globalChestManager.maxWeight).length() * 6, ySize - 96 + 3, 4210752);
 	}
 	
 	@Override
@@ -79,17 +81,16 @@ class GuiGlobalChest extends GuiContainer{
         	list.add(EnumChatFormatting.GRAY + "This item cannot be transfered.");
         }else{
         	if(GlobalChests.globalChestManager.getItemPrice(par1ItemStack) < 0){
-        		list.add(EnumChatFormatting.GRAY + "This item frees: " + -GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), 1)));
-    	    	list.add(EnumChatFormatting.GRAY + "This stack frees: " + -GlobalChests.globalChestManager.getItemPrice(par1ItemStack));
+        		list.add(EnumChatFormatting.GRAY + "This item frees: " + -GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), 1)) + " Grams");
         	}else{
-		    	list.add(EnumChatFormatting.GRAY + "This item is worth: " + GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), 1)));
-		    	list.add(EnumChatFormatting.GRAY + "This stack is worth: " + GlobalChests.globalChestManager.getItemPrice(par1ItemStack));
+		    	list.add(EnumChatFormatting.GRAY + "This item is weights: " + GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), 1)) + " Grams");
+		    	list.add(EnumChatFormatting.GRAY + "This stack is weights: " + GlobalChests.globalChestManager.getItemPrice(par1ItemStack) + " Grams");
         	}
         	if(GlobalChests.globalChestManager.isItemStackLimited(par1ItemStack)){
         		list.add(EnumChatFormatting.GRAY + "The amount of this item is limited to: " + GlobalChests.globalChestManager.getStackLimit(par1ItemStack));
         	}
-			if(container.totalPrice + GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), par1ItemStack.stackSize)) > GlobalChests.globalChestManager.maxPrice){
-				list.add(EnumChatFormatting.GRAY + "Cannot fit.");
+			if(container.totalPrice + GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), par1ItemStack.stackSize)) > GlobalChests.globalChestManager.maxWeight){
+				list.add(EnumChatFormatting.GRAY + "Cannot fit this item.");
 			}
         }
         
