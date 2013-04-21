@@ -89,7 +89,6 @@ public class GlobalChests {
 	@Init
 	public void Init(FMLInitializationEvent event){
 		proxy.Init();
-		globalChestManager = new ManagerGlobalChest(maxGlobalChestPrice);
 		initCreativeTab();
 		initAllBlocks();
 		initAllItems();
@@ -97,6 +96,7 @@ public class GlobalChests {
 		mapAllTileEntities();
 		addAllNames();
 		addAllRecipes();
+		globalChestManager = new ManagerGlobalChest(maxGlobalChestPrice);
 		NetworkRegistry.instance().registerGuiHandler(instance, new GuiHandler());
 	}
 	

@@ -17,9 +17,15 @@ public class SlotGlobalChest extends Slot{
 	@Override
     public boolean isItemValid(ItemStack par1ItemStack)
     {
-		int itemStackPrice = GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), par1ItemStack.stackSize));
-		System.out.println(itemStackPrice);
-		if(container.totalPrice + itemStackPrice <= GlobalChests.globalChestManager.maxPrice){
+		int itemStackPrice = GlobalChests.globalChestManager.getItemPrice(par1ItemStack);
+		int stackLimit = GlobalChests.globalChestManager.getStackLimit(par1ItemStack);
+		int numOfStack = GlobalChests.globalChestManager.getNumOfItemStackInInventory(container.inventory, par1ItemStack);
+		
+		if(GlobalChests.globalChestManager.isItemBanned(par1ItemStack)){
+			return false;
+		}else if(numOfStack + par1ItemStack.stackSize > stackLimit && stackLimit > 0){
+			return false;
+		}else if(container.totalPrice + itemStackPrice <= GlobalChests.globalChestManager.maxPrice){
 			return true;
 		}else{
 			return false;
