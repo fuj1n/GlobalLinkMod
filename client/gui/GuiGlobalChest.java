@@ -5,9 +5,11 @@ package fuj1n.globalChestMod.client.gui;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
@@ -16,6 +18,7 @@ import org.lwjgl.opengl.GL11;
 
 import fuj1n.globalChestMod.GlobalChests;
 import fuj1n.globalChestMod.common.inventory.ContainerGlobalChest;
+import fuj1n.globalChestMod.common.inventory.InventoryGlobalChest;
 import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
 
 /**
@@ -88,21 +91,53 @@ class GuiGlobalChest extends GuiContainer{
     protected void drawItemStackTooltip(ItemStack par1ItemStack, int par2, int par3)
     {
         List list = par1ItemStack.getTooltip(this.mc.thePlayer, this.mc.gameSettings.advancedItemTooltips);
-
+        Slot slot = null;
+        boolean flag0 = false;
+        
+        for(int i = 0; i < this.inventorySlots.inventorySlots.size(); i++){
+        	Slot sl = (Slot) this.inventorySlots.inventorySlots.get(i);
+        	try{
+	        	if(sl.inventory.getStackInSlot(i) == par1ItemStack){
+	        		flag0 = true;
+	        		slot = sl;
+	        		break;
+	        	}
+        	}catch(ArrayIndexOutOfBoundsException e){}
+        }
+        
+        if(!flag0){
+	        for(int i = 0; i < this.mc.thePlayer.inventoryContainer.inventorySlots.size(); i++){
+	        	Slot sl = (Slot) this.mc.thePlayer.inventoryContainer.inventorySlots.get(i);
+	        	try{
+		        	if(sl.inventory.getStackInSlot(i) == par1ItemStack){
+		        		slot = sl;
+		        		break;
+		        	}
+	        	}catch(ArrayIndexOutOfBoundsException e){}
+	        }
+        }
+        
+        boolean flag1 = false;
+        if(slot != null){
+        	flag1 = slot.inventory instanceof InventoryGlobalChest;
+        }
+        
         if(GlobalChests.globalChestManager.isItemBanned(par1ItemStack)){
         	list.add(EnumChatFormatting.GRAY + "This item cannot be transfered.");
         }else{
         	if(GlobalChests.globalChestManager.getItemPrice(par1ItemStack) < 0){
         		list.add(EnumChatFormatting.GRAY + "This item frees: " + -GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), 1)) + " Grams");
         	}else{
-		    	list.add(EnumChatFormatting.GRAY + "This item is weights: " + GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), 1)) + " Grams");
-		    	list.add(EnumChatFormatting.GRAY + "This stack is weights: " + GlobalChests.globalChestManager.getItemPrice(par1ItemStack) + " Grams");
+		    	list.add(EnumChatFormatting.GRAY + "This item weights: " + GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), 1)) + " Grams");
+		    	list.add(EnumChatFormatting.GRAY + "This stack weights: " + GlobalChests.globalChestManager.getItemPrice(par1ItemStack) + " Grams");
         	}
         	if(GlobalChests.globalChestManager.isItemStackLimited(par1ItemStack)){
         		list.add(EnumChatFormatting.GRAY + "The amount of this item is limited to: " + GlobalChests.globalChestManager.getStackLimit(par1ItemStack));
         	}
-			if(container.totalPrice + GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), par1ItemStack.stackSize)) > GlobalChests.globalChestManager.maxWeight){
-				list.add(EnumChatFormatting.GRAY + "Cannot fit this item.");
+			if(container.totalPrice + GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), par1ItemStack.stackSize)) > GlobalChests.globalChestManager.maxWeight && !flag1){
+				list.add(EnumChatFormatting.GRAY + "Cannot fit this stack.");
+			}else if(container.totalPrice - GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), par1ItemStack.stackSize)) > GlobalChests.globalChestManager.maxWeight && flag1){
+				list.add(EnumChatFormatting.GRAY + "Cannot remove this stack.");
 			}
         }
         
@@ -129,5 +164,25 @@ class GuiGlobalChest extends GuiContainer{
         int y = (height - ySize) / 2;
         this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 	}
+	
+    private Slot getSlotAtPosition(int par1, int par2)
+    {
+        for (int k = 0; k < this.inventorySlots.inventorySlots.size(); ++k)
+        {
+            Slot slot = (Slot)this.inventorySlots.inventorySlots.get(k);
+
+            if (this.isMouseOverSlot(slot, par1, par2))
+            {
+                return slot;
+            }
+        }
+
+        return null;
+    }
+    
+    private boolean isMouseOverSlot(Slot par1Slot, int par2, int par3)
+    {
+        return this.isPointInRegion(par1Slot.xDisplayPosition, par1Slot.yDisplayPosition, 16, 16, par2, par3);
+    }
 
 }

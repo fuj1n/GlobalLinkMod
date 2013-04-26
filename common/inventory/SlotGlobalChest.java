@@ -34,7 +34,17 @@ public class SlotGlobalChest extends Slot{
     }
 	
     public boolean canTakeStack(EntityPlayer par1EntityPlayer){
-        return true;
+    	ItemStack itemstack = this.inventory.getStackInSlot(this.slotNumber);
+    	int itemStackPrice = GlobalChests.globalChestManager.getItemPrice(itemstack);
+    	if(itemStackPrice < 0){
+    		if(container.totalPrice - itemStackPrice > GlobalChests.globalChestManager.maxWeight){
+    			return false;
+    		}else{
+    			return true;
+    		}
+    	}else{
+    		return true;
+    	}
     }
 	
 	@Override
