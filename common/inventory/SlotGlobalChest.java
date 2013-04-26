@@ -32,6 +32,10 @@ public class SlotGlobalChest extends Slot{
 		}
     }
 	
+	public boolean isItemValidToLeave(ItemStack par1ItemStack){
+		return true;
+	}
+	
 	@Override
     public void onSlotChanged(){
         super.onSlotChanged();

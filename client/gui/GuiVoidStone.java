@@ -2,15 +2,19 @@ package fuj1n.globalChestMod.client.gui;
 
 import org.lwjgl.opengl.GL11;
 
+import fuj1n.globalChestMod.GlobalChests;
 import fuj1n.globalChestMod.common.inventory.ContainerVoidStone;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
 public class GuiVoidStone extends GuiContainer{
 
+	private static ContainerVoidStone container;
+	
 	public GuiVoidStone(InventoryPlayer par1InventoryPlayer) {
-		super(new ContainerVoidStone(par1InventoryPlayer));
+		super(container = new ContainerVoidStone(par1InventoryPlayer));
 	}
 	
 	@Override
@@ -26,6 +30,18 @@ public class GuiVoidStone extends GuiContainer{
         int x = (width - xSize) / 2;
         int y = (height - ySize) / 2;
         this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
+        drawItemStack(new ItemStack(GlobalChests.voidStone, 1), this.guiLeft + this.container.middleSlotX, this.guiTop + this.container.middleSlotY);
+        
 	}
+	
+    private void drawItemStack(ItemStack par1ItemStack, int par2, int par3)
+    {
+        GL11.glTranslatef(0.0F, 0.0F, 32.0F);
+        this.zLevel = 200.0F;
+        itemRenderer.zLevel = 200.0F;
+        itemRenderer.renderItemAndEffectIntoGUI(this.fontRenderer, this.mc.renderEngine, par1ItemStack, par2, par3);
+        this.zLevel = 0.0F;
+        itemRenderer.zLevel = 0.0F;
+    }
 
 }

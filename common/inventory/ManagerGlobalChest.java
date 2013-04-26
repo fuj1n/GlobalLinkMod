@@ -9,16 +9,16 @@ import fuj1n.globalChestMod.GlobalChests;
 
 public class ManagerGlobalChest {
 
-	public ArrayList<Integer> stackList = new ArrayList();
-	public ArrayList<Integer> priceList = new ArrayList();
-	public ArrayList<Integer> banList = new ArrayList();
+	private ArrayList<Integer> stackList = new ArrayList();
+	private ArrayList<Integer> priceList = new ArrayList();
+	private ArrayList<Integer> banList = new ArrayList();
 	
-	public ArrayList<Integer> stackLimit = new ArrayList();
+	private ArrayList<Integer> stackLimit = new ArrayList();
 	
-	public int maxWeight = 4096;
+	public final int maxWeight;
 	
 	public ManagerGlobalChest(int par1){
-		maxWeight = par1;
+		maxWeight = par1 > 0 ? par1 : 4096;
 		populatePriceList();
 	}
 	

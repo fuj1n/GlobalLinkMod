@@ -16,7 +16,6 @@ import org.lwjgl.opengl.GL11;
 
 import fuj1n.globalChestMod.GlobalChests;
 import fuj1n.globalChestMod.common.inventory.ContainerGlobalChest;
-import fuj1n.globalChestMod.common.inventory.ManagerGlobalChest;
 import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
 
 /**
@@ -27,6 +26,11 @@ class GuiGlobalChest extends GuiContainer{
 
 	private static ContainerGlobalChest container;
 	private TileEntityGlobalChest tileEntity;
+	
+	//Tooltip data
+	private int[] tickNow = {0};
+	private int[] tickMax = {200};
+	private boolean isTickInRange[] = {false};
 	
 	private EntityPlayer player;
 
@@ -71,6 +75,14 @@ class GuiGlobalChest extends GuiContainer{
         super.onGuiClosed();
         tileEntity.closeChest();
     }
+	
+	public void setTooltipTick(int par1TooltipID){
+		if(this.isTickInRange.length > par1TooltipID){
+			this.isTickInRange[par1TooltipID] = true;
+		}else{
+			throw new ArrayIndexOutOfBoundsException("Trying to activate a non-existing tooltip tick.");
+		}
+	}
 	
 	@Override
     protected void drawItemStackTooltip(ItemStack par1ItemStack, int par2, int par3)

@@ -15,6 +15,9 @@ public class ContainerVoidStone extends Container{
 	private int firstSlotX = 15;
 	private int firstSlotY = 21;
 	
+	public int middleSlotX = firstSlotX;
+	public int middleSlotY = firstSlotY;
+	
 	private InventoryBasic voidInventory = new InventoryBasic("void", false, rows * cols);
 	
 	public ContainerVoidStone(InventoryPlayer par1InventoryPlayer){
@@ -26,9 +29,15 @@ public class ContainerVoidStone extends Container{
 	protected void addContainerSlots(){
 		int currentSlot = 0;
 		for(int i = 0; i < rows; i++){
-			for(int j = 0; j < cols; j++){
-				this.addSlotToContainer(new Slot(voidInventory, currentSlot, firstSlotX + j * 18, firstSlotY + i * 18));
-				currentSlot++;
+			for (int j = 0; j < cols; j++) {
+				if (currentSlot == Math.ceil(rows * cols / 2)) {
+					middleSlotX = firstSlotX + j * 18;
+					middleSlotY = firstSlotY + i * 18;
+					currentSlot++;
+				} else {
+					this.addSlotToContainer(new Slot(voidInventory, currentSlot, firstSlotX + j * 18, firstSlotY + i * 18));
+					currentSlot++;
+				}
 			}
 		}
 	}
