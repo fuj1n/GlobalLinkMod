@@ -136,7 +136,7 @@ public class BlockGlobalChest extends BlockContainer{
 			}
     	}
     }
-	
+    
 	@Override
 	public TileEntity createNewTileEntity(World world) {
     	if(FMLCommonHandler.instance().getMinecraftServerInstance() != null && FMLCommonHandler.instance().getMinecraftServerInstance().isDedicatedServer()){
