@@ -1,6 +1,3 @@
-/**
- * 
- */
 package fuj1n.globalChestMod.client.gui;
 
 import java.util.List;
@@ -113,9 +110,7 @@ class GuiGlobalChest extends GuiContainer{
 		        		slot = sl;
 		        		break;
 		        	}
-	        	}catch(ArrayIndexOutOfBoundsException e){
-	        		return;
-	        	}
+	        	}catch(ArrayIndexOutOfBoundsException e){}
 	        }
         }
         
