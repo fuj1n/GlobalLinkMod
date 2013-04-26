@@ -1,6 +1,7 @@
 package fuj1n.globalChestMod.common.inventory;
 
 import fuj1n.globalChestMod.GlobalChests;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -32,9 +33,9 @@ public class SlotGlobalChest extends Slot{
 		}
     }
 	
-	public boolean isItemValidToLeave(ItemStack par1ItemStack){
-		return true;
-	}
+    public boolean canTakeStack(EntityPlayer par1EntityPlayer){
+        return true;
+    }
 	
 	@Override
     public void onSlotChanged(){
