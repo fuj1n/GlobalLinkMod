@@ -113,7 +113,9 @@ class GuiGlobalChest extends GuiContainer{
 		        		slot = sl;
 		        		break;
 		        	}
-	        	}catch(ArrayIndexOutOfBoundsException e){}
+	        	}catch(ArrayIndexOutOfBoundsException e){
+	        		return;
+	        	}
 	        }
         }
         
@@ -164,25 +166,4 @@ class GuiGlobalChest extends GuiContainer{
         int y = (height - ySize) / 2;
         this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 	}
-	
-    private Slot getSlotAtPosition(int par1, int par2)
-    {
-        for (int k = 0; k < this.inventorySlots.inventorySlots.size(); ++k)
-        {
-            Slot slot = (Slot)this.inventorySlots.inventorySlots.get(k);
-
-            if (this.isMouseOverSlot(slot, par1, par2))
-            {
-                return slot;
-            }
-        }
-
-        return null;
-    }
-    
-    private boolean isMouseOverSlot(Slot par1Slot, int par2, int par3)
-    {
-        return this.isPointInRegion(par1Slot.xDisplayPosition, par1Slot.yDisplayPosition, 16, 16, par2, par3);
-    }
-
 }

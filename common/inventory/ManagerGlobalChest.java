@@ -165,14 +165,17 @@ public class ManagerGlobalChest {
 	}
 	
 	public int getItemPrice(ItemStack par1ItemStack){
-		if(stackList.contains(par1ItemStack.getItem().itemID)){
-			int index = stackList.indexOf(par1ItemStack.getItem().itemID);
-			return priceList.get(index) * par1ItemStack.stackSize;
-		}else if(!banList.contains(par1ItemStack.getItem().itemID)){
-			return 0;
-		}else{
-			return maxWeight + 1;
+		if(par1ItemStack != null){
+			if(stackList.contains(par1ItemStack.getItem().itemID)){
+				int index = stackList.indexOf(par1ItemStack.getItem().itemID);
+				return priceList.get(index) * par1ItemStack.stackSize;
+			}else if(!banList.contains(par1ItemStack.getItem().itemID)){
+				return 0;
+			}else{
+				return maxWeight + 1;
+			}
 		}
+		return 0;
 	}
 	
 	public boolean isItemBanned(ItemStack par1ItemStack){
