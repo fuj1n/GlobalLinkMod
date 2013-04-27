@@ -10,11 +10,14 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AABBPool;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class ItemPocketLink extends Item{
 
+	boolean dbMsgPreventer = false;
+	
 	public ItemPocketLink(int par1) {
 		super(par1);
 	}
@@ -27,8 +30,25 @@ public class ItemPocketLink extends Item{
 	@Override
     public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer){
 		int range = GlobalChests.maxPocketLinkRange;
-		boolean flag1 = isBlockInBB(AxisAlignedBB.getBoundingBox(par3EntityPlayer.posX - range, par3EntityPlayer.posY - range, par3EntityPlayer.posZ - range, par3EntityPlayer.posX + range, par3EntityPlayer.posY + range, par3EntityPlayer.posZ + range), par2World, GlobalChests.globalChest.blockID, false, 0);
+		int blockRequired = GlobalChests.globalChest.blockID;
+		boolean flag1 = isBlockInBB(AxisAlignedBB.getBoundingBox(par3EntityPlayer.posX - range, par3EntityPlayer.posY - range, par3EntityPlayer.posZ - range, par3EntityPlayer.posX + range, par3EntityPlayer.posY + range, par3EntityPlayer.posZ + range), par2World, blockRequired, false, 0);
         System.out.println(flag1);
+        if(flag1){
+        	//TODO @something
+        	if(!dbMsgPreventer){
+        		par3EntityPlayer.addChatMessage(EnumChatFormatting.AQUA + "" + EnumChatFormatting.ITALIC + "The " + par1ItemStack.getDisplayName() + " has used activate, it was not very effective.");
+        		dbMsgPreventer = true;
+        	}else{
+        		dbMsgPreventer = false;
+        	}
+        }else{
+        	if(!dbMsgPreventer){
+        		par3EntityPlayer.addChatMessage(EnumChatFormatting.AQUA + "A " + Block.blocksList[blockRequired].getLocalizedName() + " is required within a " + range + " block radius in order to activate the " + par1ItemStack.getDisplayName());
+        		dbMsgPreventer = true;
+        	}else{
+        		dbMsgPreventer = false;
+        	}
+        }
 		return par1ItemStack;
     }
 	
