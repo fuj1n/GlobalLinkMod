@@ -29,6 +29,7 @@ import fuj1n.globalChestMod.common.CommonProxyGlobalChests;
 import fuj1n.globalChestMod.common.blocks.BlockGlobalChest;
 import fuj1n.globalChestMod.common.inventory.ManagerGlobalChest;
 import fuj1n.globalChestMod.common.items.ItemGlobalLink;
+import fuj1n.globalChestMod.common.items.ItemPocketLink;
 import fuj1n.globalChestMod.common.items.ItemVoidStone;
 import fuj1n.globalChestMod.common.items.recipe.RecipeVoidStone;
 import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
@@ -57,9 +58,11 @@ public class GlobalChests {
 	//Item IDs
 	public static int globalLinkId = 6328;
 	public static int voidStoneId = 6329;
+	public static int pocketGlobalChestId = 6330;
 	
 	//Misc config
 	public static int maxGlobalChestPrice = 4096;
+	public static int maxPocketLinkRange = 16;
 	
 	//Blocks
 	public static Block globalChest;
@@ -67,6 +70,7 @@ public class GlobalChests {
 	//Items
 	public static Item globalLink;
 	public static Item voidStone;
+	public static Item pocketLink;
 	
 	//Global Chest Manager
 	public static ManagerGlobalChest globalChestManager;
@@ -82,7 +86,10 @@ public class GlobalChests {
 		globalChestId = config.getBlock("Global Chest Id", globalChestId).getInt();
 		globalLinkId = config.getItem("Global Link Id", globalLinkId).getInt();
 		voidStoneId = config.getItem("Void Stone Id", voidStoneId).getInt();
-		maxGlobalChestPrice = config.get("Global Chest Configuration", "Max Total Content Weight", maxGlobalChestPrice).getInt();
+		pocketGlobalChestId = config.getItem("Pocket Link Id", pocketGlobalChestId).getInt();
+		//Misc
+		maxGlobalChestPrice = config.get("Global Linking Configuration", "Max Total Content Weight", maxGlobalChestPrice).getInt();
+		maxPocketLinkRange = config.get("Global Linking Configuration", "Max Pocket Link Range", maxPocketLinkRange).getInt();
 		config.save();
 	}
 	
@@ -112,6 +119,7 @@ public class GlobalChests {
 	public void initAllItems(){
 		globalLink = new ItemGlobalLink(globalLinkId).setCreativeTab(creativeTabGlobalChest).setUnlocalizedName("fuj1n.GlobalChests.globalLink");
 		voidStone = new ItemVoidStone(voidStoneId).setCreativeTab(creativeTabGlobalChest).setUnlocalizedName("fuj1n.GlobalChests.voidStone");
+		pocketLink = new ItemPocketLink(pocketGlobalChestId).setCreativeTab(creativeTabGlobalChest).setUnlocalizedName("fuj1n.GlobalChests.pocketLink");
 	}
 	
 	public void registerAllBlocks(){
@@ -126,6 +134,7 @@ public class GlobalChests {
 		LanguageRegistry.addName(globalChest, "Global Chest");
 		LanguageRegistry.addName(globalLink, "Global Link");
 		LanguageRegistry.addName(voidStone, "Void Stone");
+		LanguageRegistry.addName(pocketLink, "Pocket Link");
 		
 		LanguageRegistry.instance().addStringLocalization("itemGroup.fuj1n.GlobalChests.creativeTab", "Global Chests Mod");
 	}
