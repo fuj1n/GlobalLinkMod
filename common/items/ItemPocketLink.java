@@ -1,23 +1,21 @@
 package fuj1n.globalChestMod.common.items;
 
-import fuj1n.globalChestMod.GlobalChests;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AABBPool;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
+import fuj1n.globalChestMod.GlobalChests;
 
 public class ItemPocketLink extends Item{
 
-	boolean dbMsgPreventer = false;
-	
 	public ItemPocketLink(int par1) {
 		super(par1);
 	}
@@ -35,18 +33,12 @@ public class ItemPocketLink extends Item{
         System.out.println(flag1);
         if(flag1){
         	//TODO @something
-        	if(!dbMsgPreventer){
+        	if(FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT){
         		par3EntityPlayer.addChatMessage(EnumChatFormatting.AQUA + "" + EnumChatFormatting.ITALIC + "The " + par1ItemStack.getDisplayName() + " has used activate, it was not very effective.");
-        		dbMsgPreventer = true;
-        	}else{
-        		dbMsgPreventer = false;
         	}
         }else{
-        	if(!dbMsgPreventer){
+        	if(FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT){
         		par3EntityPlayer.addChatMessage(EnumChatFormatting.AQUA + "A " + Block.blocksList[blockRequired].getLocalizedName() + " is required within a " + range + " block radius in order to activate the " + par1ItemStack.getDisplayName());
-        		dbMsgPreventer = true;
-        	}else{
-        		dbMsgPreventer = false;
         	}
         }
 		return par1ItemStack;
