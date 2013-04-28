@@ -125,7 +125,7 @@ public class NBTData {
 	}
 
 	public static class filenames {
-		public static String NAME_GLOBALCHEST = "globalChestData";
+		public static final String NAME_GLOBALCHEST = "globalChestData";
 	}
 
 }
