@@ -12,18 +12,18 @@ public class ManagerGlobalChest {
 	private ArrayList<Integer> stackList = new ArrayList();
 	private ArrayList<Integer> priceList = new ArrayList();
 	private ArrayList<Integer> banList = new ArrayList();
-	
+
 	private ArrayList<Integer> stackLimit = new ArrayList();
-	
+
 	public final int maxWeight;
-	
-	public ManagerGlobalChest(int par1){
+
+	public ManagerGlobalChest(int par1) {
 		maxWeight = par1 > 0 ? par1 : 4096;
 		populatePriceList();
 	}
-	
-	public void populatePriceList(){
-		//Blocks
+
+	public void populatePriceList() {
+		// Blocks
 		addItemToList(Block.planks.blockID, 1);
 		addItemToList(Block.sapling.blockID, 1);
 		addItemToBanList(Block.bedrock.blockID);
@@ -80,7 +80,7 @@ public class ManagerGlobalChest {
 		addItemToList(Block.pressurePlateIron.blockID, 18);
 		addItemToList(Block.blockRedstone.blockID, 9);
 		addItemToBanList(Block.oreNetherQuartz.blockID);
-		//Items
+		// Items
 		addItemToList(Item.shovelSteel.itemID, 9);
 		addItemToList(Item.pickaxeSteel.itemID, 27);
 		addItemToList(Item.axeSteel.itemID, 27);
@@ -158,75 +158,75 @@ public class ManagerGlobalChest {
 		addItemToList(Item.netherStar.itemID, 1024);
 		addItemToBanList(Item.enchantedBook.itemID);
 		addItemToList(Item.field_94584_bZ.itemID, 1);
-		//This mod items
+		// This mod items
 		addItemToList(GlobalChests.globalChest.blockID, -64, 1);
 		addItemToList(GlobalChests.globalLink.itemID, -16, 1);
 		addItemToList(GlobalChests.voidStone.itemID, -128, 2);
 	}
-	
-	public int getItemPrice(ItemStack par1ItemStack){
-		if(par1ItemStack != null){
-			if(stackList.contains(par1ItemStack.getItem().itemID)){
+
+	public int getItemPrice(ItemStack par1ItemStack) {
+		if (par1ItemStack != null) {
+			if (stackList.contains(par1ItemStack.getItem().itemID)) {
 				int index = stackList.indexOf(par1ItemStack.getItem().itemID);
 				return priceList.get(index) * par1ItemStack.stackSize;
-			}else if(!banList.contains(par1ItemStack.getItem().itemID)){
+			} else if (!banList.contains(par1ItemStack.getItem().itemID)) {
 				return 0;
-			}else{
+			} else {
 				return maxWeight + 1;
 			}
 		}
 		return 0;
 	}
-	
-	public boolean isItemBanned(ItemStack par1ItemStack){
+
+	public boolean isItemBanned(ItemStack par1ItemStack) {
 		return banList.contains(par1ItemStack.getItem().itemID);
 	}
-	
-	public boolean isItemStackLimited(ItemStack par1ItemStack){
-		if(stackList.contains(par1ItemStack.getItem().itemID)){
+
+	public boolean isItemStackLimited(ItemStack par1ItemStack) {
+		if (stackList.contains(par1ItemStack.getItem().itemID)) {
 			int index = stackList.indexOf(par1ItemStack.getItem().itemID);
 			return stackLimit.get(index) > 0 ? true : false;
-		}else{
+		} else {
 			return false;
 		}
 	}
-	
-	public int getStackLimit(ItemStack par1ItemStack){
-		if(stackList.contains(par1ItemStack.getItem().itemID)){
+
+	public int getStackLimit(ItemStack par1ItemStack) {
+		if (stackList.contains(par1ItemStack.getItem().itemID)) {
 			int index = stackList.indexOf(par1ItemStack.getItem().itemID);
 			return stackLimit.get(index);
-		}else{
+		} else {
 			return 0;
 		}
 	}
-	
-	public void addItemToList(int ID, int price){
-		this.stackList.add(ID);
-		this.priceList.add(price);
-		this.stackLimit.add(0);
+
+	public void addItemToList(int ID, int price) {
+		stackList.add(ID);
+		priceList.add(price);
+		stackLimit.add(0);
 	}
-	
-	public void addItemToList(int ID, int price, int stackLimit){
-		this.stackList.add(ID);
-		this.priceList.add(price);
+
+	public void addItemToList(int ID, int price, int stackLimit) {
+		stackList.add(ID);
+		priceList.add(price);
 		this.stackLimit.add(stackLimit);
 	}
-	
-	public int getNumOfItemStackInInventory(InventoryGlobalChest par1InventoryGlobalChest, ItemStack par2ItemStack){
+
+	public int getNumOfItemStackInInventory(InventoryGlobalChest par1InventoryGlobalChest, ItemStack par2ItemStack) {
 		int returnValue = 0;
-		for(int i = 0; i < par1InventoryGlobalChest.getSizeInventory(); i++){
+		for (int i = 0; i < par1InventoryGlobalChest.getSizeInventory(); i++) {
 			ItemStack workingStack = par1InventoryGlobalChest.getStackInSlot(i);
-			if(workingStack != null){
-				if(workingStack.getItem().itemID == par2ItemStack.getItem().itemID){
+			if (workingStack != null) {
+				if (workingStack.getItem().itemID == par2ItemStack.getItem().itemID) {
 					returnValue += workingStack.stackSize;
 				}
 			}
 		}
 		return returnValue;
 	}
-	
-	public void addItemToBanList(int ID){
+
+	public void addItemToBanList(int ID) {
 		banList.add(ID);
 	}
-	
+
 }

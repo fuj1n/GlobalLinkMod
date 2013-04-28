@@ -1,10 +1,10 @@
 package fuj1n.globalChestMod.common.blocks;
 
-import fuj1n.globalChestMod.common.tileentity.TileEntityLibrary;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import fuj1n.globalChestMod.common.tileentity.TileEntityLibrary;
 
 public class BlockLibrary extends BlockContainer {
 

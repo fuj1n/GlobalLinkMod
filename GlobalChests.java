@@ -154,8 +154,6 @@ public class GlobalChests {
 	}
 
 	public void initAllEnchantments() {
-		int nextAvailableID = getNextAvailableID(Enchantment.enchantmentsList);
-
 		enchantmentRange = new EnchantmentRange(rangeEnchantmentId, 1, true).setName("fuj1n.GlobalChests.enchanmentRange");
 	}
 

@@ -101,9 +101,8 @@ public class BlockGlobalChest extends BlockContainer {
 	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random) {
 		if (par5Random.nextInt(2) == 0) {
 			for (int l = 0; l < 3; ++l) {
-				double d0 = (par2 + par5Random.nextFloat());
 				double d1 = (par3 + par5Random.nextFloat());
-				d0 = (par4 + par5Random.nextFloat());
+				(par4 + par5Random.nextFloat());
 				double d2 = 0.0D;
 				double d3 = 0.0D;
 				double d4 = 0.0D;
@@ -123,11 +122,11 @@ public class BlockGlobalChest extends BlockContainer {
 
 	@Override
 	public TileEntity createNewTileEntity(World world) {
-    	if(FMLCommonHandler.instance().getMinecraftServerInstance() != null && FMLCommonHandler.instance().getMinecraftServerInstance().isDedicatedServer()){
-    		return Block.enderChest.createTileEntity(world, 0);
-    	}else{
-    		return new TileEntityGlobalChest();
-    	}
+		if (FMLCommonHandler.instance().getMinecraftServerInstance() != null && FMLCommonHandler.instance().getMinecraftServerInstance().isDedicatedServer()) {
+			return Block.enderChest.createTileEntity(world, 0);
+		} else {
+			return new TileEntityGlobalChest();
+		}
 	}
 
 	@Override

@@ -10,61 +10,56 @@ import org.lwjgl.opengl.GL12;
 import fuj1n.globalChestMod.client.render.model.ModelGlobalChest;
 import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
 
-public class TileEntityGlobalChestRenderer extends TileEntitySpecialRenderer{
+public class TileEntityGlobalChestRenderer extends TileEntitySpecialRenderer {
 
-    private ModelGlobalChest globalChestModel = new ModelGlobalChest();
-    
+	private ModelGlobalChest globalChestModel = new ModelGlobalChest();
+
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1,
-			double d2, float f) {
+	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f) {
 		tileEntityRenderer = TileEntityRenderer.instance;
-		renderGlobalChest((TileEntityGlobalChest)tileentity, d0, d1, d2, f);
+		renderGlobalChest((TileEntityGlobalChest) tileentity, d0, d1, d2, f);
 	}
-	
-	public void renderGlobalChest(TileEntityGlobalChest par1TileEntityGlobalChest, double par2, double par4, double par6, float par8){
-        int i = 0;
-        
-        i = par1TileEntityGlobalChest.getBlockMetadata();
 
-        this.bindTextureByName("/item/globalchest.png");
-        GL11.glPushMatrix();
-        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        GL11.glTranslatef((float)par2, (float)par4 + 1.0F, (float)par6 + 1.0F);
-        GL11.glScalef(1.0F, -1.0F, -1.0F);
-        GL11.glTranslatef(0.5F, 0.5F, 0.5F);
-        short short1 = 0;
+	public void renderGlobalChest(TileEntityGlobalChest par1TileEntityGlobalChest, double par2, double par4, double par6, float par8) {
+		int i = 0;
 
-        if (i == 2)
-        {
-            short1 = 180;
-        }
+		i = par1TileEntityGlobalChest.getBlockMetadata();
 
-        if (i == 3)
-        {
-            short1 = 0;
-        }
+		this.bindTextureByName("/item/globalchest.png");
+		GL11.glPushMatrix();
+		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		GL11.glTranslatef((float) par2, (float) par4 + 1.0F, (float) par6 + 1.0F);
+		GL11.glScalef(1.0F, -1.0F, -1.0F);
+		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
+		short short1 = 0;
 
-        if (i == 4)
-        {
-            short1 = 90;
-        }
+		if (i == 2) {
+			short1 = 180;
+		}
 
-        if (i == 5)
-        {
-            short1 = -90;
-        }
+		if (i == 3) {
+			short1 = 0;
+		}
 
-        GL11.glRotatef(short1, 0.0F, 1.0F, 0.0F);
-        GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
-        float f1 = par1TileEntityGlobalChest.prevLidAngle + (par1TileEntityGlobalChest.lidAngle - par1TileEntityGlobalChest.prevLidAngle) * par8;
-        f1 = 1.0F - f1;
-        f1 = 1.0F - f1 * f1 * f1;
-        this.globalChestModel.chestLid.rotateAngleX = -(f1 * (float)Math.PI / 2.0F);
-        this.globalChestModel.renderAll();
-        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-        GL11.glPopMatrix();
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		if (i == 4) {
+			short1 = 90;
+		}
+
+		if (i == 5) {
+			short1 = -90;
+		}
+
+		GL11.glRotatef(short1, 0.0F, 1.0F, 0.0F);
+		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
+		float f1 = par1TileEntityGlobalChest.prevLidAngle + (par1TileEntityGlobalChest.lidAngle - par1TileEntityGlobalChest.prevLidAngle) * par8;
+		f1 = 1.0F - f1;
+		f1 = 1.0F - f1 * f1 * f1;
+		globalChestModel.chestLid.rotateAngleX = -(f1 * (float) Math.PI / 2.0F);
+		globalChestModel.renderAll();
+		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+		GL11.glPopMatrix();
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 	}
 
 }

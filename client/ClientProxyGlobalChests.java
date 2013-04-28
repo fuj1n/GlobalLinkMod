@@ -9,20 +9,24 @@ import fuj1n.globalChestMod.client.render.tileentity.TileEntityGlobalChestRender
 import fuj1n.globalChestMod.common.CommonProxyGlobalChests;
 import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
 
-public class ClientProxyGlobalChests extends CommonProxyGlobalChests{
-	
+public class ClientProxyGlobalChests extends CommonProxyGlobalChests {
+
 	public static int GlobalChestRenderId;
-	
+
 	@Override
-	public void PreInit(){
+	public void PreInit() {
 		GlobalChestRenderId = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(new RenderGlobalChest());
 		TileEntityRenderer.instance.specialRendererMap.put(TileEntityGlobalChest.class, new TileEntityGlobalChestRenderer());
 		MinecraftForge.EVENT_BUS.register(new EventHandler());
 	}
+
 	@Override
-	public void Init(){}
+	public void Init() {
+	}
+
 	@Override
-	public void PostInit(){}
+	public void PostInit() {
+	}
 
 }

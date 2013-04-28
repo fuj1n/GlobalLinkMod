@@ -28,7 +28,7 @@ public class NBTData {
 
 	public NBTData(String fileName, String postfix) {
 		this.postfix = postfix;
-		this.prefix = fileName;
+		prefix = fileName;
 		if (MinecraftServer.getServer() != null && MinecraftServer.getServer().isDedicatedServer()) {
 			NBTLocation = new File("null");
 			NBTFile = new File("null");

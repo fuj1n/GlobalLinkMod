@@ -7,14 +7,13 @@ import fuj1n.globalChestMod.common.inventory.ContainerGlobalChest;
 import fuj1n.globalChestMod.common.inventory.ContainerVoidStone;
 import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
 
-public class GuiHandler implements IGuiHandler{
+public class GuiHandler implements IGuiHandler {
 
 	@Override
-	public Object getServerGuiElement(int ID, EntityPlayer player, World world,
-			int x, int y, int z) {
-		switch(ID){
+	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+		switch (ID) {
 		case 0:
-			return new ContainerGlobalChest(player, (TileEntityGlobalChest)world.getBlockTileEntity(x, y, z));
+			return new ContainerGlobalChest(player, (TileEntityGlobalChest) world.getBlockTileEntity(x, y, z));
 		case 1:
 			return new ContainerVoidStone(player.inventory);
 		}
@@ -22,11 +21,10 @@ public class GuiHandler implements IGuiHandler{
 	}
 
 	@Override
-	public Object getClientGuiElement(int ID, EntityPlayer player, World world,
-			int x, int y, int z) {
-		switch(ID){
+	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+		switch (ID) {
 		case 0:
-			return new GuiGlobalChest(player, (TileEntityGlobalChest)world.getBlockTileEntity(x, y, z));
+			return new GuiGlobalChest(player, (TileEntityGlobalChest) world.getBlockTileEntity(x, y, z));
 		case 1:
 			return new GuiVoidStone(player.inventory);
 		}
