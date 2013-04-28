@@ -14,28 +14,30 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.MinecraftException;
 import cpw.mods.fml.common.FMLLog;
 
-public class GlobalChestNBT {
+public class NBTData {
 
 	private final FMLLog logger = new FMLLog();
-	
+
 	private final File NBTLocation;
 	private final File NBTFile;
-	
+
+	private final String prefix;
 	private final String postfix;
-	
+
 	private final long milliTime = System.currentTimeMillis();
-	
-	public GlobalChestNBT(String postfix){
+
+	public NBTData(String fileName, String postfix) {
 		this.postfix = postfix;
-		if(MinecraftServer.getServer() != null && MinecraftServer.getServer().isDedicatedServer()){
+		this.prefix = fileName;
+		if (MinecraftServer.getServer() != null && MinecraftServer.getServer().isDedicatedServer()) {
 			NBTLocation = new File("null");
 			NBTFile = new File("null");
-		}else{
-			NBTLocation = new File(Minecraft.getMinecraftDir(), "globalChestData");
-			NBTFile = new File(NBTLocation, "globalChestData" + postfix + ".dat");
+		} else {
+			NBTLocation = new File(Minecraft.getMinecraftDir(), "globalChestMod");
+			NBTFile = new File(NBTLocation, fileName + postfix + ".dat");
 			NBTLocation.mkdirs();
 			try {
-				if(!NBTFile.exists()){
+				if (!NBTFile.exists()) {
 					NBTFile.createNewFile();
 				}
 			} catch (IOException e) {
@@ -44,25 +46,23 @@ public class GlobalChestNBT {
 			setSessionLock();
 		}
 	}
-	
+
 	private void setSessionLock() {
 		try {
-			File file = new File(NBTLocation, "sessionlock" + postfix + ".lock");
+			File file = new File(NBTLocation, "sessionlock" + prefix + postfix + ".lock");
 			DataOutputStream dataoutputstream = new DataOutputStream(new FileOutputStream(file));
 
 			try {
 				dataoutputstream.writeLong(milliTime);
-			}
-			finally {
+			} finally {
 				dataoutputstream.close();
 			}
-		}
-		catch (IOException ioexception) {
+		} catch (IOException ioexception) {
 			ioexception.printStackTrace();
 			throw new RuntimeException("Failed to check session lock, aborting");
 		}
 	}
-	
+
 	public void checkSessionLock() throws MinecraftException {
 		try {
 			File file = new File(NBTLocation, "sessionlock" + postfix + ".lock");
@@ -71,68 +71,61 @@ public class GlobalChestNBT {
 				if (datainputstream.readLong() != milliTime) {
 					throw new MinecraftException("The save is being accessed from another location, aborting");
 				}
-			}
-			finally {
+			} finally {
 				datainputstream.close();
 			}
-		}
-		catch (IOException ioexception) {
+		} catch (IOException ioexception) {
 			throw new MinecraftException("Failed to check session lock, aborting");
 		}
 	}
-	
-	public void clearSessionLock(){
+
+	public void clearSessionLock() {
 		File file = new File(NBTLocation, "sessionlock" + postfix + ".lock");
-		if(file.exists()){
+		if (file.exists()) {
 			file.delete();
 		}
 	}
-	
-	public NBTTagCompound getNBTTagCompound(){
+
+	public NBTTagCompound getNBTTagCompound() {
 		File file = NBTFile;
-		if (file.exists())
-		{
-			try
-			{
+		if (file.exists()) {
+			try {
 				NBTTagCompound nbttagcompound = CompressedStreamTools.readCompressed(new FileInputStream(file));
 				return nbttagcompound;
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		return new NBTTagCompound();
 	}
-	
-	public void saveNBTData(NBTTagCompound NBTData)
-	{
+
+	public void saveNBTData(NBTTagCompound NBTData) {
 		try {
 			checkSessionLock();
 		} catch (MinecraftException e1) {
 			System.out.println("Session lock check returned false.");
 			return;
 		}
-		try
-		{
-			if(NBTData != null){
+		try {
+			if (NBTData != null) {
 				File file = NBTFile;
-				
-				if (file.exists())
-				{
+
+				if (file.exists()) {
 					file.delete();
 					file.createNewFile();
-				}else{
+				} else {
 					file.createNewFile();
 				}
-				
+
 				CompressedStreamTools.writeCompressed(NBTData, new FileOutputStream(file));
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public static class filenames {
+		public static String NAME_GLOBALCHEST = "globalChestData";
+	}
+
 }
