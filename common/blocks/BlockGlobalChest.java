@@ -20,102 +20,84 @@ import fuj1n.globalChestMod.GlobalChests;
 import fuj1n.globalChestMod.client.ClientProxyGlobalChests;
 import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
 
-public class BlockGlobalChest extends BlockContainer{
-	
-	public BlockGlobalChest(int par1){
+public class BlockGlobalChest extends BlockContainer {
+
+	public BlockGlobalChest(int par1) {
 		super(par1, Material.iron);
 		this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
 	}
-	
+
 	@Override
-	public boolean isOpaqueCube(){
+	public boolean isOpaqueCube() {
 		return false;
 	}
-	
+
 	@Override
-	public boolean renderAsNormalBlock(){
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
-	
+
 	@Override
-	public Icon getBlockTextureFromSideAndMetadata(int par1, int par2){
+	public Icon getBlockTextureFromSideAndMetadata(int par1, int par2) {
 		return Block.blockSteel.getBlockTextureFromSideAndMetadata(par1, par2);
 	}
-	
+
 	@Override
-    public int getRenderType(){
-        return ClientProxyGlobalChests.GlobalChestRenderId;
-    }
+	public int getRenderType() {
+		return ClientProxyGlobalChests.GlobalChestRenderId;
+	}
 
-    public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9){
-    	if(FMLCommonHandler.instance().getMinecraftServerInstance() != null && FMLCommonHandler.instance().getMinecraftServerInstance().isDedicatedServer()){
-            InventoryEnderChest inventoryenderchest = par5EntityPlayer.getInventoryEnderChest();
-            TileEntityEnderChest tileentityenderchest = (TileEntityEnderChest)par1World.getBlockTileEntity(par2, par3, par4);
+	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
+		if (FMLCommonHandler.instance().getMinecraftServerInstance() != null && FMLCommonHandler.instance().getMinecraftServerInstance().isDedicatedServer()) {
+			InventoryEnderChest inventoryenderchest = par5EntityPlayer.getInventoryEnderChest();
+			TileEntityEnderChest tileentityenderchest = (TileEntityEnderChest) par1World.getBlockTileEntity(par2, par3, par4);
 
-            if (inventoryenderchest != null && tileentityenderchest != null)
-            {
-                if (par1World.isBlockNormalCube(par2, par3 + 1, par4))
-                {
-                    return true;
-                }
-                else if (par1World.isRemote)
-                {
-                    return true;
-                }
-                else
-                {
-                    inventoryenderchest.setAssociatedChest(tileentityenderchest);
-                    par5EntityPlayer.displayGUIChest(inventoryenderchest);
-                    return true;
-                }
-            }
-            else
-            {
-                return true;
-            }
-    	}else if(par1World.getBlockId(par2, par3 + 1, par3) == 0){
-	    	par5EntityPlayer.openGui(GlobalChests.instance, 0, par1World, par2, par3, par4);
-	        return true;
-    	}
-    	return false;
-    }
-	
+			if (inventoryenderchest != null && tileentityenderchest != null) {
+				if (par1World.isBlockNormalCube(par2, par3 + 1, par4)) {
+					return true;
+				} else if (par1World.isRemote) {
+					return true;
+				} else {
+					inventoryenderchest.setAssociatedChest(tileentityenderchest);
+					par5EntityPlayer.displayGUIChest(inventoryenderchest);
+					return true;
+				}
+			} else {
+				return false;
+			}
+		} else if (par1World.getBlockId(par2, par3 + 1, par3) == 0) {
+			par5EntityPlayer.openGui(GlobalChests.instance, 0, par1World, par2, par3, par4);
+			return true;
+		}
+		return false;
+	}
+
 	@Override
-    public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLiving par5EntityLiving, ItemStack par6ItemStack)
-    {
-        byte b0 = 0;
-        int l = MathHelper.floor_double((double)(par5EntityLiving.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLiving par5EntityLiving, ItemStack par6ItemStack) {
+		byte b0 = 0;
+		int l = MathHelper.floor_double((double) (par5EntityLiving.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 
-        if (l == 0)
-        {
-            b0 = 2;
-        }
+		if (l == 0) {
+			b0 = 2;
+		}
 
-        if (l == 1)
-        {
-            b0 = 5;
-        }
+		if (l == 1) {
+			b0 = 5;
+		}
 
-        if (l == 2)
-        {
-            b0 = 3;
-        }
+		if (l == 2) {
+			b0 = 3;
+		}
 
-        if (l == 3)
-        {
-            b0 = 4;
-        }
+		if (l == 3) {
+			b0 = 4;
+		}
 
-        par1World.setBlockMetadataWithNotify(par2, par3, par4, b0, 2);
-        if(par1World.getBlockTileEntity(par2, par3, par4) != null){
-        	TileEntityGlobalChest te = (TileEntityGlobalChest)par1World.getBlockTileEntity(par2, par3, par4);
-        	te.lidAngle = 1;
-        }
-    }
-	
-    public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random)
-    {
-    	if(par5Random.nextInt(2) == 0){
+		par1World.setBlockMetadataWithNotify(par2, par3, par4, b0, 2);
+	}
+
+	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random) {
+		if (par5Random.nextInt(2) == 0) {
 			for (int l = 0; l < 3; ++l) {
 				double d0 = (double) ((float) par2 + par5Random.nextFloat());
 				double d1 = (double) ((float) par3 + par5Random.nextFloat());
@@ -134,9 +116,9 @@ public class BlockGlobalChest extends BlockContainer{
 				d2 = (double) (par5Random.nextFloat() * 1.0F * (float) i1);
 				par1World.spawnParticle("enchantmenttable", d6, d1, d5, d2, d3, d4);
 			}
-    	}
-    }
-    
+		}
+	}
+
 	@Override
 	public TileEntity createNewTileEntity(World world) {
     	if(FMLCommonHandler.instance().getMinecraftServerInstance() != null && FMLCommonHandler.instance().getMinecraftServerInstance().isDedicatedServer()){
@@ -145,8 +127,9 @@ public class BlockGlobalChest extends BlockContainer{
     		return new TileEntityGlobalChest();
     	}
 	}
-	
+
 	@Override
-	public void registerIcons(IconRegister par1IconRegister){}
+	public void registerIcons(IconRegister par1IconRegister) {
+	}
 
 }
