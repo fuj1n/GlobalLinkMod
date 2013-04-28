@@ -1,5 +1,6 @@
 package fuj1n.globalChestMod.client.event;
 
+import java.io.File;
 import java.util.logging.Level;
 
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
@@ -28,6 +29,8 @@ public class EventHandler {
 	@ForgeSubscribe
 	public void onSound(SoundLoadEvent event){
 		try{
+			//event.manager.soundPoolSounds.addSound("random/globalchestopen.wav", GlobalChests.class.getResource("mods/globalChestMod/resources/sound/globalopen.wav"));
+			//event.manager.soundPoolSounds.addSound("random/globalchestclose.wav", GlobalChests.class.getResource("mods/globalChestMod/resources/sound/globalclose.wav"));
 		}catch(Exception e){
 			GlobalChests.log("Failed to register one or more sounds.", Level.WARNING);
 		}
