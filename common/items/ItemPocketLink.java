@@ -1,11 +1,21 @@
 package fuj1n.globalChestMod.common.items;
 
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentData;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
@@ -28,6 +38,9 @@ public class ItemPocketLink extends Item{
 	@Override
     public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer){
 		int range = GlobalChests.maxPocketLinkRange;
+		if(EnchantmentHelper.getEnchantmentLevel(GlobalChests.enchantmentRange.effectId, par1ItemStack) > 0){
+			range *= (1 + EnchantmentHelper.getEnchantmentLevel(GlobalChests.enchantmentRange.effectId, par1ItemStack));
+		}
 		int blockRequired = GlobalChests.globalChest.blockID;
 		boolean flag1 = isBlockInBB(AxisAlignedBB.getBoundingBox(par3EntityPlayer.posX - range, par3EntityPlayer.posY - range, par3EntityPlayer.posZ - range, par3EntityPlayer.posX + range, par3EntityPlayer.posY + range, par3EntityPlayer.posZ + range), par2World, blockRequired, false, 0);
         System.out.println(flag1);
@@ -117,6 +130,65 @@ public class ItemPocketLink extends Item{
 		return new int[]{0, 0, 0};
 	}
 	
+    public boolean isBookEnchantable(ItemStack itemstack1, ItemStack itemstack2){
+    	ItemEnchantedBook handlerItem = null;
+    	if(itemstack2.itemID == Item.enchantedBook.itemID){
+    		handlerItem = (ItemEnchantedBook)Item.itemsList[itemstack2.itemID];
+    		NBTTagList nbttaglist = handlerItem.func_92110_g(itemstack2);
+
+            if (nbttaglist != null)
+            {
+                if (nbttaglist.tagCount() == 1){
+                    short short1 = ((NBTTagCompound)nbttaglist.tagAt(0)).getShort("id");
+                    
+                    Enchantment ench1 = Enchantment.enchantmentsList[short1];
+                    
+                    if (ench1.type == GlobalChests.pocketLinkEnchantment){
+                        return true;
+                    }
+                }
+            }
+    	}
+        return false;
+    }
+    
+	@Override
+    public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List){
+        par3List.add(new ItemStack(par1, 1, 0));
+        addEnchantedBooksToList(par3List, GlobalChests.pocketLinkEnchantment);
+    }
+    
+    public void addEnchantedBooksToList(List par1List, EnumEnchantmentType ... par2ArrayOfEnumEnchantmentType)
+    {
+        Enchantment[] aenchantment = Enchantment.enchantmentsList;
+        int i = aenchantment.length;
+
+        for (int j = 0; j < i; ++j)
+        {
+            Enchantment enchantment = aenchantment[j];
+
+            if (enchantment != null && enchantment.type != null)
+            {
+                boolean flag = false;
+
+                for (int k = 0; k < par2ArrayOfEnumEnchantmentType.length && !flag; ++k)
+                {
+                    if (enchantment.type == par2ArrayOfEnumEnchantmentType[k])
+                    {
+                        flag = true;
+                    }
+                }
+
+                if (flag)
+                {
+                	for(int i1 = enchantment.getMinLevel(); i <= enchantment.getMaxLevel(); i++){
+                        par1List.add(Item.enchantedBook.func_92111_a(new EnchantmentData(enchantment, i1)));
+                	}
+                }
+            }
+        }
+    }
+    
 	@Override
 	public void updateIcons(IconRegister par1IconRegister){
 		this.iconIndex = par1IconRegister.registerIcon("GlobalChestMod:fuj1n.GlobalChests.pocketLink");

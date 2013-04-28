@@ -4,10 +4,13 @@ import java.util.logging.Level;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.EnumHelper;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -27,6 +30,7 @@ import fuj1n.globalChestMod.client.gui.GuiHandler;
 import fuj1n.globalChestMod.client.nbt.GlobalChestNBT;
 import fuj1n.globalChestMod.common.CommonProxyGlobalChests;
 import fuj1n.globalChestMod.common.blocks.BlockGlobalChest;
+import fuj1n.globalChestMod.common.enchantment.EnchantmentRange;
 import fuj1n.globalChestMod.common.inventory.ManagerGlobalChest;
 import fuj1n.globalChestMod.common.items.ItemGlobalLink;
 import fuj1n.globalChestMod.common.items.ItemPocketLink;
@@ -72,8 +76,14 @@ public class GlobalChests {
 	public static Item voidStone;
 	public static Item pocketLink;
 	
+	//Enchantments
+	public static Enchantment enchantmentRange;
+	
 	//Global Chest Manager
 	public static ManagerGlobalChest globalChestManager;
+	
+	//Enum
+	public static EnumEnchantmentType pocketLinkEnchantment = EnumHelper.addEnchantmentType("pocketLinkEnchantment");
 	
 	@Instance("fuj1n.GlobalChests")
 	public static GlobalChests instance;
@@ -99,6 +109,7 @@ public class GlobalChests {
 		initCreativeTab();
 		initAllBlocks();
 		initAllItems();
+		initAllEnchantments();
 		registerAllBlocks();
 		mapAllTileEntities();
 		addAllNames();
@@ -122,6 +133,21 @@ public class GlobalChests {
 		pocketLink = new ItemPocketLink(pocketGlobalChestId).setCreativeTab(creativeTabGlobalChest).setUnlocalizedName("fuj1n.GlobalChests.pocketLink");
 	}
 	
+	public void initAllEnchantments(){
+		int nextAvailableID = getNextAvailableID(Enchantment.enchantmentsList);
+		
+		enchantmentRange = new EnchantmentRange(nextAvailableID, 1, true).setName("fuj1n.GlobalChests.enchanmentRange");
+	}
+	
+	public int getNextAvailableID(Object[] array){
+		for(int i = 0; i < array.length; i++){
+			if(array[i] == null){
+				return i;
+			}
+		}
+		return 0;
+	}
+	
 	public void registerAllBlocks(){
 		GameRegistry.registerBlock(globalChest, "fuj1n.globalChests.GlobalChest");
 	}
@@ -136,6 +162,7 @@ public class GlobalChests {
 		LanguageRegistry.addName(voidStone, "Void Stone");
 		LanguageRegistry.addName(pocketLink, "Pocket Link");
 		
+		LanguageRegistry.instance().addStringLocalization("enchantment.fuj1n.GlobalChests.enchantmentRange", "Range");
 		LanguageRegistry.instance().addStringLocalization("itemGroup.fuj1n.GlobalChests.creativeTab", "Global Chests Mod");
 	}
 	
