@@ -30,6 +30,7 @@ import fuj1n.globalChestMod.client.gui.GuiHandler;
 import fuj1n.globalChestMod.client.nbt.GlobalChestNBT;
 import fuj1n.globalChestMod.common.CommonProxyGlobalChests;
 import fuj1n.globalChestMod.common.blocks.BlockGlobalChest;
+import fuj1n.globalChestMod.common.blocks.BlockLibrary;
 import fuj1n.globalChestMod.common.enchantment.EnchantmentRange;
 import fuj1n.globalChestMod.common.inventory.ManagerGlobalChest;
 import fuj1n.globalChestMod.common.items.ItemGlobalLink;
@@ -58,11 +59,15 @@ public class GlobalChests {
 	
 	//Block IDs
 	public static int globalChestId = 2564;
+	public static int bookLibraryId = 2565;
 	
 	//Item IDs
 	public static int globalLinkId = 6328;
 	public static int voidStoneId = 6329;
 	public static int pocketGlobalChestId = 6330;
+	
+	//Enchantment IDs
+	public static int rangeEnchantmentId = 0;
 	
 	//Misc config
 	public static int maxGlobalChestPrice = 4096;
@@ -70,6 +75,7 @@ public class GlobalChests {
 	
 	//Blocks
 	public static Block globalChest;
+	public static Block bookLibrary;
 	
 	//Items
 	public static Item globalLink;
@@ -91,16 +97,25 @@ public class GlobalChests {
 	@PreInit
 	public void PreInit(FMLPreInitializationEvent event){
 		proxy.PreInit();
+		configPreInit();
 		config = new Configuration(event.getSuggestedConfigurationFile(), true);
 		config.load();
+		//Blocks
 		globalChestId = config.getBlock("Global Chest Id", globalChestId).getInt();
+		bookLibraryId = config.getBlock("Library Id", bookLibraryId).getInt();
+		//Items
 		globalLinkId = config.getItem("Global Link Id", globalLinkId).getInt();
 		voidStoneId = config.getItem("Void Stone Id", voidStoneId).getInt();
 		pocketGlobalChestId = config.getItem("Pocket Link Id", pocketGlobalChestId).getInt();
 		//Misc
+		rangeEnchantmentId = config.get("Enchantments", "Pocket Link Range Enchantment Id", rangeEnchantmentId).getInt();
 		maxGlobalChestPrice = config.get("Global Linking Configuration", "Max Total Content Weight", maxGlobalChestPrice).getInt();
 		maxPocketLinkRange = config.get("Global Linking Configuration", "Max Pocket Link Range", maxPocketLinkRange).getInt();
 		config.save();
+	}
+	
+	public void configPreInit(){
+		rangeEnchantmentId = getNextAvailableID(Enchantment.enchantmentsList);
 	}
 	
 	@Init
@@ -125,6 +140,7 @@ public class GlobalChests {
 	
 	public void initAllBlocks(){
 		globalChest = new BlockGlobalChest(globalChestId).setCreativeTab(creativeTabGlobalChest).setHardness(3.0F).setResistance(10F).setUnlocalizedName("fuj1n.globalChests.GlobalChest");
+		bookLibrary = new BlockLibrary(bookLibraryId).setCreativeTab(creativeTabGlobalChest).setHardness(3.0F).setResistance(10F).setUnlocalizedName("fuj1n.globalChests.bookLibrary");
 	}
 	
 	public void initAllItems(){
@@ -136,7 +152,7 @@ public class GlobalChests {
 	public void initAllEnchantments(){
 		int nextAvailableID = getNextAvailableID(Enchantment.enchantmentsList);
 		
-		enchantmentRange = new EnchantmentRange(nextAvailableID, 1, true).setName("fuj1n.GlobalChests.enchanmentRange");
+		enchantmentRange = new EnchantmentRange(rangeEnchantmentId, 1, true).setName("fuj1n.GlobalChests.enchanmentRange");
 	}
 	
 	public int getNextAvailableID(Object[] array){
@@ -150,6 +166,7 @@ public class GlobalChests {
 	
 	public void registerAllBlocks(){
 		GameRegistry.registerBlock(globalChest, "fuj1n.globalChests.GlobalChest");
+		GameRegistry.registerBlock(bookLibrary, "fuj1n.globalChests.BookLibrary");
 	}
 	
 	public void mapAllTileEntities(){
@@ -158,6 +175,7 @@ public class GlobalChests {
 	
 	public void addAllNames(){
 		LanguageRegistry.addName(globalChest, "Global Chest");
+		LanguageRegistry.addName(bookLibrary, "Library");
 		LanguageRegistry.addName(globalLink, "Global Link");
 		LanguageRegistry.addName(voidStone, "Void Stone");
 		LanguageRegistry.addName(pocketLink, "Pocket Link");

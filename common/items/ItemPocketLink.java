@@ -104,6 +104,7 @@ public class ItemPocketLink extends Item{
 	 * @return The coordinates in the form of an int array (returns 0 if nothing is found).
 	 * @deprecated Causes a temporary ANR, not completely working.
 	 */
+	@Deprecated
 	public int[] findNearestBlock(int par1, World par2World, EntityPlayer par3EntityPlayer, int par4, boolean flag1, int par5){
 		if(par2World.getBlockId((int)par3EntityPlayer.posX, (int)par3EntityPlayer.posY, (int)par3EntityPlayer.posZ) == par1 && (!flag1 || par2World.getBlockMetadata((int)par3EntityPlayer.posX, (int)par3EntityPlayer.posY, (int)par3EntityPlayer.posZ) == par5)){
 			return new int[]{(int)par3EntityPlayer.posX, (int)par3EntityPlayer.posY, (int)par3EntityPlayer.posZ};
@@ -130,7 +131,8 @@ public class ItemPocketLink extends Item{
 		return new int[]{0, 0, 0};
 	}
 	
-    public boolean isBookEnchantable(ItemStack itemstack1, ItemStack itemstack2){
+    @Override
+	public boolean isBookEnchantable(ItemStack itemstack1, ItemStack itemstack2){
     	ItemEnchantedBook handlerItem = null;
     	if(itemstack2.itemID == Item.enchantedBook.itemID){
     		handlerItem = (ItemEnchantedBook)Item.itemsList[itemstack2.itemID];

@@ -1,15 +1,11 @@
 package fuj1n.globalChestMod.common.inventory;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
 import fuj1n.globalChestMod.GlobalChests;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryBasic;
-import net.minecraft.inventory.InventoryEnderChest;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.EnumGameType;
 
 public class InventoryGlobalChest extends InventoryBasic{

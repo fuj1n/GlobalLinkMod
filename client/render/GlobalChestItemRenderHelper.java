@@ -2,7 +2,6 @@ package fuj1n.globalChestMod.client.render;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.tileentity.TileEntityChest;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import fuj1n.globalChestMod.GlobalChests;

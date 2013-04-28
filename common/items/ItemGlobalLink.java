@@ -1,7 +1,5 @@
 package fuj1n.globalChestMod.common.items;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;

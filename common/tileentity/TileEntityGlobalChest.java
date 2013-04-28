@@ -1,6 +1,5 @@
 package fuj1n.globalChestMod.common.tileentity;
 
-import fuj1n.globalChestMod.GlobalChests;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -23,7 +22,8 @@ public class TileEntityGlobalChest extends TileEntity
      * Allows the entity to update its state. Overridden in most subclasses, e.g. the mob spawner uses this to count
      * ticks and creates a new spawn inside its implementation.
      */
-    public void updateEntity()
+    @Override
+	public void updateEntity()
     {
         super.updateEntity();
 
@@ -66,7 +66,8 @@ public class TileEntityGlobalChest extends TileEntity
     /**
      * Called when a client event is received with the event number and argument, see World.sendClientEvent
      */
-    public boolean receiveClientEvent(int par1, int par2)
+    @Override
+	public boolean receiveClientEvent(int par1, int par2)
     {
         if (par1 == 1)
         {
@@ -82,7 +83,8 @@ public class TileEntityGlobalChest extends TileEntity
     /**
      * invalidates a tile entity
      */
-    public void invalidate()
+    @Override
+	public void invalidate()
     {
         this.updateContainingBlockInfo();
         super.invalidate();
@@ -92,22 +94,22 @@ public class TileEntityGlobalChest extends TileEntity
     {
         ++this.numUsingPlayers;
         this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, Block.enderChest.blockID, 1, this.numUsingPlayers);
-        double d1 = (double)this.xCoord + 0.5D;
-        double d0 = (double)this.zCoord + 0.5D;
-        this.worldObj.playSoundEffect(d1, (double)this.yCoord + 0.5D, d0, "random.chestopen", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+        double d1 = this.xCoord + 0.5D;
+        double d0 = this.zCoord + 0.5D;
+        this.worldObj.playSoundEffect(d1, this.yCoord + 0.5D, d0, "random.chestopen", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
     }
 
     public void closeChest()
     {
         --this.numUsingPlayers;
         this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, Block.enderChest.blockID, 1, this.numUsingPlayers);
-        double d0 = (double)this.xCoord + 0.5D;
-        double d2 = (double)this.zCoord + 0.5D;
-        this.worldObj.playSoundEffect(d0, (double)this.yCoord + 0.5D, d2, "random.chestclosed", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
+        double d0 = this.xCoord + 0.5D;
+        double d2 = this.zCoord + 0.5D;
+        this.worldObj.playSoundEffect(d0, this.yCoord + 0.5D, d2, "random.chestclosed", 0.5F, this.worldObj.rand.nextFloat() * 0.1F + 0.9F);
     }
 
     public boolean isUseableByPlayer(EntityPlayer par1EntityPlayer)
     {
-        return this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : par1EntityPlayer.getDistanceSq((double)this.xCoord + 0.5D, (double)this.yCoord + 0.5D, (double)this.zCoord + 0.5D) <= 64.0D;
+        return this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : par1EntityPlayer.getDistanceSq(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
     }
 }

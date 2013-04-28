@@ -30,7 +30,7 @@ public class GuiVoidStone extends GuiContainer{
         int x = (width - xSize) / 2;
         int y = (height - ySize) / 2;
         this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
-        drawItemStack(new ItemStack(GlobalChests.voidStone, 1), this.guiLeft + this.container.middleSlotX, this.guiTop + this.container.middleSlotY);
+        drawItemStack(new ItemStack(GlobalChests.voidStone, 1), this.guiLeft + GuiVoidStone.container.middleSlotX, this.guiTop + GuiVoidStone.container.middleSlotY);
         
 	}
 	

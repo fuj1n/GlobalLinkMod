@@ -1,7 +1,5 @@
 package fuj1n.globalChestMod.common.items;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import fuj1n.globalChestMod.GlobalChests;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,7 +24,8 @@ public class ItemVoidStone extends Item{
         return EnumRarity.uncommon;
     }
 	
-    public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer){
+    @Override
+	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer){
     	par3EntityPlayer.openGui(GlobalChests.instance, 1, par2World, (int)par3EntityPlayer.posX, (int)par3EntityPlayer.posY, (int)par3EntityPlayer.posZ);
         return par1ItemStack;
     }

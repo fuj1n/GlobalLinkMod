@@ -13,7 +13,8 @@ public class RecipeVoidStone implements IRecipe
     /**
      * Used to check if a recipe matches current crafting inventory
      */
-    public boolean matches(InventoryCrafting par1InventoryCrafting, World par2World)
+    @Override
+	public boolean matches(InventoryCrafting par1InventoryCrafting, World par2World)
     {
         this.output = null;
         boolean flag1 = false;
@@ -50,7 +51,8 @@ public class RecipeVoidStone implements IRecipe
     /**
      * Returns an Item that is the result of this recipe
      */
-    public ItemStack getCraftingResult(InventoryCrafting par1InventoryCrafting)
+    @Override
+	public ItemStack getCraftingResult(InventoryCrafting par1InventoryCrafting)
     {
         return this.output.copy();
     }
@@ -58,12 +60,14 @@ public class RecipeVoidStone implements IRecipe
     /**
      * Returns the size of the recipe area
      */
-    public int getRecipeSize()
+    @Override
+	public int getRecipeSize()
     {
         return 10;
     }
 
-    public ItemStack getRecipeOutput()
+    @Override
+	public ItemStack getRecipeOutput()
     {
         return this.output;
     }

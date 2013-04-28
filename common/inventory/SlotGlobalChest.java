@@ -33,7 +33,8 @@ public class SlotGlobalChest extends Slot{
 		}
     }
 	
-    public boolean canTakeStack(EntityPlayer par1EntityPlayer){
+    @Override
+	public boolean canTakeStack(EntityPlayer par1EntityPlayer){
     	ItemStack itemstack = this.inventory.getStackInSlot(this.slotNumber);
     	int itemStackPrice = GlobalChests.globalChestManager.getItemPrice(itemstack);
     	if(itemStackPrice < 0){

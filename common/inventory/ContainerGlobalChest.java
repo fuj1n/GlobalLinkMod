@@ -3,10 +3,8 @@ package fuj1n.globalChestMod.common.inventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.InventoryEnderChest;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
 import fuj1n.globalChestMod.GlobalChests;
 import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
 
@@ -107,7 +105,8 @@ public class ContainerGlobalChest extends Container{
         return itemstack;
     }
 	
-    protected boolean mergeItemStack(ItemStack par1ItemStack, int par2, int par3, boolean par4)
+    @Override
+	protected boolean mergeItemStack(ItemStack par1ItemStack, int par2, int par3, boolean par4)
     {
         boolean flag1 = false;
         int k = par2;

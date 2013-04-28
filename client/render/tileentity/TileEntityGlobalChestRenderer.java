@@ -55,7 +55,7 @@ public class TileEntityGlobalChestRenderer extends TileEntitySpecialRenderer{
             short1 = -90;
         }
 
-        GL11.glRotatef((float)short1, 0.0F, 1.0F, 0.0F);
+        GL11.glRotatef(short1, 0.0F, 1.0F, 0.0F);
         GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
         float f1 = par1TileEntityGlobalChest.prevLidAngle + (par1TileEntityGlobalChest.lidAngle - par1TileEntityGlobalChest.prevLidAngle) * par8;
         f1 = 1.0F - f1;
