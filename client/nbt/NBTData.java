@@ -65,7 +65,7 @@ public class NBTData {
 
 	public void checkSessionLock() throws MinecraftException {
 		try {
-			File file = new File(NBTLocation, "sessionlock" + postfix + ".lock");
+			File file = new File(NBTLocation, "sessionlock" + prefix + postfix + ".lock");
 			DataInputStream datainputstream = new DataInputStream(new FileInputStream(file));
 			try {
 				if (datainputstream.readLong() != milliTime) {
@@ -80,7 +80,7 @@ public class NBTData {
 	}
 
 	public void clearSessionLock() {
-		File file = new File(NBTLocation, "sessionlock" + postfix + ".lock");
+		File file = new File(NBTLocation, "sessionlock" + prefix + postfix + ".lock");
 		if (file.exists()) {
 			file.delete();
 		}
