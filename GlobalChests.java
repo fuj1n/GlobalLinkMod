@@ -220,11 +220,13 @@ public class GlobalChests {
 
 		GameRegistry.addRecipe(new ItemStack(voidStone, 1), new Object[] { "GOG", "ONO", "GOG", Character.valueOf('G'), Item.ingotGold, Character.valueOf('O'), Block.obsidian, Character.valueOf('N'), Item.field_94584_bZ });
 		
+		GameRegistry.addRecipe(new ItemStack(multiItem, 1, MultiItemReference.VALUE_RETROPEARL), new Object[]{
+			"GEG", "BGB", "GEG", Character.valueOf('G'), Block.glass, Character.valueOf('E'), Item.enderPearl, Character.valueOf('B'), Item.blazePowder
+		})
+		
 		GameRegistry.addRecipe(new RecipeVoidStone());
 		
 		GameRegistry.addRecipe(new ItemStack(Block.enderChest, 1), new Object[] { "###", "#E#", "###", '#', Block.obsidian, 'E', new ItemStack(multiItem, 1, MultiItemReference.VALUE_RETROPEARL)});
-		
-		CraftingManager.getInstance().getRecipeList().remove(new ShapedRecipes(3, 3, new ItemStack[]{new ItemStack(Block.obsidian), new ItemStack(Block.obsidian), new ItemStack(Block.obsidian), new ItemStack(Block.obsidian), new ItemStack(Item.eyeOfEnder), new ItemStack(Block.obsidian), new ItemStack(Block.obsidian), new ItemStack(Block.obsidian), new ItemStack(Block.obsidian)}, new ItemStack(Block.enderChest)));
 	}
 
 	public void initCreativeTab() {
