@@ -1,0 +1,53 @@
+package fuj1n.globalChestMod.common.items;
+
+import java.util.List;
+
+import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Icon;
+import fuj1n.globalChestMod.lib.MultiItemReference;
+
+public class ItemMulti extends Item{
+	
+	public Icon[] icons = new Icon[MultiItemReference.ICON_PATHS.length];
+	
+	public ItemMulti(int par1) {
+		super(par1);
+		this.setHasSubtypes(true);
+	}
+	
+	@Override
+    public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List){
+        for(int i = 0; i < MultiItemReference.NAMES_UNLOCALIZED.length; i++){
+        	par3List.add(new ItemStack(this, 1, i));
+        }
+    }
+	
+	@Override
+    public String getUnlocalizedName(ItemStack par1ItemStack){
+		if(par1ItemStack.getItemDamage() < MultiItemReference.NAMES_UNLOCALIZED.length){
+			return this.getUnlocalizedName() + "." + MultiItemReference.NAMES_UNLOCALIZED[par1ItemStack.getItemDamage()];
+		}else{
+			return this.getUnlocalizedName();
+		}
+    }
+	
+	@Override
+    public Icon getIconFromDamage(int par1){
+		if(par1 < MultiItemReference.ICON_PATHS.length){
+			return icons[par1];
+		}else{
+			return this.iconIndex;
+		}
+    }
+	
+	@Override
+	public void updateIcons(IconRegister par1IconRegister){
+		for(int i = 0; i < MultiItemReference.ICON_PATHS.length; i++){
+			icons[i] = par1IconRegister.registerIcon("globalChestMod:" + MultiItemReference.ICON_PATHS[i]);
+		}
+	}
+
+}

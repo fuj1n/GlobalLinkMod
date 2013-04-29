@@ -10,6 +10,9 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.EnumHelper;
@@ -36,10 +39,12 @@ import fuj1n.globalChestMod.common.blocks.BlockLibrary;
 import fuj1n.globalChestMod.common.enchantment.EnchantmentRange;
 import fuj1n.globalChestMod.common.inventory.ManagerGlobalChest;
 import fuj1n.globalChestMod.common.items.ItemGlobalLink;
+import fuj1n.globalChestMod.common.items.ItemMulti;
 import fuj1n.globalChestMod.common.items.ItemPocketLink;
 import fuj1n.globalChestMod.common.items.ItemVoidStone;
 import fuj1n.globalChestMod.common.items.recipe.RecipeVoidStone;
 import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
+import fuj1n.globalChestMod.lib.MultiItemReference;
 
 @Mod(modid = "fuj1n.GlobalChests", name = CommonProxyGlobalChests.modName, version = CommonProxyGlobalChests.version)
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
@@ -66,6 +71,7 @@ public class GlobalChests {
 	public static int globalLinkId = 6328;
 	public static int voidStoneId = 6329;
 	public static int pocketGlobalChestId = 6330;
+	public static int itemMultiId = 6331;
 
 	// Enchantment IDs
 	public static int rangeEnchantmentId = 0;
@@ -82,6 +88,7 @@ public class GlobalChests {
 	public static Item globalLink;
 	public static Item voidStone;
 	public static Item pocketLink;
+	public static Item multiItem;
 
 	public static File modLocation;
 
@@ -111,6 +118,7 @@ public class GlobalChests {
 		globalLinkId = config.getItem("Global Link Id", globalLinkId).getInt();
 		voidStoneId = config.getItem("Void Stone Id", voidStoneId).getInt();
 		pocketGlobalChestId = config.getItem("Pocket Link Id", pocketGlobalChestId).getInt();
+		itemMultiId = config.getItem("Multi Item Id", itemMultiId).getInt();
 		// Misc
 		rangeEnchantmentId = config.get("Enchantments", "Pocket Link Range Enchantment Id", rangeEnchantmentId).getInt();
 		maxGlobalChestPrice = config.get("Global Linking Configuration", "Max Total Content Weight", maxGlobalChestPrice).getInt();
@@ -132,6 +140,7 @@ public class GlobalChests {
 		registerAllBlocks();
 		mapAllTileEntities();
 		addAllNames();
+		removeUnwantedRecipes();
 		addAllRecipes();
 		globalChestManager = new ManagerGlobalChest(maxGlobalChestPrice);
 		NetworkRegistry.instance().registerGuiHandler(instance, new GuiHandler());
@@ -151,6 +160,7 @@ public class GlobalChests {
 		globalLink = new ItemGlobalLink(globalLinkId).setCreativeTab(creativeTabGlobalChest).setUnlocalizedName("fuj1n.GlobalChests.globalLink");
 		voidStone = new ItemVoidStone(voidStoneId).setCreativeTab(creativeTabGlobalChest).setUnlocalizedName("fuj1n.GlobalChests.voidStone");
 		pocketLink = new ItemPocketLink(pocketGlobalChestId).setCreativeTab(creativeTabGlobalChest).setUnlocalizedName("fuj1n.GlobalChests.pocketLink");
+		multiItem = new ItemMulti(itemMultiId).setCreativeTab(creativeTabGlobalChest).setUnlocalizedName("fuj1n.GlobalChests.multiItem");
 	}
 
 	public void initAllEnchantments() {
@@ -181,19 +191,40 @@ public class GlobalChests {
 		LanguageRegistry.addName(globalLink, "Global Link");
 		LanguageRegistry.addName(voidStone, "Void Stone");
 		LanguageRegistry.addName(pocketLink, "Pocket Link");
-
+		LanguageRegistry.addName(multiItem, "Unknown Multi Item");
+		
 		LanguageRegistry.instance().addStringLocalization("enchantment.fuj1n.GlobalChests.enchantmentRange", "Range");
 		LanguageRegistry.instance().addStringLocalization("itemGroup.fuj1n.GlobalChests.creativeTab", "Global Chests Mod");
+		
+		for(int i = 0; i < MultiItemReference.NAMES.length; i++){
+			LanguageRegistry.addName(new ItemStack(multiItem, 0, i), MultiItemReference.NAMES[i]);
+		}
 	}
 
+	public void removeUnwantedRecipes(){
+		for(int i = 0; i < CraftingManager.getInstance().getRecipeList().size(); i++){
+			IRecipe recipe = (IRecipe)CraftingManager.getInstance().getRecipeList().get(i);
+			if(recipe.getRecipeOutput() != null){
+				switch(recipe.getRecipeOutput().itemID){
+				case 130:
+					CraftingManager.getInstance().getRecipeList().remove(i);
+				}
+			}
+		}
+	}
+	
 	public void addAllRecipes() {
 		GameRegistry.addRecipe(new ItemStack(globalLink, 1), new Object[] { "GEG", "ENE", "GEG", Character.valueOf('G'), Item.ingotGold, Character.valueOf('E'), Item.enderPearl, Character.valueOf('N'), Item.netherStar });
 
 		GameRegistry.addRecipe(new ItemStack(globalChest, 1), new Object[] { "BDB", "GEG", "ILI", Character.valueOf('B'), Block.blockSteel, Character.valueOf('I'), Item.ingotIron, Character.valueOf('D'), Item.diamond, Character.valueOf('L'), globalLink, Character.valueOf('G'), Item.ingotGold, Character.valueOf('E'), Block.enderChest });
 
 		GameRegistry.addRecipe(new ItemStack(voidStone, 1), new Object[] { "GOG", "ONO", "GOG", Character.valueOf('G'), Item.ingotGold, Character.valueOf('O'), Block.obsidian, Character.valueOf('N'), Item.field_94584_bZ });
-
+		
 		GameRegistry.addRecipe(new RecipeVoidStone());
+		
+		GameRegistry.addRecipe(new ItemStack(Block.enderChest, 1), new Object[] { "###", "#E#", "###", '#', Block.obsidian, 'E', new ItemStack(multiItem, 1, MultiItemReference.VALUE_RETROPEARL)});
+		
+		CraftingManager.getInstance().getRecipeList().remove(new ShapedRecipes(3, 3, new ItemStack[]{new ItemStack(Block.obsidian), new ItemStack(Block.obsidian), new ItemStack(Block.obsidian), new ItemStack(Block.obsidian), new ItemStack(Item.eyeOfEnder), new ItemStack(Block.obsidian), new ItemStack(Block.obsidian), new ItemStack(Block.obsidian), new ItemStack(Block.obsidian)}, new ItemStack(Block.enderChest)));
 	}
 
 	public void initCreativeTab() {
