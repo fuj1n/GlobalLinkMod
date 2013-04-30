@@ -16,6 +16,7 @@ import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.EnumHelper;
+import net.minecraftforge.common.Property;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -120,7 +121,9 @@ public class GlobalChests {
 		pocketGlobalChestId = config.getItem("Pocket Link Id", pocketGlobalChestId).getInt();
 		itemMultiId = config.getItem("Multi Item Id", itemMultiId).getInt();
 		// Misc
-		rangeEnchantmentId = config.get("Enchantments", "Pocket Link Range Enchantment Id", rangeEnchantmentId).getInt();
+		Property propRangeEnchantment = config.get("Enchantments", "Pocket Link Range Enchantment Id", rangeEnchantmentId);
+		propRangeEnchantment.comment = "This enchantment ID is automatically allocated and you should not have to change it.";
+		rangeEnchantmentId = propRangeEnchantment.getInt();
 		maxGlobalChestPrice = config.get("Global Linking Configuration", "Max Total Content Weight", maxGlobalChestPrice).getInt();
 		maxPocketLinkRange = config.get("Global Linking Configuration", "Max Pocket Link Range", maxPocketLinkRange).getInt();
 		config.save();
@@ -222,7 +225,7 @@ public class GlobalChests {
 		
 		GameRegistry.addRecipe(new ItemStack(multiItem, 1, MultiItemReference.VALUE_RETROPEARL), new Object[]{
 			"GEG", "BGB", "GEG", Character.valueOf('G'), Block.glass, Character.valueOf('E'), Item.enderPearl, Character.valueOf('B'), Item.blazePowder
-		})
+		});
 		
 		GameRegistry.addRecipe(new RecipeVoidStone());
 		
