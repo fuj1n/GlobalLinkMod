@@ -45,6 +45,7 @@ import fuj1n.globalChestMod.common.items.ItemPocketLink;
 import fuj1n.globalChestMod.common.items.ItemVoidStone;
 import fuj1n.globalChestMod.common.items.recipe.RecipeVoidStone;
 import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
+import fuj1n.globalChestMod.lib.BookLibraryReference;
 import fuj1n.globalChestMod.lib.MultiItemReference;
 
 @Mod(modid = "fuj1n.GlobalChests", name = CommonProxyGlobalChests.modName, version = CommonProxyGlobalChests.version)
@@ -99,6 +100,10 @@ public class GlobalChests {
 	// Global Chest Manager
 	public static ManagerGlobalChest globalChestManager;
 
+	// Reference Classes
+	MultiItemReference multiItemReference = new MultiItemReference();
+	BookLibraryReference libraryStorageReference = new BookLibraryReference();
+	
 	// Enum
 	public static EnumEnchantmentType pocketLinkEnchantment = EnumHelper.addEnchantmentType("pocketLinkEnchantment");
 
@@ -127,6 +132,7 @@ public class GlobalChests {
 		maxGlobalChestPrice = config.get("Global Linking Configuration", "Max Total Content Weight", maxGlobalChestPrice).getInt();
 		maxPocketLinkRange = config.get("Global Linking Configuration", "Max Pocket Link Range", maxPocketLinkRange).getInt();
 		config.save();
+		libraryStorageReference.populateBooksList();
 	}
 
 	public void configPreInit() {
@@ -229,7 +235,7 @@ public class GlobalChests {
 		
 		GameRegistry.addRecipe(new RecipeVoidStone());
 		
-		GameRegistry.addRecipe(new ItemStack(Block.enderChest, 1), new Object[] { "###", "#E#", "###", '#', Block.obsidian, 'E', new ItemStack(multiItem, 1, MultiItemReference.VALUE_RETROPEARL)});
+		GameRegistry.addRecipe(new ItemStack(Block.enderChest, 1), new Object[] { "###", "#E#", "#C#", '#', Block.obsidian, 'E', new ItemStack(multiItem, 1, MultiItemReference.VALUE_RETROPEARL), 'C', Block.chest});
 	}
 
 	public void initCreativeTab() {

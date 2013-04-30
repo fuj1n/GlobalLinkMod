@@ -2,8 +2,11 @@ package fuj1n.globalChestMod.common.tileentity;
 
 import java.util.ArrayList;
 
+import fuj1n.globalChestMod.lib.BookLibraryReference;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -11,7 +14,7 @@ import net.minecraft.tileentity.TileEntity;
 public class TileEntityLibrary extends TileEntity implements IInventory {
 
 	private ArrayList<ItemStack> inventory;
-
+	
 	public TileEntityLibrary() {
 		inventory = new ArrayList();
 	}
@@ -111,11 +114,11 @@ public class TileEntityLibrary extends TileEntity implements IInventory {
 	@Override
 	public void closeChest() {
 	}
-
+	
 	@Override
 	public boolean isStackValidForSlot(int i, ItemStack itemstack) {
 		int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
-		return meta == 0;
+		return meta == 0 && BookLibraryReference.books.contains(itemstack.getItem());
 	}
 
 }
