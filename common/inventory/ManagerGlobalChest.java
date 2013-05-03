@@ -3,15 +3,19 @@ package fuj1n.globalChestMod.common.inventory;
 import java.util.ArrayList;
 
 import net.minecraft.block.Block;
+import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import fuj1n.globalChestMod.GlobalChests;
+import fuj1n.globalChestMod.lib.MultiItemReference;
 
 public class ManagerGlobalChest {
 
 	private ArrayList<Integer> stackList = new ArrayList();
 	private ArrayList<Integer> priceList = new ArrayList();
 	private ArrayList<Integer> banList = new ArrayList();
+	
+	private ArrayList<ItemStack> cheatItemList = new ArrayList();
 
 	private ArrayList<Integer> stackLimit = new ArrayList();
 
@@ -162,6 +166,9 @@ public class ManagerGlobalChest {
 		addItemToList(GlobalChests.globalChest.blockID, -64, 1);
 		addItemToList(GlobalChests.globalLink.itemID, -16, 1);
 		addItemToList(GlobalChests.voidStone.itemID, -128, 2);
+		
+		// Cheat/creative only stuff
+		addCheatToList(new ItemStack(GlobalChests.multiItem.itemID, 1, MultiItemReference.VALUE_CHEATSTORAGE));
 	}
 
 	public int getItemPrice(ItemStack par1ItemStack) {
@@ -181,7 +188,7 @@ public class ManagerGlobalChest {
 	public boolean isItemBanned(ItemStack par1ItemStack) {
 		return banList.contains(par1ItemStack.getItem().itemID);
 	}
-
+	
 	public boolean isItemStackLimited(ItemStack par1ItemStack) {
 		if (stackList.contains(par1ItemStack.getItem().itemID)) {
 			int index = stackList.indexOf(par1ItemStack.getItem().itemID);
@@ -212,6 +219,14 @@ public class ManagerGlobalChest {
 		this.stackLimit.add(stackLimit);
 	}
 
+	/**
+	 * Add an infinite storage item to list
+	 * @param is Using itemstacks because it is ideal to be metadata sensitive.
+	 */
+	public void addCheatToList(ItemStack is){
+		cheatItemList.add(is);
+	}
+	
 	public int getNumOfItemStackInInventory(InventoryGlobalChest par1InventoryGlobalChest, ItemStack par2ItemStack) {
 		int returnValue = 0;
 		for (int i = 0; i < par1InventoryGlobalChest.getSizeInventory(); i++) {
@@ -227,6 +242,32 @@ public class ManagerGlobalChest {
 
 	public void addItemToBanList(int ID) {
 		banList.add(ID);
+	}
+	
+	public boolean isItemCheatItem(ItemStack par1ItemStack){
+		for(int i = 0; i < cheatItemList.size(); i++){
+			if(par1ItemStack != null && par1ItemStack.itemID == cheatItemList.get(i).itemID){
+				if(par1ItemStack.getItemDamage() == cheatItemList.get(i).getItemDamage()){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public boolean cheatItemExists(InventoryBasic inv){
+		for(int i = 0; i < inv.getSizeInventory(); i++){
+			for(int j = 0; j < cheatItemList.size(); j++){
+				if(inv.getStackInSlot(i) != null){
+					if(cheatItemList.get(j).itemID == inv.getStackInSlot(i).itemID){
+						if(cheatItemList.get(j).getItemDamage() == inv.getStackInSlot(i).getItemDamage()){
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 }

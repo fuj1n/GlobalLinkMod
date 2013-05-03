@@ -15,6 +15,7 @@ import org.lwjgl.opengl.GL11;
 import fuj1n.globalChestMod.GlobalChests;
 import fuj1n.globalChestMod.common.inventory.ContainerGlobalChest;
 import fuj1n.globalChestMod.common.inventory.InventoryGlobalChest;
+import fuj1n.globalChestMod.common.inventory.ManagerGlobalChest;
 import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
 
 /**
@@ -60,7 +61,7 @@ class GuiGlobalChest extends GuiContainer {
 		fontRenderer.drawString("Global Chest", 8, 5, 4210752);
 		fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 96 + 3, 4210752);
 		fontRenderer.drawString("Chest Weight: " + (container.totalPrice < 0 ? 0 : container.totalPrice), 8, 14, 4210752);
-		fontRenderer.drawString("Max Weight: " + GlobalChests.globalChestManager.maxWeight, 110 - Integer.toString(GlobalChests.globalChestManager.maxWeight).length() * 6, ySize - 96 + 3, 4210752);
+		fontRenderer.drawString(GlobalChests.globalChestManager.cheatItemExists(container.inventory) ? "Max Weight: Infinite" : "Max Weight: " + GlobalChests.globalChestManager.maxWeight, GlobalChests.globalChestManager.cheatItemExists(container.inventory) ?  110 - 30: 110 - Integer.toString(GlobalChests.globalChestManager.maxWeight).length() * 6, ySize - 96 + 3, 4210752);
 	}
 
 	@Override
@@ -82,7 +83,6 @@ class GuiGlobalChest extends GuiContainer {
 		List list = par1ItemStack.getTooltip(mc.thePlayer, mc.gameSettings.advancedItemTooltips);
 		Slot slot = null;
 		boolean flag0 = false;
-
 		for (int i = 0; i < inventorySlots.inventorySlots.size(); i++) {
 			Slot sl = (Slot) inventorySlots.inventorySlots.get(i);
 			try {
@@ -113,22 +113,28 @@ class GuiGlobalChest extends GuiContainer {
 			flag1 = slot.inventory instanceof InventoryGlobalChest;
 		}
 
-		if (GlobalChests.globalChestManager.isItemBanned(par1ItemStack)) {
-			list.add(EnumChatFormatting.GRAY + "This item cannot be transfered.");
-		} else {
-			if (GlobalChests.globalChestManager.getItemPrice(par1ItemStack) < 0) {
-				list.add(EnumChatFormatting.GRAY + "This item frees: " + -GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), 1)) + " Grams");
+		if(GlobalChests.globalChestManager.isItemCheatItem(par1ItemStack) && !flag1){
+			list.add("This item removes storage limits.");
+		}else if(GlobalChests.globalChestManager.isItemCheatItem(par1ItemStack) && flag1 && container.totalPrice > GlobalChests.globalChestManager.maxWeight){
+			list.add("Cannot remove this item.");
+		}else{
+			if (GlobalChests.globalChestManager.isItemBanned(par1ItemStack)) {
+				list.add(EnumChatFormatting.GRAY + "This item cannot be transfered.");
 			} else {
-				list.add(EnumChatFormatting.GRAY + "This item weights: " + GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), 1)) + " Grams");
-				list.add(EnumChatFormatting.GRAY + "This stack weights: " + GlobalChests.globalChestManager.getItemPrice(par1ItemStack) + " Grams");
-			}
-			if (GlobalChests.globalChestManager.isItemStackLimited(par1ItemStack)) {
-				list.add(EnumChatFormatting.GRAY + "The amount of this item is limited to: " + GlobalChests.globalChestManager.getStackLimit(par1ItemStack));
-			}
-			if (container.totalPrice + GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), par1ItemStack.stackSize)) > GlobalChests.globalChestManager.maxWeight && !flag1) {
-				list.add(EnumChatFormatting.GRAY + "Cannot fit this stack.");
-			} else if (container.totalPrice - GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), par1ItemStack.stackSize)) > GlobalChests.globalChestManager.maxWeight && flag1) {
-				list.add(EnumChatFormatting.GRAY + "Cannot remove this stack.");
+				if (GlobalChests.globalChestManager.getItemPrice(par1ItemStack) < 0) {
+					list.add(EnumChatFormatting.GRAY + "This item frees: " + -GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), 1)) + " Grams");
+				} else {
+					list.add(EnumChatFormatting.GRAY + "This item weights: " + GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), 1)) + " Grams");
+					list.add(EnumChatFormatting.GRAY + "This stack weights: " + GlobalChests.globalChestManager.getItemPrice(par1ItemStack) + " Grams");
+				}
+				if (GlobalChests.globalChestManager.isItemStackLimited(par1ItemStack)) {
+					list.add(EnumChatFormatting.GRAY + "The amount of this item is limited to: " + GlobalChests.globalChestManager.getStackLimit(par1ItemStack));
+				}
+				if (container.totalPrice + GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), par1ItemStack.stackSize)) > GlobalChests.globalChestManager.maxWeight && !flag1) {
+					list.add(EnumChatFormatting.GRAY + "Cannot fit this stack.");
+				} else if (container.totalPrice - GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), par1ItemStack.stackSize)) > GlobalChests.globalChestManager.maxWeight && flag1) {
+					list.add(EnumChatFormatting.GRAY + "Cannot remove this stack.");
+				}
 			}
 		}
 

@@ -21,6 +21,14 @@ public class SlotGlobalChest extends Slot {
 		int stackLimit = GlobalChests.globalChestManager.getStackLimit(par1ItemStack);
 		int numOfStack = GlobalChests.globalChestManager.getNumOfItemStackInInventory(container.inventory, par1ItemStack);
 
+		if(GlobalChests.globalChestManager.isItemCheatItem(par1ItemStack)){
+			return true;
+		}
+		
+		if(GlobalChests.globalChestManager.cheatItemExists(container.inventory)){
+			return true;
+		}
+		
 		if (GlobalChests.globalChestManager.isItemBanned(par1ItemStack)) {
 			return false;
 		} else if (numOfStack + par1ItemStack.stackSize > stackLimit && stackLimit > 0) {
@@ -36,6 +44,17 @@ public class SlotGlobalChest extends Slot {
 	public boolean canTakeStack(EntityPlayer par1EntityPlayer) {
 		ItemStack itemstack = inventory.getStackInSlot(slotNumber);
 		int itemStackPrice = GlobalChests.globalChestManager.getItemPrice(itemstack);
+		
+		if(GlobalChests.globalChestManager.isItemCheatItem(itemstack)){
+			if(GlobalChests.globalChestManager.maxWeight < container.totalPrice){
+				return false;
+			}
+		}
+		
+		if(GlobalChests.globalChestManager.cheatItemExists(container.inventory)){
+			return true;
+		}
+		
 		if (itemStackPrice < 0) {
 			if (container.totalPrice - itemStackPrice > GlobalChests.globalChestManager.maxWeight) {
 				return false;

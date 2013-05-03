@@ -48,6 +48,13 @@ public class ItemMulti extends Item{
     }
 	
 	@Override
+    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+		if(MultiItemReference.ITEM_INFORMATION[par1ItemStack.getItemDamage()] != null){
+			par3List.add(MultiItemReference.ITEM_INFORMATION[par1ItemStack.getItemDamage()]);
+		}
+	}
+	
+	@Override
 	public void updateIcons(IconRegister par1IconRegister){
 		for(int i = 0; i < MultiItemReference.ICON_PATHS.length; i++){
 			icons[i] = par1IconRegister.registerIcon("globalChestMod:" + MultiItemReference.ICON_PATHS[i]);
