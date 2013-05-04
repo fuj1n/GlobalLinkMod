@@ -22,8 +22,8 @@ public class ItemGlobalLink extends Item {
 	}
 
 	@Override
-	public void updateIcons(IconRegister par1IconRegister) {
-		iconIndex = par1IconRegister.registerIcon("GlobalChestMod:fuj1n.GlobalChests.globalLink");
+	public void registerIcons(IconRegister par1IconRegister) {
+		itemIcon = par1IconRegister.registerIcon("GlobalChestMod:fuj1n.GlobalChests.globalLink");
 	}
 
 }

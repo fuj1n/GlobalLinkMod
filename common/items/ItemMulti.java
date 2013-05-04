@@ -43,7 +43,7 @@ public class ItemMulti extends Item{
 		if(par1 < MultiItemReference.ICON_PATHS.length){
 			return icons[par1];
 		}else{
-			return this.iconIndex;
+			return this.itemIcon;
 		}
     }
 	
@@ -55,7 +55,7 @@ public class ItemMulti extends Item{
 	}
 	
 	@Override
-	public void updateIcons(IconRegister par1IconRegister){
+	public void registerIcons(IconRegister par1IconRegister){
 		for(int i = 0; i < MultiItemReference.ICON_PATHS.length; i++){
 			icons[i] = par1IconRegister.registerIcon("globalChestMod:" + MultiItemReference.ICON_PATHS[i]);
 		}

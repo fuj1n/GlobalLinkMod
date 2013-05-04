@@ -38,8 +38,8 @@ public class BlockGlobalChest extends BlockContainer {
 	}
 
 	@Override
-	public Icon getBlockTextureFromSideAndMetadata(int par1, int par2) {
-		return Block.blockSteel.getBlockTextureFromSideAndMetadata(par1, par2);
+	public Icon getIcon(int par1, int par2) {
+		return Block.blockIron.getIcon(par1, par2);
 	}
 
 	@Override

@@ -227,9 +227,9 @@ public class GlobalChests {
 	public void addAllRecipes() {
 		GameRegistry.addRecipe(new ItemStack(globalLink, 1), new Object[] { "GEG", "ENE", "GEG", Character.valueOf('G'), Item.ingotGold, Character.valueOf('E'), Item.enderPearl, Character.valueOf('N'), Item.netherStar });
 
-		GameRegistry.addRecipe(new ItemStack(globalChest, 1), new Object[] { "BDB", "GEG", "ILI", Character.valueOf('B'), Block.blockSteel, Character.valueOf('I'), Item.ingotIron, Character.valueOf('D'), Item.diamond, Character.valueOf('L'), globalLink, Character.valueOf('G'), Item.ingotGold, Character.valueOf('E'), Block.enderChest });
+		GameRegistry.addRecipe(new ItemStack(globalChest, 1), new Object[] { "BDB", "GEG", "ILI", Character.valueOf('B'), Block.blockIron, Character.valueOf('I'), Item.ingotIron, Character.valueOf('D'), Item.diamond, Character.valueOf('L'), globalLink, Character.valueOf('G'), Item.ingotGold, Character.valueOf('E'), Block.enderChest });
 
-		GameRegistry.addRecipe(new ItemStack(voidStone, 1), new Object[] { "GOG", "ONO", "GOG", Character.valueOf('G'), Item.ingotGold, Character.valueOf('O'), Block.obsidian, Character.valueOf('N'), Item.field_94584_bZ });
+		GameRegistry.addRecipe(new ItemStack(voidStone, 1), new Object[] { "GOG", "ONO", "GOG", Character.valueOf('G'), Item.ingotGold, Character.valueOf('O'), Block.obsidian, Character.valueOf('N'), Item.netherrackBrick });
 		
 		GameRegistry.addRecipe(new ItemStack(multiItem, 1, MultiItemReference.VALUE_RETROPEARL), new Object[]{
 			"GEG", "BGB", "GEG", Character.valueOf('G'), Block.glass, Character.valueOf('E'), Item.enderPearl, Character.valueOf('B'), Item.blazePowder

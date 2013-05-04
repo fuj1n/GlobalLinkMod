@@ -46,7 +46,7 @@ public class ManagerGlobalChest {
 		addItemToList(Block.mushroomBrown.blockID, 4);
 		addItemToList(Block.mushroomRed.blockID, 4);
 		addItemToList(Block.blockGold.blockID, 108);
-		addItemToList(Block.blockSteel.blockID, 90);
+		addItemToList(Block.blockIron.blockID, 90);
 		addItemToList(Block.stoneSingleSlab.blockID, 1);
 		addItemToList(Block.brick.blockID, 4);
 		addItemToList(Block.tnt.blockID, 10);
@@ -85,16 +85,16 @@ public class ManagerGlobalChest {
 		addItemToList(Block.blockRedstone.blockID, 9);
 		addItemToBanList(Block.oreNetherQuartz.blockID);
 		// Items
-		addItemToList(Item.shovelSteel.itemID, 9);
-		addItemToList(Item.pickaxeSteel.itemID, 27);
-		addItemToList(Item.axeSteel.itemID, 27);
+		addItemToList(Item.shovelIron.itemID, 9);
+		addItemToList(Item.pickaxeIron.itemID, 27);
+		addItemToList(Item.axeIron.itemID, 27);
 		addItemToList(Item.flintAndSteel.itemID, 11);
 		addItemToList(Item.bow.itemID, 3);
 		addItemToList(Item.coal.itemID, 2);
 		addItemToList(Item.diamond.itemID, 64);
 		addItemToList(Item.ingotIron.itemID, 9);
 		addItemToList(Item.ingotGold.itemID, 12);
-		addItemToList(Item.swordSteel.itemID, 18);
+		addItemToList(Item.swordIron.itemID, 18);
 		addItemToList(Item.swordWood.itemID, 2);
 		addItemToList(Item.shovelWood.itemID, 1);
 		addItemToList(Item.pickaxeWood.itemID, 3);
@@ -112,15 +112,15 @@ public class ManagerGlobalChest {
 		addItemToList(Item.silk.itemID, 1);
 		addItemToList(Item.gunpowder.itemID, 3);
 		addItemToList(Item.hoeWood.itemID, 2);
-		addItemToList(Item.hoeSteel.itemID, 18);
+		addItemToList(Item.hoeIron.itemID, 18);
 		addItemToList(Item.hoeDiamond.itemID, 128);
 		addItemToList(Item.hoeGold.itemID, 24);
 		addItemToList(Item.wheat.itemID, 1);
 		addItemToList(Item.bread.itemID, 3);
-		addItemToList(Item.helmetSteel.itemID, 45);
-		addItemToList(Item.plateSteel.itemID, 72);
-		addItemToList(Item.legsSteel.itemID, 63);
-		addItemToList(Item.bootsSteel.itemID, 36);
+		addItemToList(Item.helmetIron.itemID, 45);
+		addItemToList(Item.plateIron.itemID, 72);
+		addItemToList(Item.legsIron.itemID, 63);
+		addItemToList(Item.bootsIron.itemID, 36);
 		addItemToList(Item.helmetDiamond.itemID, 320);
 		addItemToList(Item.plateDiamond.itemID, 512);
 		addItemToList(Item.legsDiamond.itemID, 448);
@@ -135,7 +135,7 @@ public class ManagerGlobalChest {
 		addItemToBanList(Item.bucketWater.itemID);
 		addItemToBanList(Item.bucketLava.itemID);
 		addItemToList(Item.minecartEmpty.itemID, 45);
-		addItemToList(Item.doorSteel.itemID, 54);
+		addItemToList(Item.doorIron.itemID, 54);
 		addItemToList(Item.redstone.itemID, 1);
 		addItemToList(Item.boat.itemID, 5);
 		addItemToList(Item.bucketMilk.itemID, 28);
@@ -161,7 +161,7 @@ public class ManagerGlobalChest {
 		addItemToList(Item.emerald.itemID, 16);
 		addItemToList(Item.netherStar.itemID, 1024);
 		addItemToBanList(Item.enchantedBook.itemID);
-		addItemToList(Item.field_94584_bZ.itemID, 1);
+		addItemToList(Item.netherrackBrick.itemID, 1);
 		// This mod items
 		addItemToList(GlobalChests.globalChest.blockID, -64, 1);
 		addItemToList(GlobalChests.globalLink.itemID, -16, 1);
