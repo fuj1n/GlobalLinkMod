@@ -2,11 +2,11 @@ package fuj1n.globalChestMod.common.blocks;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 
-public abstract class BlockMultiBlock extends Block {
+public abstract class BlockMultiBlock extends BlockContainer {
 
 	public final int[] DIMENSIONS;
 	public final boolean ISHOLLOW;
@@ -32,12 +32,22 @@ public abstract class BlockMultiBlock extends Block {
 	
 	@Override
     public void updateTick(World par1World, int par2, int par3, int par4, Random par5Random) {
+		System.out.println("Tick");
     	boolean flag1 = isMultiBlockCustomShaped() ? canFormMultiBlock(par1World, par2, par3, par4) : canFormMultiBlock_default(par1World, par2, par3, par4);
     	if(flag1){
+    		System.out.println("Building multiblock");
     		formMultiBlock(par1World, par2, par3, par4);
+    	}else{
+    		if(isBlockValidMultiBlockController(par1World, par2, par3, par4)){
+    			System.out.println("Removing multiblock");
+    			breakMultiBlock(par1World, par2, par3, par4);
+    		}
     	}
+    	par1World.scheduleBlockUpdate(par2, par3, par4, this.blockID, this.tickRate(par1World));
     }
     
+	public abstract boolean isBlockValidMultiBlockController(World par1World, int par2, int par3, int par4);
+	
 	/**
 	 * Insert your check for multiblock formation here
 	 * @return if the multiblock can be formed in the current setup.
@@ -50,6 +60,11 @@ public abstract class BlockMultiBlock extends Block {
 	public abstract void formMultiBlock(World par1World, int par2, int par3, int par4);
 
 	/**
+	 * Insert your instructions for multiblock disformation here.
+	 */
+	public abstract void breakMultiBlock(World par1World, int par2, int par3, int par4);
+	
+	/**
 	 * Overwrite and return true if you want to use the canFormMultiBlock method
 	 */
 	public boolean isMultiBlockCustomShaped(){
@@ -59,6 +74,11 @@ public abstract class BlockMultiBlock extends Block {
 	public final boolean canFormMultiBlock_default(World par1World, int par2, int par3, int par4){
 		//TODO
 		return false;
+	}
+	
+	@Override
+    public void onBlockAdded(World par1World, int par2, int par3, int par4) {
+		par1World.scheduleBlockUpdate(par2, par3, par4, this.blockID, this.tickRate(par1World));
 	}
 	
 }

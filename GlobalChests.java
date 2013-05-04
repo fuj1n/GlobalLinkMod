@@ -37,6 +37,7 @@ import fuj1n.globalChestMod.client.nbt.NBTData;
 import fuj1n.globalChestMod.common.CommonProxyGlobalChests;
 import fuj1n.globalChestMod.common.blocks.BlockGlobalChest;
 import fuj1n.globalChestMod.common.blocks.BlockLibrary;
+import fuj1n.globalChestMod.common.blocks.BlockSatLink;
 import fuj1n.globalChestMod.common.enchantment.EnchantmentRange;
 import fuj1n.globalChestMod.common.inventory.ManagerGlobalChest;
 import fuj1n.globalChestMod.common.items.ItemGlobalLink;
@@ -69,6 +70,7 @@ public class GlobalChests {
 	// Block IDs
 	public static int globalChestId = 2564;
 	public static int bookLibraryId = 2565;
+	public static int satLinkId = 2566;
 
 	// Item IDs
 	public static int globalLinkId = 6328;
@@ -86,6 +88,7 @@ public class GlobalChests {
 	// Blocks
 	public static Block globalChest;
 	public static Block bookLibrary;
+	public static Block satLink;
 
 	// Items
 	public static Item globalLink;
@@ -121,6 +124,7 @@ public class GlobalChests {
 		// Blocks
 		globalChestId = config.getBlock("Global Chest Id", globalChestId).getInt();
 		bookLibraryId = config.getBlock("Library Id", bookLibraryId).getInt();
+		satLinkId = config.getBlock("SatLink Id", satLinkId).getInt();
 		// Items
 		globalLinkId = config.getItem("Global Link Id", globalLinkId).getInt();
 		voidStoneId = config.getItem("Void Stone Id", voidStoneId).getInt();
@@ -164,6 +168,7 @@ public class GlobalChests {
 	public void initAllBlocks() {
 		globalChest = new BlockGlobalChest(globalChestId).setCreativeTab(creativeTabGlobalChest).setHardness(3.0F).setResistance(10F).setUnlocalizedName("fuj1n.globalChests.GlobalChest");
 		bookLibrary = new BlockLibrary(bookLibraryId).setCreativeTab(creativeTabGlobalChest).setHardness(3.0F).setResistance(10F).setUnlocalizedName("fuj1n.globalChests.bookLibrary");
+		satLink = new BlockSatLink(satLinkId).setCreativeTab(creativeTabGlobalChest).setHardness(3.0F).setResistance(10F).setUnlocalizedName("fuj1n.globalChests.satLink");
 	}
 
 	public void initAllItems() {
@@ -189,6 +194,7 @@ public class GlobalChests {
 	public void registerAllBlocks() {
 		GameRegistry.registerBlock(globalChest, "fuj1n.globalChests.GlobalChest");
 		GameRegistry.registerBlock(bookLibrary, "fuj1n.globalChests.BookLibrary");
+		GameRegistry.registerBlock(satLink, "fuj1n.globalChests.SatelliteLink");
 	}
 
 	public void mapAllTileEntities() {
@@ -199,6 +205,7 @@ public class GlobalChests {
 	public void addAllNames() {
 		LanguageRegistry.addName(globalChest, "Global Chest");
 		LanguageRegistry.addName(bookLibrary, "Library");
+		LanguageRegistry.addName(satLink, "Sat Link");
 		LanguageRegistry.addName(globalLink, "Global Link");
 		LanguageRegistry.addName(voidStone, "Void Stone");
 		LanguageRegistry.addName(pocketLink, "Pocket Link");
