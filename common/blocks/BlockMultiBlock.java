@@ -32,14 +32,11 @@ public abstract class BlockMultiBlock extends BlockContainer {
 	
 	@Override
     public void updateTick(World par1World, int par2, int par3, int par4, Random par5Random) {
-		System.out.println("Tick");
     	boolean flag1 = isMultiBlockCustomShaped() ? canFormMultiBlock(par1World, par2, par3, par4) : canFormMultiBlock_default(par1World, par2, par3, par4);
     	if(flag1){
-    		System.out.println("Building multiblock");
     		formMultiBlock(par1World, par2, par3, par4);
     	}else{
     		if(isBlockValidMultiBlockController(par1World, par2, par3, par4)){
-    			System.out.println("Removing multiblock");
     			breakMultiBlock(par1World, par2, par3, par4);
     		}
     	}

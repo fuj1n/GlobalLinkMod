@@ -1,5 +1,6 @@
 package fuj1n.globalChestMod.common.items;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -23,6 +24,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import fuj1n.globalChestMod.GlobalChests;
+import fuj1n.globalChestMod.common.blocks.BlockSatLink;
 
 public class ItemPocketLink extends Item {
 
@@ -41,17 +43,19 @@ public class ItemPocketLink extends Item {
 		if (EnchantmentHelper.getEnchantmentLevel(GlobalChests.enchantmentRange.effectId, par1ItemStack) > 0) {
 			range *= (1 + EnchantmentHelper.getEnchantmentLevel(GlobalChests.enchantmentRange.effectId, par1ItemStack));
 		}
-		int blockRequired = GlobalChests.globalChest.blockID;
-		boolean flag1 = isBlockInBB(AxisAlignedBB.getBoundingBox(par3EntityPlayer.posX - range, par3EntityPlayer.posY - range, par3EntityPlayer.posZ - range, par3EntityPlayer.posX + range, par3EntityPlayer.posY + range, par3EntityPlayer.posZ + range), par2World, blockRequired, false, 0);
-		System.out.println(flag1);
-		if (flag1) {
+		int blockRequired = GlobalChests.satLink.blockID;
+		int blockRequiredMeta = 1;
+		List li = isBlockInBB_special(AxisAlignedBB.getBoundingBox(par3EntityPlayer.posX - range, par3EntityPlayer.posY - range, par3EntityPlayer.posZ - range, par3EntityPlayer.posX + range, par3EntityPlayer.posY + range, par3EntityPlayer.posZ + range), par2World, blockRequired, true, blockRequiredMeta);
+		if ((Boolean) li.get(0) && (((BlockSatLink)Block.blocksList[par2World.getBlockId((Integer)li.get(1), (Integer)li.get(2), (Integer)li.get(3))]).isValidSatellite(par2World, (Integer)li.get(1), (Integer)li.get(2), (Integer)li.get(3)))) {
 			// TODO @something
 			if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
 				par3EntityPlayer.addChatMessage(EnumChatFormatting.AQUA + "" + EnumChatFormatting.ITALIC + "The " + par1ItemStack.getDisplayName() + " has used activate, it was not very effective.");
 			}
 		} else {
-			if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
-				par3EntityPlayer.addChatMessage(EnumChatFormatting.AQUA + "A " + Block.blocksList[blockRequired].getLocalizedName() + " is required within a " + range + " block radius in order to activate the " + par1ItemStack.getDisplayName());
+			if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT && !(Boolean)li.get(0)) {
+				par3EntityPlayer.addChatMessage(EnumChatFormatting.AQUA + "A " + new ItemStack(Block.blocksList[blockRequired], 1, 1).getDisplayName() + " Multiblock is required within a " + range + " block radius in order to activate the " + par1ItemStack.getDisplayName());
+			}else if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT && (Boolean)li.get(0)) {
+				par3EntityPlayer.addChatMessage(EnumChatFormatting.AQUA + "A " + GlobalChests.globalChest.getLocalizedName() + " is required within a " + 2 + " block radius of the " + Block.blocksList[blockRequired].getLocalizedName() + " Multiblock in order to activate the " + par1ItemStack.getDisplayName());
 			}
 		}
 		return par1ItemStack;
@@ -95,7 +99,50 @@ public class ItemPocketLink extends Item {
 
 		return false;
 	}
+	
+	/**
+	 * Checks if a specified block exists within the provided BB and returns its state with the coordinates in the form of a list.
+	 * 
+	 * @param par1AxisAlignedBB
+	 *            The bounding box to look within
+	 * @param par2World
+	 *            The world object
+	 * @param par3
+	 *            The block ID to search for
+	 * @param flag1
+	 *            Is the block metadata sensitive
+	 * @param par4
+	 *            If the block is metadata sensitive, specify the metadata to
+	 *            look for.
+	 * @return Whether the block exists within the AABB.
+	 */
+	public List isBlockInBB_special(AxisAlignedBB par1AxisAlignedBB, World par2World, int par3, boolean flag1, int par4) {
+		List li = new ArrayList();
+		int i = MathHelper.floor_double(par1AxisAlignedBB.minX);
+		int j = MathHelper.floor_double(par1AxisAlignedBB.maxX + 1.0D);
+		int k = MathHelper.floor_double(par1AxisAlignedBB.minY);
+		int l = MathHelper.floor_double(par1AxisAlignedBB.maxY + 1.0D);
+		int i1 = MathHelper.floor_double(par1AxisAlignedBB.minZ);
+		int j1 = MathHelper.floor_double(par1AxisAlignedBB.maxZ + 1.0D);
 
+		for (int k1 = i; k1 < j; ++k1) {
+			for (int l1 = k; l1 < l; ++l1) {
+				for (int i2 = i1; i2 < j1; ++i2) {
+					Block block = Block.blocksList[par2World.getBlockId(k1, l1, i2)];
+
+					if (block != null && block.blockID == par3 && (!flag1 || par2World.getBlockMetadata(k1, l1, i2) == par4)) {
+						li = new ArrayList();
+						li.add(true); li.add(k1); li.add(l1); li.add(i2);
+						return li;
+					}
+				}
+			}
+		}
+
+		li.add(false);
+		return li;
+	}
+	
 	/**
 	 * Finds the nearest block to player.
 	 * 

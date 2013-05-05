@@ -54,6 +54,8 @@ public class RenderSatLink implements ISimpleBlockRenderingHandler{
 		if(world.getBlockMetadata(x, y, z) == 0){
 			renderer.setRenderBounds(0.4D, 0.0D, 0.4D, 0.6D, 1.0D, 0.6D);
 			renderer.renderStandardBlock(block, x, y, z);
+			renderer.setRenderBounds(0.0D, 0.0D, 0.0D, 1.0D, 0.05D, 1.0D);
+			renderer.renderStandardBlock(block, x, y, z);
 			return true;
 		}
 		return false;
