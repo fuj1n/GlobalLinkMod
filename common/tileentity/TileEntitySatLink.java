@@ -1,9 +1,9 @@
 package fuj1n.globalChestMod.common.tileentity;
 
-import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.World;
 
 public class TileEntitySatLink extends TileEntity{
 
@@ -23,10 +23,5 @@ public class TileEntitySatLink extends TileEntity{
     public AxisAlignedBB getRenderBoundingBox(){
 		AxisAlignedBB bb = AxisAlignedBB.getAABBPool().getAABB(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 2, zCoord + 1);
         return bb;
-    }
-	
-    public boolean isInvalid()
-    {
-        return this.tileEntityInvalid || this.getBlockMetadata() == 0;
     }
 }
