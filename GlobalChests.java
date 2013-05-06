@@ -39,7 +39,6 @@ import fuj1n.globalChestMod.common.blocks.BlockGlobalChest;
 import fuj1n.globalChestMod.common.blocks.BlockLibrary;
 import fuj1n.globalChestMod.common.blocks.BlockSatLink;
 import fuj1n.globalChestMod.common.enchantment.EnchantmentRange;
-import fuj1n.globalChestMod.common.inventory.ManagerGlobalChest;
 import fuj1n.globalChestMod.common.items.ItemGlobalLink;
 import fuj1n.globalChestMod.common.items.ItemMulti;
 import fuj1n.globalChestMod.common.items.ItemPocketLink;
@@ -48,6 +47,7 @@ import fuj1n.globalChestMod.common.items.recipe.RecipeVoidStone;
 import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
 import fuj1n.globalChestMod.common.tileentity.TileEntityLibrary;
 import fuj1n.globalChestMod.lib.BookLibraryReference;
+import fuj1n.globalChestMod.lib.ManagerGlobalChest;
 import fuj1n.globalChestMod.lib.MultiItemReference;
 
 @Mod(modid = "fuj1n.GlobalChests", name = CommonProxyGlobalChests.modName, version = CommonProxyGlobalChests.version)

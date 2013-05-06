@@ -1,4 +1,4 @@
-package fuj1n.globalChestMod.common.inventory;
+package fuj1n.globalChestMod.lib;
 
 import java.util.ArrayList;
 
@@ -7,7 +7,7 @@ import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import fuj1n.globalChestMod.GlobalChests;
-import fuj1n.globalChestMod.lib.MultiItemReference;
+import fuj1n.globalChestMod.common.inventory.InventoryGlobalChest;
 
 public class ManagerGlobalChest {
 

@@ -15,8 +15,8 @@ import org.lwjgl.opengl.GL11;
 import fuj1n.globalChestMod.GlobalChests;
 import fuj1n.globalChestMod.common.inventory.ContainerGlobalChest;
 import fuj1n.globalChestMod.common.inventory.InventoryGlobalChest;
-import fuj1n.globalChestMod.common.inventory.ManagerGlobalChest;
 import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
+import fuj1n.globalChestMod.lib.ManagerGlobalChest;
 
 /**
  * @author fuj1n
