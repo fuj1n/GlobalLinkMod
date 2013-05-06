@@ -12,7 +12,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.EnumHelper;
@@ -44,6 +43,7 @@ import fuj1n.globalChestMod.common.items.ItemMulti;
 import fuj1n.globalChestMod.common.items.ItemPocketLink;
 import fuj1n.globalChestMod.common.items.ItemVoidStone;
 import fuj1n.globalChestMod.common.items.recipe.RecipeVoidStone;
+import fuj1n.globalChestMod.common.modcompat.ModCompatibilityGlobalChests;
 import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
 import fuj1n.globalChestMod.common.tileentity.TileEntityLibrary;
 import fuj1n.globalChestMod.lib.BookLibraryReference;
@@ -104,6 +104,9 @@ public class GlobalChests {
 	// Global Chest Manager
 	public static ManagerGlobalChest globalChestManager;
 
+	// Compatibility Stuff
+	public static ModCompatibilityGlobalChests modCompat;
+	
 	// Reference Classes
 	MultiItemReference multiItemReference = new MultiItemReference();
 	BookLibraryReference libraryStorageReference = new BookLibraryReference();
@@ -138,6 +141,7 @@ public class GlobalChests {
 		maxPocketLinkRange = config.get("Global Linking Configuration", "Max Pocket Link Range", maxPocketLinkRange).getInt();
 		config.save();
 		libraryStorageReference.populateBooksList();
+		modCompat = new ModCompatibilityGlobalChests();
 	}
 
 	public void configPreInit() {
@@ -163,6 +167,7 @@ public class GlobalChests {
 	@PostInit
 	public void PostInit(FMLPostInitializationEvent event) {
 		proxy.PostInit();
+		modCompat.postInit();
 	}
 
 	public void initAllBlocks() {
