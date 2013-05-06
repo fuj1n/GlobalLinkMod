@@ -81,6 +81,7 @@ class GuiGlobalChest extends GuiContainer {
 	@Override
 	protected void drawItemStackTooltip(ItemStack par1ItemStack, int par2, int par3) {
 		List list = par1ItemStack.getTooltip(mc.thePlayer, mc.gameSettings.advancedItemTooltips);
+		boolean shouldShowAddInfo = this.isShiftKeyDown();
 		Slot slot = null;
 		boolean flag0 = false;
 		for (int i = 0; i < inventorySlots.inventorySlots.size(); i++) {
@@ -112,30 +113,33 @@ class GuiGlobalChest extends GuiContainer {
 		if (slot != null) {
 			flag1 = slot.inventory instanceof InventoryGlobalChest;
 		}
-
-		if(GlobalChests.globalChestManager.isItemCheatItem(par1ItemStack) && !flag1){
-			list.add("This item removes storage limits.");
-		}else if(GlobalChests.globalChestManager.isItemCheatItem(par1ItemStack) && flag1 && container.totalPrice > GlobalChests.globalChestManager.maxWeight){
-			list.add("Cannot remove this item.");
-		}else{
-			if (GlobalChests.globalChestManager.isItemBanned(par1ItemStack)) {
-				list.add(EnumChatFormatting.GRAY + "This item cannot be transfered.");
-			} else {
-				if (GlobalChests.globalChestManager.getItemPrice(par1ItemStack) < 0) {
-					list.add(EnumChatFormatting.GRAY + "This item frees: " + -GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), 1)) + " Grams");
+		if(shouldShowAddInfo){
+			if(GlobalChests.globalChestManager.isItemCheatItem(par1ItemStack) && !flag1){
+				list.add("This item removes storage limits.");
+			}else if(GlobalChests.globalChestManager.isItemCheatItem(par1ItemStack) && flag1 && container.totalPrice > GlobalChests.globalChestManager.maxWeight){
+				list.add("Cannot remove this item.");
+			}else{
+				if (GlobalChests.globalChestManager.isItemBanned(par1ItemStack)) {
+					list.add(EnumChatFormatting.GRAY + "This item cannot be transfered.");
 				} else {
-					list.add(EnumChatFormatting.GRAY + "This item weights: " + GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), 1)) + " Grams");
-					list.add(EnumChatFormatting.GRAY + "This stack weights: " + GlobalChests.globalChestManager.getItemPrice(par1ItemStack) + " Grams");
-				}
-				if (GlobalChests.globalChestManager.isItemStackLimited(par1ItemStack)) {
-					list.add(EnumChatFormatting.GRAY + "The amount of this item is limited to: " + GlobalChests.globalChestManager.getStackLimit(par1ItemStack));
-				}
-				if (container.totalPrice + GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), par1ItemStack.stackSize)) > GlobalChests.globalChestManager.maxWeight && !flag1) {
-					list.add(EnumChatFormatting.GRAY + "Cannot fit this stack.");
-				} else if (container.totalPrice - GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), par1ItemStack.stackSize)) > GlobalChests.globalChestManager.maxWeight && flag1) {
-					list.add(EnumChatFormatting.GRAY + "Cannot remove this stack.");
+					if (GlobalChests.globalChestManager.getItemPrice(par1ItemStack) < 0) {
+						list.add(EnumChatFormatting.GRAY + "This item frees: " + -GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), 1)) + " Grams");
+					} else {
+						list.add(EnumChatFormatting.GRAY + "This item weights: " + GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), 1)) + " Grams");
+						list.add(EnumChatFormatting.GRAY + "This stack weights: " + GlobalChests.globalChestManager.getItemPrice(par1ItemStack) + " Grams");
+					}
+					if (GlobalChests.globalChestManager.isItemStackLimited(par1ItemStack)) {
+						list.add(EnumChatFormatting.GRAY + "The amount of this item is limited to: " + GlobalChests.globalChestManager.getStackLimit(par1ItemStack));
+					}
+					if (container.totalPrice + GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), par1ItemStack.stackSize)) > GlobalChests.globalChestManager.maxWeight && !flag1) {
+						list.add(EnumChatFormatting.GRAY + "Cannot fit this stack.");
+					} else if (container.totalPrice - GlobalChests.globalChestManager.getItemPrice(new ItemStack(par1ItemStack.getItem(), par1ItemStack.stackSize)) > GlobalChests.globalChestManager.maxWeight && flag1) {
+						list.add(EnumChatFormatting.GRAY + "Cannot remove this stack.");
+					}
 				}
 			}
+		}else{
+			list.add("Press Shift to show weight info");
 		}
 
 		for (int k = 0; k < list.size(); ++k) {
