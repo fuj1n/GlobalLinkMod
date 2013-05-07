@@ -1,5 +1,6 @@
 package fuj1n.globalChestMod.common.modcompat;
 
+import buildcraft.BuildCraftBuilders;
 import buildcraft.BuildCraftCore;
 import buildcraft.BuildCraftEnergy;
 import cpw.mods.fml.common.Loader;
@@ -73,6 +74,12 @@ public class CompatModuleBC extends CompatModule{
 		//Blocks
 		me.addItemToBanList(BuildCraftCore.springBlock.blockID);
 		me.addItemToList(BuildCraftEnergy.engineBlock.blockID, 36);
+		me.addItemToList(BuildCraftBuilders.markerBlock.blockID, 2);
+		me.addItemToList(BuildCraftBuilders.pathMarkerBlock.blockID, 2);
+		me.addItemToList(BuildCraftBuilders.fillerBlock.blockID, 46);
+		me.addItemToList(BuildCraftBuilders.builderBlock.blockID, 728);
+		me.addItemToList(BuildCraftBuilders.architectBlock.blockID, 729);
+		me.addItemToList(BuildCraftBuilders.libraryBlock.blockID, 73);
 		//Items
 		me.addItemToList(BuildCraftCore.woodenGearItem.itemID, 2);
 		me.addItemToList(BuildCraftCore.stoneGearItem.itemID, 6);
@@ -82,6 +89,8 @@ public class CompatModuleBC extends CompatModule{
 		me.addItemToList(BuildCraftCore.wrenchItem.itemID, 33);
 		me.addItemToBanList(BuildCraftEnergy.bucketOil.itemID);
 		me.addItemToBanList(BuildCraftEnergy.fuelLiquid.itemID);
+		me.addItemToList(BuildCraftBuilders.templateItem.itemID, 9);
+		me.addItemToList(BuildCraftBuilders.blueprintItem.itemID, 9);
 	}
 	
 }
