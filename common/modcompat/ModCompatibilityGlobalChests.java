@@ -20,6 +20,20 @@ public class ModCompatibilityGlobalChests {
 		callModCompatibilityInitializers();
 	}
 	
+	/**
+	 * Gets an instance of CompatModule from the name.
+	 * @param modName The name of the mod as defined by CompatModule.MODNAME
+	 * @return An instance of CompatModule matching the mod name. Returns null if none found.
+	 */
+	public static CompatModule getModuleByName(String modName){
+		for(int i = 0; i < modulesList.size(); i++){
+			if(modulesList.get(i).MODNAME.equals(modName)){
+				return modulesList.get(i);
+			}
+		}
+		return null;
+	}
+	
 	public void getBuiltInCompatMods(){
 		if(Loader.isModLoaded("BuildCraft|Core")){
 			modulesList.add(new CompatModuleBC());
