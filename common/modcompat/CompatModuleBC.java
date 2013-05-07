@@ -1,6 +1,7 @@
 package fuj1n.globalChestMod.common.modcompat;
 
 import buildcraft.BuildCraftCore;
+import buildcraft.BuildCraftEnergy;
 import cpw.mods.fml.common.Loader;
 import fuj1n.globalChestMod.GlobalChests;
 import fuj1n.globalChestMod.lib.ManagerGlobalChest;
@@ -71,6 +72,7 @@ public class CompatModuleBC extends CompatModule{
 		ManagerGlobalChest me = GlobalChests.globalChestManager;
 		//Blocks
 		me.addItemToBanList(BuildCraftCore.springBlock.blockID);
+		me.addItemToList(BuildCraftEnergy.engineBlock.blockID, 36);
 		//Items
 		me.addItemToList(BuildCraftCore.woodenGearItem.itemID, 2);
 		me.addItemToList(BuildCraftCore.stoneGearItem.itemID, 6);
@@ -78,6 +80,8 @@ public class CompatModuleBC extends CompatModule{
 		me.addItemToList(BuildCraftCore.goldGearItem.itemID, 90);
 		me.addItemToList(BuildCraftCore.diamondGearItem.itemID, 346);
 		me.addItemToList(BuildCraftCore.wrenchItem.itemID, 33);
+		me.addItemToBanList(BuildCraftEnergy.bucketOil.itemID);
+		me.addItemToBanList(BuildCraftEnergy.fuelLiquid.itemID);
 	}
 	
 }
