@@ -72,8 +72,11 @@ public class CompatModuleBC extends CompatModule{
 	public void addAllGlobalChestWeights(){
 		ManagerGlobalChest me = GlobalChests.globalChestManager;
 		//Blocks
+			//CORE
 		me.addItemToBanList(BuildCraftCore.springBlock.blockID);
+			//ENERGY
 		me.addItemToList(BuildCraftEnergy.engineBlock.blockID, 36);
+			//BUILDERS
 		me.addItemToList(BuildCraftBuilders.markerBlock.blockID, 2);
 		me.addItemToList(BuildCraftBuilders.pathMarkerBlock.blockID, 2);
 		me.addItemToList(BuildCraftBuilders.fillerBlock.blockID, 46);
@@ -81,14 +84,17 @@ public class CompatModuleBC extends CompatModule{
 		me.addItemToList(BuildCraftBuilders.architectBlock.blockID, 729);
 		me.addItemToList(BuildCraftBuilders.libraryBlock.blockID, 73);
 		//Items
+			//CORE
 		me.addItemToList(BuildCraftCore.woodenGearItem.itemID, 2);
 		me.addItemToList(BuildCraftCore.stoneGearItem.itemID, 6);
 		me.addItemToList(BuildCraftCore.ironGearItem.itemID, 42);
 		me.addItemToList(BuildCraftCore.goldGearItem.itemID, 90);
 		me.addItemToList(BuildCraftCore.diamondGearItem.itemID, 346);
 		me.addItemToList(BuildCraftCore.wrenchItem.itemID, 33);
+			//ENERGY
 		me.addItemToBanList(BuildCraftEnergy.bucketOil.itemID);
 		me.addItemToBanList(BuildCraftEnergy.fuelLiquid.itemID);
+			//BUILDERS
 		me.addItemToList(BuildCraftBuilders.templateItem.itemID, 9);
 		me.addItemToList(BuildCraftBuilders.blueprintItem.itemID, 9);
 	}
