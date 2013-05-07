@@ -21,6 +21,9 @@ public class ModCompatibilityGlobalChests {
 	}
 	
 	public void getBuiltInCompatMods(){
+		if(Loader.isModLoaded("BuildCraft|Core")){
+			modulesList.add(new CompatModuleBC());
+		}
 		if(Loader.isModLoaded("IC2")){
 			modulesList.add(new CompatModuleIC2());
 		}
