@@ -1,11 +1,13 @@
 package fuj1n.globalChestMod.lib;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 import fuj1n.globalChestMod.GlobalChests;
 import fuj1n.globalChestMod.common.inventory.InventoryGlobalChest;
 
@@ -14,6 +16,10 @@ public class ManagerGlobalChest {
 	private ArrayList<Integer> stackList = new ArrayList();
 	private ArrayList<Integer> priceList = new ArrayList();
 	private ArrayList<Integer> banList = new ArrayList();
+	
+	private ArrayList<String> oreDictStackList = new ArrayList();
+	private ArrayList<Integer> oreDictPriceList = new ArrayList();
+	private ArrayList<String> oreDictBanList = new ArrayList();
 	
 	private ArrayList<ItemStack> cheatItemList = new ArrayList();
 
@@ -282,8 +288,22 @@ public class ManagerGlobalChest {
 		addCheatToList(new ItemStack(GlobalChests.multiItem.itemID, 1, MultiItemReference.VALUE_CHEATSTORAGE));
 	}
 
+	/**
+	 * Retrieves the weight of the item.
+	 * @param par1ItemStack The ItemStack to test the weight for.
+	 * @return Weight of the item.
+	 */
 	public int getItemPrice(ItemStack par1ItemStack) {
 		if (par1ItemStack != null) {
+			for(int i = 0; i < oreDictStackList.size(); i++){
+				List<ItemStack> oreDictItems = OreDictionary.getOres(oreDictStackList.get(i));
+				for(int j = 0; j < oreDictItems.size(); j++){
+					if(oreDictItems.get(j).isItemEqual(par1ItemStack)){
+						return oreDictPriceList.get(i);
+					}
+				}
+			}
+			
 			if (stackList.contains(par1ItemStack.getItem().itemID)) {
 				int index = stackList.indexOf(par1ItemStack.getItem().itemID);
 				return priceList.get(index) * par1ItemStack.stackSize;
@@ -296,10 +316,29 @@ public class ManagerGlobalChest {
 		return 0;
 	}
 
+	/**
+	 * Tests to see if the item is banned from the inventory.
+	 * @param par1ItemStack The ItemStack to test.
+	 * @return Whether the item is banned.
+	 */
 	public boolean isItemBanned(ItemStack par1ItemStack) {
+		for(int i = 0; i < oreDictBanList.size(); i++){
+			List<ItemStack> oreDictItems = OreDictionary.getOres(oreDictBanList.get(i));
+			for(int j = 0; j < oreDictItems.size(); j++){
+				if(oreDictItems.get(j).isItemEqual(par1ItemStack)){
+					return true;
+				}
+			}
+		}
+		
 		return banList.contains(par1ItemStack.getItem().itemID);
 	}
 	
+	/**
+	 * Checks if there is a limit on how many items can fit.
+	 * @param par1ItemStack The ItemStack to test.
+	 * @return Whether the stack is limited.
+	 */
 	public boolean isItemStackLimited(ItemStack par1ItemStack) {
 		if (stackList.contains(par1ItemStack.getItem().itemID)) {
 			int index = stackList.indexOf(par1ItemStack.getItem().itemID);
@@ -309,6 +348,11 @@ public class ManagerGlobalChest {
 		}
 	}
 
+	/**
+	 * Gets the limit on how many items can fit.
+	 * @param par1ItemStack The ItemStack to test.
+	 * @return The limit of the stack.
+	 */
 	public int getStackLimit(ItemStack par1ItemStack) {
 		if (stackList.contains(par1ItemStack.getItem().itemID)) {
 			int index = stackList.indexOf(par1ItemStack.getItem().itemID);
@@ -318,16 +362,34 @@ public class ManagerGlobalChest {
 		}
 	}
 
+	/**
+	 * Adds the ID to the list of items.
+	 * @param ID The item ID
+	 * @param price The item weight
+	 */
 	public void addItemToList(int ID, int price) {
 		stackList.add(ID);
 		priceList.add(price);
 		stackLimit.add(0);
 	}
 
+	/**
+	 * Adds the ID and the StackLimit to the list of items.
+	 * @param ID The item ID
+	 * @param price The item weight
+	 */
 	public void addItemToList(int ID, int price, int stackLimit) {
 		stackList.add(ID);
 		priceList.add(price);
 		this.stackLimit.add(stackLimit);
+	}
+	
+	/**
+	 * The OreDictionary version of addItemToList(int ID, int price).
+	 */
+	public void addItemToList(String name, int price){
+		oreDictStackList.add(name);
+		oreDictPriceList.add(price);
 	}
 
 	/**
@@ -338,6 +400,12 @@ public class ManagerGlobalChest {
 		cheatItemList.add(is);
 	}
 	
+	/**
+	 * Detects the number of a particular number of a certain item in inventory.
+	 * @param par1InventoryGlobalChest The inventory to search
+	 * @param par2ItemStack The ItemStack containing the item to search for.
+	 * @return The number of items.
+	 */
 	public int getNumOfItemStackInInventory(InventoryGlobalChest par1InventoryGlobalChest, ItemStack par2ItemStack) {
 		int returnValue = 0;
 		for (int i = 0; i < par1InventoryGlobalChest.getSizeInventory(); i++) {
@@ -351,10 +419,26 @@ public class ManagerGlobalChest {
 		return returnValue;
 	}
 
+	/**
+	 * Adds the item to ban list.
+	 * @param ID The ID of the item.
+	 */
 	public void addItemToBanList(int ID) {
 		banList.add(ID);
 	}
 	
+	/**
+	 * The OreDictionary version of addItemToBanList(int ID)
+	 */
+	public void addItemToBanList(String name){
+		oreDictBanList.add(name);
+	}
+	
+	/**
+	 * Checks to see if the item is a cheat item.
+	 * @param par1ItemStack The ItemStack to test.
+	 * @return If the item is a cheat item.
+	 */
 	public boolean isItemCheatItem(ItemStack par1ItemStack){
 		for(int i = 0; i < cheatItemList.size(); i++){
 			if(par1ItemStack != null && par1ItemStack.itemID == cheatItemList.get(i).itemID){
@@ -366,6 +450,11 @@ public class ManagerGlobalChest {
 		return false;
 	}
 	
+	/**
+	 * Checks if the inventory has a cheat item.
+	 * @param inv The inventory.
+	 * @return if the cheat item exists in the inventory.
+	 */
 	public boolean cheatItemExists(InventoryBasic inv){
 		for(int i = 0; i < inv.getSizeInventory(); i++){
 			for(int j = 0; j < cheatItemList.size(); j++){

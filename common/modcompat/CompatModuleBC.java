@@ -69,11 +69,15 @@ public class CompatModuleBC extends CompatModule{
 	
 	public void addAllGlobalChestWeights(){
 		ManagerGlobalChest me = GlobalChests.globalChestManager;
+		//Blocks
+		me.addItemToBanList(BuildCraftCore.springBlock.blockID);
+		//Items
 		me.addItemToList(BuildCraftCore.woodenGearItem.itemID, 2);
 		me.addItemToList(BuildCraftCore.stoneGearItem.itemID, 6);
 		me.addItemToList(BuildCraftCore.ironGearItem.itemID, 42);
 		me.addItemToList(BuildCraftCore.goldGearItem.itemID, 90);
 		me.addItemToList(BuildCraftCore.diamondGearItem.itemID, 346);
+		me.addItemToList(BuildCraftCore.wrenchItem.itemID, 33);
 	}
 	
 }
