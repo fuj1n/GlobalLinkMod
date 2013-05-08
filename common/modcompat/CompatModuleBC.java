@@ -3,6 +3,7 @@ package fuj1n.globalChestMod.common.modcompat;
 import buildcraft.BuildCraftBuilders;
 import buildcraft.BuildCraftCore;
 import buildcraft.BuildCraftEnergy;
+import buildcraft.BuildCraftFactory;
 import buildcraft.BuildCraftTransport;
 import cpw.mods.fml.common.Loader;
 import fuj1n.globalChestMod.GlobalChests;
@@ -85,6 +86,15 @@ public class CompatModuleBC extends CompatModule{
 		me.addItemToList(BuildCraftBuilders.architectBlock.blockID, 729);
 		me.addItemToList(BuildCraftBuilders.libraryBlock.blockID, 73);
 			//TRANSPORT
+			//FACTORY
+		me.addItemToList(BuildCraftFactory.quarryBlock.blockID, 999);
+		me.addItemToList(BuildCraftFactory.miningWellBlock.blockID, 124);
+		me.addItemToList(BuildCraftFactory.autoWorkbenchBlock.blockID, 12);
+		me.addItemToBanList(BuildCraftFactory.frameBlock.blockID);
+		me.addItemToList(BuildCraftFactory.pumpBlock.blockID, 132);
+		me.addItemToList(BuildCraftFactory.tankBlock.blockID, 8);
+		me.addItemToList(BuildCraftFactory.refineryBlock.blockID, 373);
+		me.addItemToList(BuildCraftFactory.hopperBlock.blockID, 59);
 		//Items
 			//CORE
 		me.addItemToList(BuildCraftCore.woodenGearItem.itemID, 2);
@@ -130,6 +140,7 @@ public class CompatModuleBC extends CompatModule{
 		me.addItemToList(BuildCraftTransport.pipePowerGold.itemID, 26);
 		me.addItemToList(BuildCraftTransport.facadeItem.itemID, 7);
 		me.addItemToList(BuildCraftTransport.pipeStructureCobblestone.itemID, 4);
+			//FACTORY
 	}
 	
 }
