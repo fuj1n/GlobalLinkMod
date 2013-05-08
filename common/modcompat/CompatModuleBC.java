@@ -4,6 +4,7 @@ import buildcraft.BuildCraftBuilders;
 import buildcraft.BuildCraftCore;
 import buildcraft.BuildCraftEnergy;
 import buildcraft.BuildCraftFactory;
+import buildcraft.BuildCraftSilicon;
 import buildcraft.BuildCraftTransport;
 import cpw.mods.fml.common.Loader;
 import fuj1n.globalChestMod.GlobalChests;
@@ -95,6 +96,9 @@ public class CompatModuleBC extends CompatModule{
 		me.addItemToList(BuildCraftFactory.tankBlock.blockID, 8);
 		me.addItemToList(BuildCraftFactory.refineryBlock.blockID, 373);
 		me.addItemToList(BuildCraftFactory.hopperBlock.blockID, 59);
+			//SILICON
+		me.addItemToList(BuildCraftSilicon.laserBlock.blockID, 135);
+		me.addItemToList(BuildCraftSilicon.assemblyTableBlock.blockID, 417);
 		//Items
 			//CORE
 		me.addItemToList(BuildCraftCore.woodenGearItem.itemID, 2);
@@ -141,6 +145,8 @@ public class CompatModuleBC extends CompatModule{
 		me.addItemToList(BuildCraftTransport.facadeItem.itemID, 7);
 		me.addItemToList(BuildCraftTransport.pipeStructureCobblestone.itemID, 4);
 			//FACTORY
+			//SILICON
+		me.addItemToList(BuildCraftSilicon.redstoneChipset.itemID, 2);
 	}
 	
 }
