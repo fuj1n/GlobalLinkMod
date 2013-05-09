@@ -1,4 +1,4 @@
-package fuj1n.globalChestMod.client.gui;
+package fuj1n.globalLinkMod.client.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -7,8 +7,8 @@ import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
-import fuj1n.globalChestMod.GlobalChests;
-import fuj1n.globalChestMod.common.inventory.ContainerVoidStone;
+import fuj1n.globalLinkMod.GlobalChests;
+import fuj1n.globalLinkMod.common.inventory.ContainerVoidStone;
 
 public class GuiVoidStone extends GuiContainer {
 

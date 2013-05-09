@@ -1,4 +1,4 @@
-package fuj1n.globalChestMod.common.items;
+package fuj1n.globalLinkMod.common.items;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +23,8 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
-import fuj1n.globalChestMod.GlobalChests;
-import fuj1n.globalChestMod.common.blocks.BlockSatLink;
+import fuj1n.globalLinkMod.GlobalChests;
+import fuj1n.globalLinkMod.common.blocks.BlockSatLink;
 
 public class ItemPocketLink extends Item {
 
@@ -46,15 +46,15 @@ public class ItemPocketLink extends Item {
 		int blockRequired = GlobalChests.satLink.blockID;
 		int blockRequiredMeta = 1;
 		List li = isBlockInBB_special(AxisAlignedBB.getBoundingBox(par3EntityPlayer.posX - range, par3EntityPlayer.posY - range, par3EntityPlayer.posZ - range, par3EntityPlayer.posX + range, par3EntityPlayer.posY + range, par3EntityPlayer.posZ + range), par2World, blockRequired, true, blockRequiredMeta);
-		if ((Boolean) li.get(0) && (((BlockSatLink)Block.blocksList[par2World.getBlockId((Integer)li.get(1), (Integer)li.get(2), (Integer)li.get(3))]).isValidSatellite(par2World, (Integer)li.get(1), (Integer)li.get(2), (Integer)li.get(3)))) {
+		if ((Boolean) li.get(0) && (((BlockSatLink) Block.blocksList[par2World.getBlockId((Integer) li.get(1), (Integer) li.get(2), (Integer) li.get(3))]).isValidSatellite(par2World, (Integer) li.get(1), (Integer) li.get(2), (Integer) li.get(3)))) {
 			// TODO @something
 			if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
 				par3EntityPlayer.addChatMessage(EnumChatFormatting.AQUA + "" + EnumChatFormatting.ITALIC + "The " + par1ItemStack.getDisplayName() + " has used activate, it was not very effective.");
 			}
 		} else {
-			if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT && !(Boolean)li.get(0)) {
+			if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT && !(Boolean) li.get(0)) {
 				par3EntityPlayer.addChatMessage(EnumChatFormatting.AQUA + "A " + new ItemStack(Block.blocksList[blockRequired], 1, 1).getDisplayName() + " Multiblock is required within a " + range + " block radius in order to activate the " + par1ItemStack.getDisplayName());
-			}else if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT && (Boolean)li.get(0)) {
+			} else if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT && (Boolean) li.get(0)) {
 				par3EntityPlayer.addChatMessage(EnumChatFormatting.AQUA + "A " + GlobalChests.globalChest.getLocalizedName() + " is required within a " + 2 + " block radius of the " + Block.blocksList[blockRequired].getLocalizedName() + " Multiblock in order to activate the " + par1ItemStack.getDisplayName());
 			}
 		}
@@ -99,9 +99,10 @@ public class ItemPocketLink extends Item {
 
 		return false;
 	}
-	
+
 	/**
-	 * Checks if a specified block exists within the provided BB and returns its state with the coordinates in the form of a list.
+	 * Checks if a specified block exists within the provided BB and returns its
+	 * state with the coordinates in the form of a list.
 	 * 
 	 * @param par1AxisAlignedBB
 	 *            The bounding box to look within
@@ -132,7 +133,10 @@ public class ItemPocketLink extends Item {
 
 					if (block != null && block.blockID == par3 && (!flag1 || par2World.getBlockMetadata(k1, l1, i2) == par4)) {
 						li = new ArrayList();
-						li.add(true); li.add(k1); li.add(l1); li.add(i2);
+						li.add(true);
+						li.add(k1);
+						li.add(l1);
+						li.add(i2);
 						return li;
 					}
 				}
@@ -142,7 +146,7 @@ public class ItemPocketLink extends Item {
 		li.add(false);
 		return li;
 	}
-	
+
 	/**
 	 * Finds the nearest block to player.
 	 * 

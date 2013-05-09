@@ -1,14 +1,14 @@
-package fuj1n.globalChestMod.client.gui;
+package fuj1n.globalLinkMod.client.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
-import fuj1n.globalChestMod.common.inventory.ContainerBookLibrary;
-import fuj1n.globalChestMod.common.inventory.ContainerGlobalChest;
-import fuj1n.globalChestMod.common.inventory.ContainerVoidStone;
-import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
-import fuj1n.globalChestMod.common.tileentity.TileEntityLibrary;
-import fuj1n.globalChestMod.lib.GuiAssistant;
+import fuj1n.globalLinkMod.common.inventory.ContainerBookLibrary;
+import fuj1n.globalLinkMod.common.inventory.ContainerGlobalChest;
+import fuj1n.globalLinkMod.common.inventory.ContainerVoidStone;
+import fuj1n.globalLinkMod.common.tileentity.TileEntityGlobalChest;
+import fuj1n.globalLinkMod.common.tileentity.TileEntityLibrary;
+import fuj1n.globalLinkMod.lib.GuiAssistant;
 
 public class GuiHandler implements IGuiHandler {
 
@@ -20,7 +20,7 @@ public class GuiHandler implements IGuiHandler {
 		case GuiAssistant.ID_VOIDSTONE:
 			return new ContainerVoidStone(player.inventory);
 		case GuiAssistant.ID_LIBRARY:
-			return new ContainerBookLibrary(player, (TileEntityLibrary)world.getBlockTileEntity(x, y, z));
+			return new ContainerBookLibrary(player, (TileEntityLibrary) world.getBlockTileEntity(x, y, z));
 		}
 		return null;
 	}
@@ -33,7 +33,7 @@ public class GuiHandler implements IGuiHandler {
 		case GuiAssistant.ID_VOIDSTONE:
 			return new GuiVoidStone(player.inventory);
 		case GuiAssistant.ID_LIBRARY:
-			return new GuiLibrary(player, (TileEntityLibrary)world.getBlockTileEntity(x, y, z), world.getBlockMetadata(x, y, z));
+			return new GuiLibrary(player, (TileEntityLibrary) world.getBlockTileEntity(x, y, z), world.getBlockMetadata(x, y, z));
 		}
 		return null;
 	}

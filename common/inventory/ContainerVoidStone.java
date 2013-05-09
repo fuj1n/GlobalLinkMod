@@ -1,4 +1,4 @@
-package fuj1n.globalChestMod.common.inventory;
+package fuj1n.globalLinkMod.common.inventory;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;

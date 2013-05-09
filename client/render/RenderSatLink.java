@@ -1,15 +1,16 @@
-package fuj1n.globalChestMod.client.render;
-
-import org.lwjgl.opengl.GL11;
+package fuj1n.globalLinkMod.client.render;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.IBlockAccess;
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import fuj1n.globalChestMod.client.ClientProxyGlobalChests;
 
-public class RenderSatLink implements ISimpleBlockRenderingHandler{
+import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
+import fuj1n.globalLinkMod.client.ClientProxyGlobalChests;
+
+public class RenderSatLink implements ISimpleBlockRenderingHandler {
 
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
@@ -51,7 +52,7 @@ public class RenderSatLink implements ISimpleBlockRenderingHandler{
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
-		if(world.getBlockMetadata(x, y, z) == 0){
+		if (world.getBlockMetadata(x, y, z) == 0) {
 			renderer.setRenderBounds(0.4D, 0.0D, 0.4D, 0.6D, 1.0D, 0.6D);
 			renderer.renderStandardBlock(block, x, y, z);
 			renderer.setRenderBounds(0.0D, 0.0D, 0.0D, 1.0D, 0.05D, 1.0D);

@@ -1,11 +1,11 @@
-package fuj1n.globalChestMod.client.render;
+package fuj1n.globalLinkMod.client.render;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import fuj1n.globalChestMod.GlobalChests;
-import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
+import fuj1n.globalLinkMod.GlobalChests;
+import fuj1n.globalLinkMod.common.tileentity.TileEntityGlobalChest;
 
 @SideOnly(Side.CLIENT)
 public class GlobalChestItemRenderHelper {

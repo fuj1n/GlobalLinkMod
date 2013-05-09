@@ -1,22 +1,22 @@
-package fuj1n.globalChestMod.common.inventory;
+package fuj1n.globalLinkMod.common.inventory;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
-import fuj1n.globalChestMod.common.tileentity.TileEntityLibrary;
+import fuj1n.globalLinkMod.common.tileentity.TileEntityLibrary;
 
-public class ContainerBookLibrary extends Container{
+public class ContainerBookLibrary extends Container {
 
-	/* TODO */ public InventoryGlobalChest inventoryGlobal;
-	
+	/* TODO */public InventoryGlobalChest inventoryGlobal;
+
 	public TileEntityLibrary tileEntity;
-	
-	public ContainerBookLibrary(EntityPlayer par1EntityPlayer, TileEntityLibrary par2Library){
+
+	public ContainerBookLibrary(EntityPlayer par1EntityPlayer, TileEntityLibrary par2Library) {
 		tileEntity = par2Library;
 		bindPlayerInventory(par1EntityPlayer.inventory);
 	}
-	
+
 	@Override
 	public boolean canInteractWith(EntityPlayer entityplayer) {
 		return tileEntity.isUseableByPlayer(entityplayer);
@@ -33,7 +33,5 @@ public class ContainerBookLibrary extends Container{
 			addSlotToContainer(new Slot(inventoryPlayer, i, 8 + i * 18, 142));
 		}
 	}
-	
-	
-	
+
 }

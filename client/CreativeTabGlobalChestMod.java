@@ -1,9 +1,9 @@
-package fuj1n.globalChestMod.client;
+package fuj1n.globalLinkMod.client;
 
 import net.minecraft.creativetab.CreativeTabs;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import fuj1n.globalChestMod.GlobalChests;
+import fuj1n.globalLinkMod.GlobalChests;
 
 public final class CreativeTabGlobalChestMod extends CreativeTabs {
 	public CreativeTabGlobalChestMod(String label) {

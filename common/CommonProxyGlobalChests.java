@@ -1,4 +1,4 @@
-package fuj1n.globalChestMod.common;
+package fuj1n.globalLinkMod.common;
 
 public class CommonProxyGlobalChests {
 

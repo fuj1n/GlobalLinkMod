@@ -1,10 +1,10 @@
-package fuj1n.globalChestMod.common.items.recipe;
+package fuj1n.globalLinkMod.common.items.recipe;
 
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
-import fuj1n.globalChestMod.GlobalChests;
+import fuj1n.globalLinkMod.GlobalChests;
 
 public class RecipeVoidStone implements IRecipe {
 	private ItemStack output;

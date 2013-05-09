@@ -1,4 +1,4 @@
-package fuj1n.globalChestMod.common.inventory;
+package fuj1n.globalLinkMod.common.inventory;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryBasic;
@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.EnumGameType;
-import fuj1n.globalChestMod.GlobalChests;
+import fuj1n.globalLinkMod.GlobalChests;
 
 public class InventoryGlobalChest extends InventoryBasic {
 

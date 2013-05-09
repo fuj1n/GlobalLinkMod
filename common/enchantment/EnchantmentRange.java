@@ -1,8 +1,8 @@
-package fuj1n.globalChestMod.common.enchantment;
+package fuj1n.globalLinkMod.common.enchantment;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.util.StatCollector;
-import fuj1n.globalChestMod.GlobalChests;
+import fuj1n.globalLinkMod.GlobalChests;
 
 public class EnchantmentRange extends Enchantment {
 

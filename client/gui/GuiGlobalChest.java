@@ -1,8 +1,9 @@
-package fuj1n.globalChestMod.client.gui;
+package fuj1n.globalLinkMod.client.gui;
 
 import java.util.List;
 
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
@@ -12,11 +13,10 @@ import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
-import fuj1n.globalChestMod.GlobalChests;
-import fuj1n.globalChestMod.common.inventory.ContainerGlobalChest;
-import fuj1n.globalChestMod.common.inventory.InventoryGlobalChest;
-import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
-import fuj1n.globalChestMod.lib.ManagerGlobalChest;
+import fuj1n.globalLinkMod.GlobalChests;
+import fuj1n.globalLinkMod.common.inventory.ContainerGlobalChest;
+import fuj1n.globalLinkMod.common.inventory.InventoryGlobalChest;
+import fuj1n.globalLinkMod.common.tileentity.TileEntityGlobalChest;
 
 /**
  * @author fuj1n
@@ -61,7 +61,7 @@ class GuiGlobalChest extends GuiContainer {
 		fontRenderer.drawString("Global Chest", 8, 5, 4210752);
 		fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 96 + 3, 4210752);
 		fontRenderer.drawString("Chest Weight: " + (container.totalPrice < 0 ? 0 : container.totalPrice), 8, 14, 4210752);
-		fontRenderer.drawString(GlobalChests.globalChestManager.cheatItemExists(container.inventory) ? "Max Weight: Infinite" : "Max Weight: " + GlobalChests.globalChestManager.maxWeight, GlobalChests.globalChestManager.cheatItemExists(container.inventory) ?  110 - 30: 110 - Integer.toString(GlobalChests.globalChestManager.maxWeight).length() * 6, ySize - 96 + 3, 4210752);
+		fontRenderer.drawString(GlobalChests.globalChestManager.cheatItemExists(container.inventory) ? "Max Weight: Infinite" : "Max Weight: " + GlobalChests.globalChestManager.maxWeight, GlobalChests.globalChestManager.cheatItemExists(container.inventory) ? 110 - 30 : 110 - Integer.toString(GlobalChests.globalChestManager.maxWeight).length() * 6, ySize - 96 + 3, 4210752);
 	}
 
 	@Override
@@ -81,7 +81,7 @@ class GuiGlobalChest extends GuiContainer {
 	@Override
 	protected void drawItemStackTooltip(ItemStack par1ItemStack, int par2, int par3) {
 		List list = par1ItemStack.getTooltip(mc.thePlayer, mc.gameSettings.advancedItemTooltips);
-		boolean shouldShowAddInfo = this.isShiftKeyDown();
+		boolean shouldShowAddInfo = GuiScreen.isShiftKeyDown();
 		Slot slot = null;
 		boolean flag0 = false;
 		for (int i = 0; i < inventorySlots.inventorySlots.size(); i++) {
@@ -113,12 +113,12 @@ class GuiGlobalChest extends GuiContainer {
 		if (slot != null) {
 			flag1 = slot.inventory instanceof InventoryGlobalChest;
 		}
-		if(shouldShowAddInfo){
-			if(GlobalChests.globalChestManager.isItemCheatItem(par1ItemStack) && !flag1){
+		if (shouldShowAddInfo) {
+			if (GlobalChests.globalChestManager.isItemCheatItem(par1ItemStack) && !flag1) {
 				list.add("This item removes storage limits.");
-			}else if(GlobalChests.globalChestManager.isItemCheatItem(par1ItemStack) && flag1 && container.totalPrice > GlobalChests.globalChestManager.maxWeight){
+			} else if (GlobalChests.globalChestManager.isItemCheatItem(par1ItemStack) && flag1 && container.totalPrice > GlobalChests.globalChestManager.maxWeight) {
 				list.add("Cannot remove this item.");
-			}else{
+			} else {
 				if (GlobalChests.globalChestManager.isItemBanned(par1ItemStack)) {
 					list.add(EnumChatFormatting.GRAY + "This item cannot be transfered.");
 				} else {
@@ -138,7 +138,7 @@ class GuiGlobalChest extends GuiContainer {
 					}
 				}
 			}
-		}else{
+		} else {
 			list.add("Press Shift to show weight info");
 		}
 

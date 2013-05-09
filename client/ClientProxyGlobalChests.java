@@ -1,16 +1,16 @@
-package fuj1n.globalChestMod.client;
+package fuj1n.globalLinkMod.client;
 
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import fuj1n.globalChestMod.client.event.EventHandler;
-import fuj1n.globalChestMod.client.render.RenderGlobalChest;
-import fuj1n.globalChestMod.client.render.RenderSatLink;
-import fuj1n.globalChestMod.client.render.tileentity.TileEntityGlobalChestRenderer;
-import fuj1n.globalChestMod.client.render.tileentity.TileEntitySatLinkRenderer;
-import fuj1n.globalChestMod.common.CommonProxyGlobalChests;
-import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
-import fuj1n.globalChestMod.common.tileentity.TileEntitySatLink;
+import fuj1n.globalLinkMod.client.event.EventHandler;
+import fuj1n.globalLinkMod.client.render.RenderGlobalChest;
+import fuj1n.globalLinkMod.client.render.RenderSatLink;
+import fuj1n.globalLinkMod.client.render.tileentity.TileEntityGlobalChestRenderer;
+import fuj1n.globalLinkMod.client.render.tileentity.TileEntitySatLinkRenderer;
+import fuj1n.globalLinkMod.common.CommonProxyGlobalChests;
+import fuj1n.globalLinkMod.common.tileentity.TileEntityGlobalChest;
+import fuj1n.globalLinkMod.common.tileentity.TileEntitySatLink;
 
 public class ClientProxyGlobalChests extends CommonProxyGlobalChests {
 

@@ -1,4 +1,4 @@
-package fuj1n.globalChestMod.client.nbt;
+package fuj1n.globalLinkMod.client.nbt;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

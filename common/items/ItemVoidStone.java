@@ -1,4 +1,4 @@
-package fuj1n.globalChestMod.common.items;
+package fuj1n.globalLinkMod.common.items;
 
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -6,7 +6,7 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import fuj1n.globalChestMod.GlobalChests;
+import fuj1n.globalLinkMod.GlobalChests;
 
 public class ItemVoidStone extends Item {
 

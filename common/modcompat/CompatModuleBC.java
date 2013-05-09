@@ -1,4 +1,4 @@
-package fuj1n.globalChestMod.common.modcompat;
+package fuj1n.globalLinkMod.common.modcompat;
 
 import buildcraft.BuildCraftBuilders;
 import buildcraft.BuildCraftCore;
@@ -7,13 +7,14 @@ import buildcraft.BuildCraftFactory;
 import buildcraft.BuildCraftSilicon;
 import buildcraft.BuildCraftTransport;
 import cpw.mods.fml.common.Loader;
-import fuj1n.globalChestMod.GlobalChests;
-import fuj1n.globalChestMod.lib.ManagerGlobalChest;
+import fuj1n.globalLinkMod.GlobalChests;
+import fuj1n.globalLinkMod.lib.ManagerGlobalChest;
 
-public class CompatModuleBC extends CompatModule{
+public class CompatModuleBC extends CompatModule {
 
 	/**
-	 * Whether this module can except all parts of BC to be installed(as now they come shipped together)
+	 * Whether this module can except all parts of BC to be installed(as now
+	 * they come shipped together)
 	 */
 	public boolean exceptAllInstalled = true;
 	public boolean coreInstalled = false;
@@ -22,7 +23,7 @@ public class CompatModuleBC extends CompatModule{
 	public boolean transportInstalled = false;
 	public boolean factoryInstalled = false;
 	public boolean siliconInstalled = false;
-	
+
 	public CompatModuleBC() {
 		super("Buildcraft", "3.5.1");
 	}
@@ -30,64 +31,64 @@ public class CompatModuleBC extends CompatModule{
 	@Override
 	public void executeModCompat() {
 		execCoreCompat();
-		if(Loader.isModLoaded("BuildCraft|Energy") || exceptAllInstalled){
+		if (Loader.isModLoaded("BuildCraft|Energy") || exceptAllInstalled) {
 			execEnergyCompat();
 		}
-		if(Loader.isModLoaded("BuildCraft|Builders") || exceptAllInstalled){
+		if (Loader.isModLoaded("BuildCraft|Builders") || exceptAllInstalled) {
 			execBuildersCompat();
 		}
-		if(Loader.isModLoaded("BuildCraft|Transport") || exceptAllInstalled){
+		if (Loader.isModLoaded("BuildCraft|Transport") || exceptAllInstalled) {
 			execTransportCompat();
 		}
-		if(Loader.isModLoaded("BuildCraft|Factory") || exceptAllInstalled){
+		if (Loader.isModLoaded("BuildCraft|Factory") || exceptAllInstalled) {
 			execFactoryCompat();
 		}
-		if(Loader.isModLoaded("BuildCraft|Silicon") || exceptAllInstalled){
+		if (Loader.isModLoaded("BuildCraft|Silicon") || exceptAllInstalled) {
 			execSiliconCompat();
 		}
 	}
 
-	public void execCoreCompat(){
+	public void execCoreCompat() {
 		coreInstalled = true;
 		addAllGlobalChestWeights();
 	}
-	
-	public void execEnergyCompat(){
+
+	public void execEnergyCompat() {
 		energyInstalled = true;
 	}
-	
-	public void execBuildersCompat(){
+
+	public void execBuildersCompat() {
 		buildersInstalled = true;
 	}
-	
-	public void execTransportCompat(){
+
+	public void execTransportCompat() {
 		transportInstalled = true;
 	}
-	
-	public void execFactoryCompat(){
+
+	public void execFactoryCompat() {
 		factoryInstalled = true;
 	}
-	
-	public void execSiliconCompat(){
+
+	public void execSiliconCompat() {
 		siliconInstalled = true;
 	}
-	
-	public void addAllGlobalChestWeights(){
+
+	public void addAllGlobalChestWeights() {
 		ManagerGlobalChest me = GlobalChests.globalChestManager;
-		//Blocks
-			//CORE
+		// Blocks
+		// CORE
 		me.addItemToBanList(BuildCraftCore.springBlock.blockID);
-			//ENERGY
+		// ENERGY
 		me.addItemToList(BuildCraftEnergy.engineBlock.blockID, 36);
-			//BUILDERS
+		// BUILDERS
 		me.addItemToList(BuildCraftBuilders.markerBlock.blockID, 2);
 		me.addItemToList(BuildCraftBuilders.pathMarkerBlock.blockID, 2);
 		me.addItemToList(BuildCraftBuilders.fillerBlock.blockID, 46);
 		me.addItemToList(BuildCraftBuilders.builderBlock.blockID, 728);
 		me.addItemToList(BuildCraftBuilders.architectBlock.blockID, 729);
 		me.addItemToList(BuildCraftBuilders.libraryBlock.blockID, 73);
-			//TRANSPORT
-			//FACTORY
+		// TRANSPORT
+		// FACTORY
 		me.addItemToList(BuildCraftFactory.quarryBlock.blockID, 999);
 		me.addItemToList(BuildCraftFactory.miningWellBlock.blockID, 124);
 		me.addItemToList(BuildCraftFactory.autoWorkbenchBlock.blockID, 12);
@@ -96,24 +97,24 @@ public class CompatModuleBC extends CompatModule{
 		me.addItemToList(BuildCraftFactory.tankBlock.blockID, 8);
 		me.addItemToList(BuildCraftFactory.refineryBlock.blockID, 373);
 		me.addItemToList(BuildCraftFactory.hopperBlock.blockID, 59);
-			//SILICON
+		// SILICON
 		me.addItemToList(BuildCraftSilicon.laserBlock.blockID, 135);
 		me.addItemToList(BuildCraftSilicon.assemblyTableBlock.blockID, 417);
-		//Items
-			//CORE
+		// Items
+		// CORE
 		me.addItemToList(BuildCraftCore.woodenGearItem.itemID, 2);
 		me.addItemToList(BuildCraftCore.stoneGearItem.itemID, 6);
 		me.addItemToList(BuildCraftCore.ironGearItem.itemID, 42);
 		me.addItemToList(BuildCraftCore.goldGearItem.itemID, 90);
 		me.addItemToList(BuildCraftCore.diamondGearItem.itemID, 346);
 		me.addItemToList(BuildCraftCore.wrenchItem.itemID, 33);
-			//ENERGY
+		// ENERGY
 		me.addItemToBanList(BuildCraftEnergy.bucketOil.itemID);
 		me.addItemToBanList(BuildCraftEnergy.fuelLiquid.itemID);
-			//BUILDERS
+		// BUILDERS
 		me.addItemToList(BuildCraftBuilders.templateItem.itemID, 9);
 		me.addItemToList(BuildCraftBuilders.blueprintItem.itemID, 9);
-			//TRANSPORT
+		// TRANSPORT
 		me.addItemToList(BuildCraftTransport.pipeWaterproof.itemID, 1);
 		me.addItemToList(BuildCraftTransport.pipeGate.itemID, 24);
 		me.addItemToList(BuildCraftTransport.pipeGateAutarchic.itemID, 62);
@@ -144,9 +145,9 @@ public class CompatModuleBC extends CompatModule{
 		me.addItemToList(BuildCraftTransport.pipePowerGold.itemID, 26);
 		me.addItemToList(BuildCraftTransport.facadeItem.itemID, 7);
 		me.addItemToList(BuildCraftTransport.pipeStructureCobblestone.itemID, 4);
-			//FACTORY
-			//SILICON
+		// FACTORY
+		// SILICON
 		me.addItemToList(BuildCraftSilicon.redstoneChipset.itemID, 2);
 	}
-	
+
 }

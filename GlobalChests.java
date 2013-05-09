@@ -1,4 +1,4 @@
-package fuj1n.globalChestMod;
+package fuj1n.globalLinkMod;
 
 //May(should) be renamed to Global Links once this mod progresses.
 import java.io.File;
@@ -30,25 +30,25 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
-import fuj1n.globalChestMod.client.CreativeTabGlobalChestMod;
-import fuj1n.globalChestMod.client.gui.GuiHandler;
-import fuj1n.globalChestMod.client.nbt.NBTData;
-import fuj1n.globalChestMod.common.CommonProxyGlobalChests;
-import fuj1n.globalChestMod.common.blocks.BlockGlobalChest;
-import fuj1n.globalChestMod.common.blocks.BlockLibrary;
-import fuj1n.globalChestMod.common.blocks.BlockSatLink;
-import fuj1n.globalChestMod.common.enchantment.EnchantmentRange;
-import fuj1n.globalChestMod.common.items.ItemGlobalLink;
-import fuj1n.globalChestMod.common.items.ItemMulti;
-import fuj1n.globalChestMod.common.items.ItemPocketLink;
-import fuj1n.globalChestMod.common.items.ItemVoidStone;
-import fuj1n.globalChestMod.common.items.recipe.RecipeVoidStone;
-import fuj1n.globalChestMod.common.modcompat.ModCompatibilityGlobalChests;
-import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
-import fuj1n.globalChestMod.common.tileentity.TileEntityLibrary;
-import fuj1n.globalChestMod.lib.BookLibraryReference;
-import fuj1n.globalChestMod.lib.ManagerGlobalChest;
-import fuj1n.globalChestMod.lib.MultiItemReference;
+import fuj1n.globalLinkMod.client.CreativeTabGlobalChestMod;
+import fuj1n.globalLinkMod.client.gui.GuiHandler;
+import fuj1n.globalLinkMod.client.nbt.NBTData;
+import fuj1n.globalLinkMod.common.CommonProxyGlobalChests;
+import fuj1n.globalLinkMod.common.blocks.BlockGlobalChest;
+import fuj1n.globalLinkMod.common.blocks.BlockLibrary;
+import fuj1n.globalLinkMod.common.blocks.BlockSatLink;
+import fuj1n.globalLinkMod.common.enchantment.EnchantmentRange;
+import fuj1n.globalLinkMod.common.items.ItemGlobalLink;
+import fuj1n.globalLinkMod.common.items.ItemMulti;
+import fuj1n.globalLinkMod.common.items.ItemPocketLink;
+import fuj1n.globalLinkMod.common.items.ItemVoidStone;
+import fuj1n.globalLinkMod.common.items.recipe.RecipeVoidStone;
+import fuj1n.globalLinkMod.common.modcompat.ModCompatibilityGlobalChests;
+import fuj1n.globalLinkMod.common.tileentity.TileEntityGlobalChest;
+import fuj1n.globalLinkMod.common.tileentity.TileEntityLibrary;
+import fuj1n.globalLinkMod.lib.BookLibraryReference;
+import fuj1n.globalLinkMod.lib.ManagerGlobalChest;
+import fuj1n.globalLinkMod.lib.MultiItemReference;
 
 @Mod(modid = "fuj1n.GlobalChests", name = CommonProxyGlobalChests.modName, version = CommonProxyGlobalChests.version)
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
@@ -61,7 +61,7 @@ public class GlobalChests {
 	public static NBTTagCompound globalChestAdventure;
 	public static NBTTagCompound globalChestMisc;
 
-	@SidedProxy(clientSide = "fuj1n.globalChestMod.client.ClientProxyGlobalChests", serverSide = "fuj1n.globalChestMod.common.CommonProxyGlobalChests")
+	@SidedProxy(clientSide = "fuj1n.globalLinkMod.client.ClientProxyGlobalChests", serverSide = "fuj1n.globalLinkMod.common.CommonProxyGlobalChests")
 	public static CommonProxyGlobalChests proxy;
 	public static Configuration config;
 
@@ -106,11 +106,11 @@ public class GlobalChests {
 
 	// Compatibility Stuff
 	public static ModCompatibilityGlobalChests modCompat;
-	
+
 	// Reference Classes
 	MultiItemReference multiItemReference = new MultiItemReference();
 	BookLibraryReference libraryStorageReference = new BookLibraryReference();
-	
+
 	// Enum
 	public static EnumEnchantmentType pocketLinkEnchantment = EnumHelper.addEnchantmentType("pocketLinkEnchantment");
 
@@ -215,41 +215,39 @@ public class GlobalChests {
 		LanguageRegistry.addName(voidStone, "Void Stone");
 		LanguageRegistry.addName(pocketLink, "Pocket Link");
 		LanguageRegistry.addName(multiItem, "Unknown Multi Item");
-		
+
 		LanguageRegistry.instance().addStringLocalization("enchantment.fuj1n.GlobalChests.enchantmentRange", "Range");
 		LanguageRegistry.instance().addStringLocalization("itemGroup.fuj1n.GlobalChests.creativeTab", "Global Chests Mod");
-		
-		for(int i = 0; i < MultiItemReference.NAMES.length; i++){
+
+		for (int i = 0; i < MultiItemReference.NAMES.length; i++) {
 			LanguageRegistry.addName(new ItemStack(multiItem, 0, i), MultiItemReference.NAMES[i]);
 		}
 	}
 
-	public void removeUnwantedRecipes(){
-		for(int i = 0; i < CraftingManager.getInstance().getRecipeList().size(); i++){
-			IRecipe recipe = (IRecipe)CraftingManager.getInstance().getRecipeList().get(i);
-			if(recipe.getRecipeOutput() != null){
-				switch(recipe.getRecipeOutput().itemID){
+	public void removeUnwantedRecipes() {
+		for (int i = 0; i < CraftingManager.getInstance().getRecipeList().size(); i++) {
+			IRecipe recipe = (IRecipe) CraftingManager.getInstance().getRecipeList().get(i);
+			if (recipe.getRecipeOutput() != null) {
+				switch (recipe.getRecipeOutput().itemID) {
 				case 130:
 					CraftingManager.getInstance().getRecipeList().remove(i);
 				}
 			}
 		}
 	}
-	
+
 	public void addAllRecipes() {
 		GameRegistry.addRecipe(new ItemStack(globalLink, 1), new Object[] { "GEG", "ENE", "GEG", Character.valueOf('G'), Item.ingotGold, Character.valueOf('E'), Item.enderPearl, Character.valueOf('N'), Item.netherStar });
 
 		GameRegistry.addRecipe(new ItemStack(globalChest, 1), new Object[] { "BDB", "GEG", "ILI", Character.valueOf('B'), Block.blockIron, Character.valueOf('I'), Item.ingotIron, Character.valueOf('D'), Item.diamond, Character.valueOf('L'), globalLink, Character.valueOf('G'), Item.ingotGold, Character.valueOf('E'), Block.enderChest });
 
 		GameRegistry.addRecipe(new ItemStack(voidStone, 1), new Object[] { "GOG", "ONO", "GOG", Character.valueOf('G'), Item.ingotGold, Character.valueOf('O'), Block.obsidian, Character.valueOf('N'), Item.netherrackBrick });
-		
-		GameRegistry.addRecipe(new ItemStack(multiItem, 1, MultiItemReference.VALUE_RETROPEARL), new Object[]{
-			"GEG", "BGB", "GEG", Character.valueOf('G'), Block.glass, Character.valueOf('E'), Item.enderPearl, Character.valueOf('B'), Item.blazePowder
-		});
-		
+
+		GameRegistry.addRecipe(new ItemStack(multiItem, 1, MultiItemReference.VALUE_RETROPEARL), new Object[] { "GEG", "BGB", "GEG", Character.valueOf('G'), Block.glass, Character.valueOf('E'), Item.enderPearl, Character.valueOf('B'), Item.blazePowder });
+
 		GameRegistry.addRecipe(new RecipeVoidStone());
-		
-		GameRegistry.addRecipe(new ItemStack(Block.enderChest, 1), new Object[] { "###", "#E#", "#C#", '#', Block.obsidian, 'E', new ItemStack(multiItem, 1, MultiItemReference.VALUE_RETROPEARL), 'C', Block.chest});
+
+		GameRegistry.addRecipe(new ItemStack(Block.enderChest, 1), new Object[] { "###", "#E#", "#C#", '#', Block.obsidian, 'E', new ItemStack(multiItem, 1, MultiItemReference.VALUE_RETROPEARL), 'C', Block.chest });
 	}
 
 	public void initCreativeTab() {

@@ -1,11 +1,11 @@
-package fuj1n.globalChestMod.client.event;
+package fuj1n.globalLinkMod.client.event;
 
 import java.util.logging.Level;
 
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.world.WorldEvent;
-import fuj1n.globalChestMod.GlobalChests;
+import fuj1n.globalLinkMod.GlobalChests;
 
 public class EventHandler {
 

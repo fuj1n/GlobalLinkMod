@@ -1,4 +1,4 @@
-package fuj1n.globalChestMod.common.items;
+package fuj1n.globalLinkMod.common.items;
 
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.EnumRarity;

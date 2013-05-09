@@ -1,4 +1,4 @@
-package fuj1n.globalChestMod.client.render;
+package fuj1n.globalLinkMod.client.render;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -8,7 +8,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import fuj1n.globalChestMod.client.ClientProxyGlobalChests;
+import fuj1n.globalLinkMod.client.ClientProxyGlobalChests;
 
 public class RenderGlobalChest implements ISimpleBlockRenderingHandler {
 

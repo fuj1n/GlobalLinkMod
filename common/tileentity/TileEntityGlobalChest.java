@@ -1,4 +1,4 @@
-package fuj1n.globalChestMod.common.tileentity;
+package fuj1n.globalLinkMod.common.tileentity;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;

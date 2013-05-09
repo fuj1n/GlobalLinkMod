@@ -1,4 +1,4 @@
-package fuj1n.globalChestMod.client.render.tileentity;
+package fuj1n.globalLinkMod.client.render.tileentity;
 
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -7,8 +7,8 @@ import net.minecraft.tileentity.TileEntity;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import fuj1n.globalChestMod.client.render.model.ModelGlobalChest;
-import fuj1n.globalChestMod.common.tileentity.TileEntityGlobalChest;
+import fuj1n.globalLinkMod.client.render.model.ModelGlobalChest;
+import fuj1n.globalLinkMod.common.tileentity.TileEntityGlobalChest;
 
 public class TileEntityGlobalChestRenderer extends TileEntitySpecialRenderer {
 
