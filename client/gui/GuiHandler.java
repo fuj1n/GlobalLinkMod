@@ -16,7 +16,9 @@ public class GuiHandler implements IGuiHandler {
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		switch (ID) {
 		case GuiAssistant.ID_GLOBALCHEST:
-			return new ContainerGlobalChest(player, (TileEntityGlobalChest) world.getBlockTileEntity(x, y, z));
+			return new ContainerGlobalChest(player, (TileEntityGlobalChest) world.getBlockTileEntity(x, y, z), false);
+		case GuiAssistant.ID_GLOBALCHESTPOCKET:
+			return new ContainerGlobalChest(player, (TileEntityGlobalChest) world.getBlockTileEntity(x, y, z), true);
 		case GuiAssistant.ID_VOIDSTONE:
 			return new ContainerVoidStone(player.inventory);
 		case GuiAssistant.ID_LIBRARY:
@@ -29,7 +31,9 @@ public class GuiHandler implements IGuiHandler {
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		switch (ID) {
 		case GuiAssistant.ID_GLOBALCHEST:
-			return new GuiGlobalChest(player, (TileEntityGlobalChest) world.getBlockTileEntity(x, y, z));
+			return new GuiGlobalChest(player, (TileEntityGlobalChest) world.getBlockTileEntity(x, y, z), false);
+		case GuiAssistant.ID_GLOBALCHESTPOCKET:
+			return new GuiGlobalChest(player, (TileEntityGlobalChest) world.getBlockTileEntity(x, y, z), true);
 		case GuiAssistant.ID_VOIDSTONE:
 			return new GuiVoidStone(player.inventory);
 		case GuiAssistant.ID_LIBRARY:

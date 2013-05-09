@@ -127,6 +127,12 @@ public class BlockSatLink extends BlockMultiBlock {
 		int range = 2;
 		return isBlockInBB(AxisAlignedBB.getBoundingBox(par2 - range, par3 - range, par4 - range, par2 + range, par3 + range, par4 + range), par1World, blockRequired, false, 0);
 	}
+	
+	public int[] getSatelliteEnhancer(World par1World, int par2, int par3, int par4){
+		int blockRequired = GlobalChests.globalChest.blockID;
+		int range = 2;
+		return getBlockLocationInBB(AxisAlignedBB.getBoundingBox(par2 - range, par3 - range, par4 - range, par2 + range, par3 + range, par4 + range), par1World, blockRequired, false, 0);
+	}
 
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
@@ -204,5 +210,28 @@ public class BlockSatLink extends BlockMultiBlock {
 		}
 
 		return false;
+	}
+	
+	public int[] getBlockLocationInBB(AxisAlignedBB par1AxisAlignedBB, World par2World, int par3, boolean flag1, int par4) {
+		int i = MathHelper.floor_double(par1AxisAlignedBB.minX);
+		int j = MathHelper.floor_double(par1AxisAlignedBB.maxX + 1.0D);
+		int k = MathHelper.floor_double(par1AxisAlignedBB.minY);
+		int l = MathHelper.floor_double(par1AxisAlignedBB.maxY + 1.0D);
+		int i1 = MathHelper.floor_double(par1AxisAlignedBB.minZ);
+		int j1 = MathHelper.floor_double(par1AxisAlignedBB.maxZ + 1.0D);
+
+		for (int k1 = i; k1 < j; ++k1) {
+			for (int l1 = k; l1 < l; ++l1) {
+				for (int i2 = i1; i2 < j1; ++i2) {
+					Block block = Block.blocksList[par2World.getBlockId(k1, l1, i2)];
+
+					if (block != null && block.blockID == par3 && (!flag1 || par2World.getBlockMetadata(k1, l1, i2) == par4)) {
+						return new int[]{k1, l1, i2};
+					}
+				}
+			}
+		}
+
+		return new int[]{0, 0, 0};
 	}
 }

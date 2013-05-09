@@ -16,9 +16,12 @@ public class ContainerGlobalChest extends Container {
 	public InventoryGlobalChest inventory;
 
 	public int totalPrice = 0;
+	
+	public boolean isPocketInventory;
 
-	public ContainerGlobalChest(EntityPlayer player, TileEntityGlobalChest te) {
+	public ContainerGlobalChest(EntityPlayer player, TileEntityGlobalChest te, boolean isPocket) {
 		this.player = player;
+		isPocketInventory = isPocket;
 		inventory = new InventoryGlobalChest(player);
 		inventory.loadInventory();
 		tileEntity = te;
@@ -66,7 +69,7 @@ public class ContainerGlobalChest extends Container {
 
 	@Override
 	public boolean canInteractWith(EntityPlayer entityplayer) {
-		return tileEntity.isUseableByPlayer(entityplayer);
+		return tileEntity.isUseableByPlayer(entityplayer) || isPocketInventory;
 	}
 
 	@Override

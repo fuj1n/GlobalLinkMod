@@ -25,6 +25,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import fuj1n.globalLinkMod.GlobalChests;
 import fuj1n.globalLinkMod.common.blocks.BlockSatLink;
+import fuj1n.globalLinkMod.lib.GuiAssistant;
 
 public class ItemPocketLink extends Item {
 
@@ -47,10 +48,8 @@ public class ItemPocketLink extends Item {
 		int blockRequiredMeta = 1;
 		List li = isBlockInBB_special(AxisAlignedBB.getBoundingBox(par3EntityPlayer.posX - range, par3EntityPlayer.posY - range, par3EntityPlayer.posZ - range, par3EntityPlayer.posX + range, par3EntityPlayer.posY + range, par3EntityPlayer.posZ + range), par2World, blockRequired, true, blockRequiredMeta);
 		if ((Boolean) li.get(0) && (((BlockSatLink) Block.blocksList[par2World.getBlockId((Integer) li.get(1), (Integer) li.get(2), (Integer) li.get(3))]).isValidSatellite(par2World, (Integer) li.get(1), (Integer) li.get(2), (Integer) li.get(3)))) {
-			// TODO @something
-			if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
-				par3EntityPlayer.addChatMessage(EnumChatFormatting.AQUA + "" + EnumChatFormatting.ITALIC + "The " + par1ItemStack.getDisplayName() + " has used activate, it was not very effective.");
-			}
+			int[] gcLocation = (((BlockSatLink) Block.blocksList[par2World.getBlockId((Integer) li.get(1), (Integer) li.get(2), (Integer) li.get(3))]).getSatelliteEnhancer(par2World, (Integer) li.get(1), (Integer) li.get(2), (Integer) li.get(3)));
+			par3EntityPlayer.openGui(GlobalChests.instance, GuiAssistant.ID_GLOBALCHESTPOCKET, par2World, gcLocation[0], gcLocation[1], gcLocation[2]);
 		} else {
 			if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT && !(Boolean) li.get(0)) {
 				par3EntityPlayer.addChatMessage(EnumChatFormatting.AQUA + "A " + new ItemStack(Block.blocksList[blockRequired], 1, 1).getDisplayName() + " Multiblock is required within a " + range + " block radius in order to activate the " + par1ItemStack.getDisplayName());

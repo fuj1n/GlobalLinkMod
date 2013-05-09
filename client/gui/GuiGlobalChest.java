@@ -31,8 +31,8 @@ class GuiGlobalChest extends GuiContainer {
 
 	public GuiButton cheatButton;
 
-	public GuiGlobalChest(EntityPlayer player, TileEntityGlobalChest tileEnity) {
-		super(container = new ContainerGlobalChest(player, tileEnity));
+	public GuiGlobalChest(EntityPlayer player, TileEntityGlobalChest tileEnity, boolean isPocket) {
+		super(container = new ContainerGlobalChest(player, tileEnity, isPocket));
 		tileEntity = tileEnity;
 	}
 
