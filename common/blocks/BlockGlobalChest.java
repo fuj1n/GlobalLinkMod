@@ -66,11 +66,10 @@ public class BlockGlobalChest extends BlockContainer {
 			} else {
 				return false;
 			}
-		} else if (par1World.getBlockId(par2, par3 + 1, par3) == 0) {
+		} else {
 			par5EntityPlayer.openGui(GlobalChests.instance, 0, par1World, par2, par3, par4);
 			return true;
 		}
-		return false;
 	}
 
 	@Override
