@@ -7,24 +7,31 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import fuj1n.globalLinkMod.common.inventory.InventoryLibraryDecoration;
 import fuj1n.globalLinkMod.lib.BookLibraryReference;
 
 public class TileEntityLibrary extends TileEntity implements IInventory {
 
+	public InventoryLibraryDecoration decoInventory;
 	private ArrayList<ItemStack> inventory;
-
+	
 	public TileEntityLibrary() {
 		inventory = new ArrayList();
+		decoInventory = new InventoryLibraryDecoration();
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound par1NBTTagCompound) {
 		super.readFromNBT(par1NBTTagCompound);
+		System.out.println("Read called");
+		decoInventory.readFromNBT(par1NBTTagCompound);
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound par1NBTTagCompound) {
 		super.writeToNBT(par1NBTTagCompound);
+		System.out.println("Write called");
+		decoInventory.writeToNBT(par1NBTTagCompound);
 	}
 
 	@Override

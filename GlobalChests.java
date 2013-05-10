@@ -38,6 +38,7 @@ import fuj1n.globalLinkMod.common.blocks.BlockGlobalChest;
 import fuj1n.globalLinkMod.common.blocks.BlockLibrary;
 import fuj1n.globalLinkMod.common.blocks.BlockSatLink;
 import fuj1n.globalLinkMod.common.enchantment.EnchantmentRange;
+import fuj1n.globalLinkMod.common.items.ItemDecoBook;
 import fuj1n.globalLinkMod.common.items.ItemGlobalLink;
 import fuj1n.globalLinkMod.common.items.ItemMulti;
 import fuj1n.globalLinkMod.common.items.ItemPocketLink;
@@ -47,6 +48,7 @@ import fuj1n.globalLinkMod.common.modcompat.ModCompatibilityGlobalChests;
 import fuj1n.globalLinkMod.common.tileentity.TileEntityGlobalChest;
 import fuj1n.globalLinkMod.common.tileentity.TileEntityLibrary;
 import fuj1n.globalLinkMod.lib.BookLibraryReference;
+import fuj1n.globalLinkMod.lib.DecoBookReference;
 import fuj1n.globalLinkMod.lib.ManagerGlobalChest;
 import fuj1n.globalLinkMod.lib.MultiItemReference;
 
@@ -77,6 +79,7 @@ public class GlobalChests {
 	public static int voidStoneId = 6329;
 	public static int pocketGlobalChestId = 6330;
 	public static int itemMultiId = 6331;
+	public static int decoBookId = 6332;
 
 	// Enchantment IDs
 	public static int rangeEnchantmentId = 0;
@@ -95,6 +98,7 @@ public class GlobalChests {
 	public static Item voidStone;
 	public static Item pocketLink;
 	public static Item multiItem;
+	public static Item decoBook;
 
 	public static File modLocation;
 
@@ -109,6 +113,7 @@ public class GlobalChests {
 
 	// Reference Classes
 	MultiItemReference multiItemReference = new MultiItemReference();
+	DecoBookReference decoBookReference = new DecoBookReference();
 	BookLibraryReference libraryStorageReference = new BookLibraryReference();
 
 	// Enum
@@ -133,6 +138,7 @@ public class GlobalChests {
 		voidStoneId = config.getItem("Void Stone Id", voidStoneId).getInt();
 		pocketGlobalChestId = config.getItem("Pocket Link Id", pocketGlobalChestId).getInt();
 		itemMultiId = config.getItem("Multi Item Id", itemMultiId).getInt();
+		decoBookId = config.getItem("Decoration Book Id", decoBookId).getInt();
 		// Misc
 		Property propRangeEnchantment = config.get("Enchantments", "Pocket Link Range Enchantment Id", rangeEnchantmentId);
 		propRangeEnchantment.comment = "This enchantment ID is automatically allocated and you should not have to change it.";
@@ -181,6 +187,7 @@ public class GlobalChests {
 		voidStone = new ItemVoidStone(voidStoneId).setCreativeTab(creativeTabGlobalChest).setUnlocalizedName("fuj1n.GlobalChests.voidStone");
 		pocketLink = new ItemPocketLink(pocketGlobalChestId).setCreativeTab(creativeTabGlobalChest).setUnlocalizedName("fuj1n.GlobalChests.pocketLink");
 		multiItem = new ItemMulti(itemMultiId).setCreativeTab(creativeTabGlobalChest).setUnlocalizedName("fuj1n.GlobalChests.multiItem");
+		decoBook = new ItemDecoBook(decoBookId).setCreativeTab(creativeTabGlobalChest).setUnlocalizedName("fuj1n.GlobalChests.decoBook");
 	}
 
 	public void initAllEnchantments() {
@@ -215,12 +222,17 @@ public class GlobalChests {
 		LanguageRegistry.addName(voidStone, "Void Stone");
 		LanguageRegistry.addName(pocketLink, "Pocket Link");
 		LanguageRegistry.addName(multiItem, "Unknown Multi Item");
+		LanguageRegistry.addName(decoBook, "Unknown Book");
 
 		LanguageRegistry.instance().addStringLocalization("enchantment.fuj1n.GlobalChests.enchantmentRange", "Range");
 		LanguageRegistry.instance().addStringLocalization("itemGroup.fuj1n.GlobalChests.creativeTab", "Global Chests Mod");
 
 		for (int i = 0; i < MultiItemReference.NAMES.length; i++) {
 			LanguageRegistry.addName(new ItemStack(multiItem, 0, i), MultiItemReference.NAMES[i]);
+		}
+		
+		for (int i = 0; i < DecoBookReference.NAMES.length; i++) {
+			LanguageRegistry.addName(new ItemStack(decoBook, 0, i), DecoBookReference.NAMES[i]);
 		}
 	}
 

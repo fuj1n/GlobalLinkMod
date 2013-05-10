@@ -1,6 +1,7 @@
 package fuj1n.globalLinkMod.client.render.model;
 
 import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
 
@@ -29,11 +30,16 @@ public class ModelSatLink extends ModelBase {
 	}
 
 	private void render(TileEntitySatLink te) {
+		Tessellator tessellator = Tessellator.instance;
 		modelSatlink.renderPart("default");
+		tessellator.setTextureUV(5, 0);
 		modelSatlink.renderPart("pCube1");
+		tessellator.setTextureUV(0, 0);
 		modelSatlink.renderPart("pCube2");
+		tessellator.setTextureUV(5, 16);
 		GL11.glRotatef(te.topBitRotationAngle, 0F, 1F, 0F);
 		modelSatlink.renderPart("pCube3");
+		tessellator.setTextureUV(11, 16);
 		modelSatlink.renderPart("pPlane1");
 		modelSatlink.renderPart("pastedpPlane1group");
 		modelSatlink.renderPart("pastedpPlane1group1");

@@ -10,28 +10,27 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import fuj1n.globalLinkMod.lib.DecoBookReference;
-import fuj1n.globalLinkMod.lib.MultiItemReference;
 
-public class ItemMulti extends Item {
+public class ItemDecoBook extends Item {
 
-	public Icon[] icons = new Icon[MultiItemReference.ICON_PATHS.length];
+	public Icon[] icons = new Icon[DecoBookReference.ICON_PATHS.length];
 
-	public ItemMulti(int par1) {
+	public ItemDecoBook(int par1) {
 		super(par1);
 		this.setHasSubtypes(true);
 	}
 
 	@Override
 	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List) {
-		for (int i = 0; i < MultiItemReference.NAMES_UNLOCALIZED.length; i++) {
+		for (int i = 0; i < DecoBookReference.NAMES_UNLOCALIZED.length; i++) {
 			par3List.add(new ItemStack(this, 1, i));
 		}
 	}
 
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		if (par1ItemStack.getItemDamage() < MultiItemReference.NAMES_UNLOCALIZED.length) {
-			return this.getUnlocalizedName() + "." + MultiItemReference.NAMES_UNLOCALIZED[par1ItemStack.getItemDamage()];
+		if (par1ItemStack.getItemDamage() < DecoBookReference.NAMES_UNLOCALIZED.length) {
+			return this.getUnlocalizedName() + "." + DecoBookReference.NAMES_UNLOCALIZED[par1ItemStack.getItemDamage()];
 		} else {
 			return this.getUnlocalizedName();
 		}
@@ -39,7 +38,7 @@ public class ItemMulti extends Item {
 
 	@Override
 	public Icon getIconFromDamage(int par1) {
-		if (par1 < MultiItemReference.ICON_PATHS.length) {
+		if (par1 < DecoBookReference.ICON_PATHS.length) {
 			return icons[par1];
 		} else {
 			return this.itemIcon;
@@ -48,8 +47,8 @@ public class ItemMulti extends Item {
 
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		if (par1ItemStack.getItemDamage() < MultiItemReference.ITEM_INFORMATION.length && MultiItemReference.ITEM_INFORMATION[par1ItemStack.getItemDamage()] != null) {
-			String s = MultiItemReference.ITEM_INFORMATION[par1ItemStack.getItemDamage()];
+		if (par1ItemStack.getItemDamage() < DecoBookReference.ITEM_INFORMATION.length && DecoBookReference.ITEM_INFORMATION[par1ItemStack.getItemDamage()] != null) {
+			String s = DecoBookReference.ITEM_INFORMATION[par1ItemStack.getItemDamage()];
 			List infoList = new ArrayList();
 			while(s.contains(";")){
 				String temp = s.substring(0, s.indexOf(";"));
@@ -63,8 +62,8 @@ public class ItemMulti extends Item {
 
 	@Override
 	public void registerIcons(IconRegister par1IconRegister) {
-		for (int i = 0; i < MultiItemReference.ICON_PATHS.length; i++) {
-			icons[i] = par1IconRegister.registerIcon("globalChestMod:" + MultiItemReference.ICON_PATHS[i]);
+		for (int i = 0; i < DecoBookReference.ICON_PATHS.length; i++) {
+			icons[i] = par1IconRegister.registerIcon("globalChestMod:" + DecoBookReference.ICON_PATHS[i]);
 		}
 	}
 
