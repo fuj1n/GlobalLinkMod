@@ -47,6 +47,7 @@ import fuj1n.globalLinkMod.common.items.recipe.RecipeVoidStone;
 import fuj1n.globalLinkMod.common.modcompat.ModCompatibilityGlobalChests;
 import fuj1n.globalLinkMod.common.tileentity.TileEntityGlobalChest;
 import fuj1n.globalLinkMod.common.tileentity.TileEntityLibrary;
+import fuj1n.globalLinkMod.common.tileentity.TileEntitySatLink;
 import fuj1n.globalLinkMod.lib.BookLibraryReference;
 import fuj1n.globalLinkMod.lib.DecoBookReference;
 import fuj1n.globalLinkMod.lib.ManagerGlobalChest;
@@ -211,6 +212,7 @@ public class GlobalChests {
 
 	public void mapAllTileEntities() {
 		GameRegistry.registerTileEntity(TileEntityGlobalChest.class, "fuj1n.GlobalChests.tileEntityGlobalChest");
+		GameRegistry.registerTileEntity(TileEntitySatLink.class, "fuj1n.GlobalChests.tileEntitySatLink");
 		GameRegistry.registerTileEntity(TileEntityLibrary.class, "fuj1n.GlobalChests.tileEntityLibrary");
 	}
 

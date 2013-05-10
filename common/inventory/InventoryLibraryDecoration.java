@@ -14,6 +14,11 @@ public class InventoryLibraryDecoration extends InventoryBasic{
 		super("fuj1n.GlobalChests.container.library", false, 27*2);
 	}
 	
+	@Override
+    public int getInventoryStackLimit(){
+        return 1;
+    }
+	
 	public void readFromNBT(NBTTagCompound par1NBTTagCompound){
 		NBTTagList tagList = par1NBTTagCompound.getTagList("Decorations");
 		inventoryContents = new ItemStack[this.getSizeInventory()];

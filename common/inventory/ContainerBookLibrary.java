@@ -28,7 +28,7 @@ public class ContainerBookLibrary extends Container {
 	protected void addInventorySlots(){
 		for (int i = 0; i < 2; i++) {
 			for (int j = 0; j < 7; j++) {
-				addSlotToContainer(new Slot(inventoryDecoration, j + i * 9 + 9, 8 + j * 18 + 119, 84 + i * 18 - 50));
+				addSlotToContainer(new SlotDecoration(inventoryDecoration, j + i * 9 + 9, 8 + j * 18 + 119, 84 + i * 18 - 50));
 			}
 		}
 	}
