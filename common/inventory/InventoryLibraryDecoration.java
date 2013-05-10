@@ -1,5 +1,6 @@
 package fuj1n.globalLinkMod.common.inventory;
 
+import fuj1n.globalLinkMod.GlobalChests;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
@@ -16,7 +17,7 @@ public class InventoryLibraryDecoration extends InventoryBasic{
 	
 	@Override
     public int getInventoryStackLimit(){
-        return 1;
+        return GlobalChests.allowDecoStorage ? 64 : 1;
     }
 	
 	public void readFromNBT(NBTTagCompound par1NBTTagCompound){

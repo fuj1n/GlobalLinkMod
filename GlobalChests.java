@@ -88,6 +88,7 @@ public class GlobalChests {
 	// Misc config
 	public static int maxGlobalChestPrice = 4096;
 	public static int maxPocketLinkRange = 16;
+	public static boolean allowDecoStorage = false;
 
 	// Blocks
 	public static Block globalChest;
@@ -146,6 +147,10 @@ public class GlobalChests {
 		rangeEnchantmentId = propRangeEnchantment.getInt();
 		maxGlobalChestPrice = config.get("Global Linking Configuration", "Max Total Content Weight", maxGlobalChestPrice).getInt();
 		maxPocketLinkRange = config.get("Global Linking Configuration", "Max Pocket Link Range", maxPocketLinkRange).getInt();
+		// Deco Config
+		Property propAllowDecoStorage = config.get("Decoration Configuration", "Allow Decoration Storage", allowDecoStorage);
+		propAllowDecoStorage.comment = "Whether to allow more than 1 item to fit into the decoration slot. (The only effect is cheap storage for decoration books :p";
+		allowDecoStorage = propAllowDecoStorage.getBoolean(allowDecoStorage);
 		config.save();
 		libraryStorageReference.populateBooksList();
 		modCompat = new ModCompatibilityGlobalChests();
