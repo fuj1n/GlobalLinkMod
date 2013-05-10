@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 import fuj1n.globalLinkMod.common.tileentity.TileEntityLibrary;
 
 public class ContainerBookLibrary extends Container {
@@ -44,5 +45,10 @@ public class ContainerBookLibrary extends Container {
 			addSlotToContainer(new Slot(inventoryPlayer, i, 8 + i * 18 - 60, 142));
 		}
 	}
+	
+	@Override
+    public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2){
+        return null;
+    }
 
 }
