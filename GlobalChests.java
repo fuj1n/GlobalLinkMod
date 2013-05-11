@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -43,6 +44,7 @@ import fuj1n.globalLinkMod.common.items.ItemGlobalLink;
 import fuj1n.globalLinkMod.common.items.ItemMulti;
 import fuj1n.globalLinkMod.common.items.ItemPocketLink;
 import fuj1n.globalLinkMod.common.items.ItemVoidStone;
+import fuj1n.globalLinkMod.common.items.recipe.RecipePocketLinkUpgrade;
 import fuj1n.globalLinkMod.common.items.recipe.RecipeVoidStone;
 import fuj1n.globalLinkMod.common.modcompat.ModCompatibilityGlobalChests;
 import fuj1n.globalLinkMod.common.tileentity.TileEntityGlobalChest;
@@ -256,19 +258,23 @@ public class GlobalChests {
 	}
 
 	public void addAllRecipes() {
-		GameRegistry.addRecipe(new ItemStack(globalLink, 1), new Object[] { "GEG", "ENE", "GEG", Character.valueOf('G'), Item.ingotGold, Character.valueOf('E'), Item.enderPearl, Character.valueOf('N'), Item.netherStar });
+		GameRegistry.addRecipe(new ItemStack(globalLink, 1), new Object[] { "GEG", "ENE", "GEG", 'G', Item.ingotGold, 'E', Item.enderPearl, 'N', Item.netherStar });
 
-		GameRegistry.addRecipe(new ItemStack(globalChest, 1), new Object[] { "BDB", "GEG", "ILI", Character.valueOf('B'), Block.blockIron, Character.valueOf('I'), Item.ingotIron, Character.valueOf('D'), Item.diamond, Character.valueOf('L'), globalLink, Character.valueOf('G'), Item.ingotGold, Character.valueOf('E'), Block.enderChest });
+		GameRegistry.addRecipe(new ItemStack(globalChest, 1), new Object[] { "BDB", "GEG", "ILI", 'B', Block.blockIron, 'I', Item.ingotIron, 'D', Item.diamond, 'L', globalLink, 'G', Item.ingotGold, 'E', Block.enderChest });
 
-		GameRegistry.addRecipe(new ItemStack(voidStone, 1), new Object[] { "GOG", "ONO", "GOG", Character.valueOf('G'), Item.ingotGold, Character.valueOf('O'), Block.obsidian, Character.valueOf('N'), Item.netherrackBrick });
+		GameRegistry.addRecipe(new ItemStack(voidStone, 1), new Object[] { "GOG", "ONO", "GOG", 'G', Item.ingotGold, 'O', Block.obsidian, 'N', Item.netherrackBrick });
 
-		GameRegistry.addRecipe(new ItemStack(multiItem, 1, MultiItemReference.VALUE_RETROPEARL), new Object[] { "GEG", "BGB", "GEG", Character.valueOf('G'), Block.glass, Character.valueOf('E'), Item.enderPearl, Character.valueOf('B'), Item.blazePowder });
+		GameRegistry.addRecipe(new ItemStack(multiItem, 1, MultiItemReference.VALUE_RETROPEARL), new Object[] { "GEG", "BGB", "GEG", 'G', Block.glass, 'E', Item.enderPearl, 'B', Item.blazePowder });
 
 		GameRegistry.addRecipe(new RecipeVoidStone());
 
 		GameRegistry.addRecipe(new ItemStack(Block.enderChest, 1), new Object[] { "###", "#E#", "#C#", '#', Block.obsidian, 'E', new ItemStack(multiItem, 1, MultiItemReference.VALUE_RETROPEARL), 'C', Block.chest });
+		
+		GameRegistry.addRecipe(new ItemStack(pocketLink, 1), new Object[] { "BDI", "SGS", "IDB",  'B', Block.blockIron, 'D', Item.diamond, 'I', Item.ingotIron, 'S', satLink, 'G', globalLink });
+		//addRangeEnchantmentRecipes();
+		GameRegistry.addRecipe(new RecipePocketLinkUpgrade());
 	}
-
+	
 	public void initCreativeTab() {
 		creativeTabGlobalChest = new CreativeTabGlobalChestMod("fuj1n.GlobalChests.creativeTab");
 	}
