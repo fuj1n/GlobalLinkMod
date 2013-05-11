@@ -43,8 +43,8 @@ public class GuiLibrary extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-		fontRenderer.drawString(type == 0 ? "Library" : type == 1 ? "Ender Library" : type == 2 ? "Global Library" : "Unknown Library", -52, 5, 4210752);
-		fontRenderer.drawString("Decorations: ", 125, 22, 4210752);
+		fontRenderer.drawString(type == 0 ? "Library" : type == 1 ? "Ender Library" : type == 2 ? "Global Library" : "Unknown Library", 8, 5, 4210752);
+		fontRenderer.drawString("Decorations: ", 185, 22, 4210752);
 		// fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"),
 		// 8, ySize - 96 + 3, 4210752);
 	}
@@ -80,6 +80,7 @@ public class GuiLibrary extends GuiContainer {
 	@Override
 	public void initGui() {
 		super.initGui();
+		this.guiLeft = this.guiLeft - shiftX;
 		upArrow = new GuiArrowButton(0, this.width / 2 + 62 - shiftX, this.height / 2 - 60, 0);
 		downArrow = new GuiArrowButton(1, this.width / 2 + 62 - shiftX, this.height / 2 - 60 + 22, 1);
 		buttonList.add(upArrow);

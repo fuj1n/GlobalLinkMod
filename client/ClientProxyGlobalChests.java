@@ -16,13 +16,16 @@ public class ClientProxyGlobalChests extends CommonProxyGlobalChests {
 
 	public static int GlobalChestRenderId;
 	public static int SatLinkRenderId;
+	public static int LibraryRenderId;
 
 	@Override
 	public void PreInit() {
 		GlobalChestRenderId = RenderingRegistry.getNextAvailableRenderId();
 		SatLinkRenderId = RenderingRegistry.getNextAvailableRenderId();
+		LibraryRenderId = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(new RenderGlobalChest());
 		RenderingRegistry.registerBlockHandler(new RenderSatLink());
+		RenderingRegistry.registerBlockHandler(new RenderLibrary());
 		TileEntityRenderer.instance.specialRendererMap.put(TileEntityGlobalChest.class, new TileEntityGlobalChestRenderer());
 		TileEntityRenderer.instance.specialRendererMap.put(TileEntitySatLink.class, new TileEntitySatLinkRenderer());
 		MinecraftForge.EVENT_BUS.register(new EventHandler());

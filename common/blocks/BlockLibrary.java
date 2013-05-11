@@ -9,11 +9,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import fuj1n.globalLinkMod.GlobalChests;
+import fuj1n.globalLinkMod.client.ClientProxyGlobalChests;
 import fuj1n.globalLinkMod.common.tileentity.TileEntityLibrary;
 import fuj1n.globalLinkMod.lib.GuiAssistant;
 
 public class BlockLibrary extends BlockContainer {
 	
+	private Icon bookIcons;
 	private Icon[] blockIcons;
 	
 	public BlockLibrary(int par1) {
@@ -34,6 +36,8 @@ public class BlockLibrary extends BlockContainer {
 			return Block.planks.getIcon(par1, 0);
 		case 1:
 			return Block.planks.getIcon(par1, 0);
+		case 128:
+			return this.bookIcons;
 		default:
 			return this.blockIcons[par2 < blockIcons.length ? par2 : 0];
 		}
@@ -44,8 +48,14 @@ public class BlockLibrary extends BlockContainer {
 		this.blockIcons[0] = par1IconRegister.registerIcon("globalChestMod:fuj1n.GlobalChests.bookLibrary");
 		this.blockIcons[1] = par1IconRegister.registerIcon("globalChestMod:fuj1n.GlobalChests.bookLibrary_ender");
 		this.blockIcons[2] = par1IconRegister.registerIcon("globalChestMod:fuj1n.GlobalChests.bookLibrary_global");
+		this.bookIcons = par1IconRegister.registerIcon("globalChestMod:fuj1n.GlobalChests.bookLibrary_decobooks");
 	}
 
+	@Override
+	public int getRenderType(){
+		return ClientProxyGlobalChests.LibraryRenderId;
+	}
+	
 	@Override
 	public TileEntity createNewTileEntity(World world) {
 		return new TileEntityLibrary();
