@@ -5,6 +5,7 @@ import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import fuj1n.globalLinkMod.client.event.EventHandler;
 import fuj1n.globalLinkMod.client.render.RenderGlobalChest;
+import fuj1n.globalLinkMod.client.render.RenderLibrary;
 import fuj1n.globalLinkMod.client.render.RenderSatLink;
 import fuj1n.globalLinkMod.client.render.tileentity.TileEntityGlobalChestRenderer;
 import fuj1n.globalLinkMod.client.render.tileentity.TileEntitySatLinkRenderer;

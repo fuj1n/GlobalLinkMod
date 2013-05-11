@@ -1,4 +1,6 @@
-package fuj1n.globalLinkMod.client;
+package fuj1n.globalLinkMod.client.render;
+
+import org.lwjgl.opengl.GL11;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -7,6 +9,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.IBlockAccess;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import fuj1n.globalLinkMod.GlobalChests;
+import fuj1n.globalLinkMod.client.ClientProxyGlobalChests;
 import fuj1n.globalLinkMod.common.inventory.InventoryLibraryDecoration;
 import fuj1n.globalLinkMod.common.tileentity.TileEntityLibrary;
 import fuj1n.globalLinkMod.lib.DecoBookReference;
@@ -32,6 +35,9 @@ public class RenderLibrary implements ISimpleBlockRenderingHandler {
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
 		if(modelID == this.getRenderId()){
+			GL11.glPushMatrix();
+			block.setBlockBoundsForItemRender();
+			GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
 			Tessellator tessellator = Tessellator.instance;
 			tessellator.startDrawingQuads();
 			tessellator.setNormal(0.0F, 1.0F, 0.0F);
@@ -57,6 +63,7 @@ public class RenderLibrary implements ISimpleBlockRenderingHandler {
 			tessellator.setNormal(0.0F, 0.0F, -1.0F);
 			renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, renderer.getBlockIconFromSide(block, 5));
 			tessellator.draw();
+			GL11.glPopMatrix();
 		}
 	}
 
