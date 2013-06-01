@@ -58,9 +58,11 @@ public class GuiLibrary extends GuiContainer {
 		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 		this.drawTexturedModalRect(x + 176, y + 19, 0, 168, 175, 57);
 		drawGuiSlots();
-		drawItemOnGui(mc, this.width / 2 - 72 - shiftX, this.height / 2 + 32, 24, 1.0F, renderItem);
-		//The old 2D book render call
-		//drawItemStack(new ItemStack(Item.enchantedBook), this.width / 2 - 80 - shiftX, this.height / 2 - 20);
+		if(mc.gameSettings.fancyGraphics){
+			drawItemOnGui(mc, this.width / 2 - 72 - shiftX, this.height / 2 + 32, 24, 1.0F, renderItem);
+		}else{
+			drawItemStack(new ItemStack(Item.enchantedBook), this.width / 2 - 80 - shiftX, this.height / 2 - 20);
+		}
 	}
 
 	private void drawGuiSlots() {
@@ -98,9 +100,8 @@ public class GuiLibrary extends GuiContainer {
 	}
 
 	/**
-	 * @Deprecated - the 3D ItemStack renderer has been introduced.
+	 * @Undeprecated - The 3D item renderer does not work without fancy graphics enabled
 	 */
-	@Deprecated
 	private void drawItemStack(ItemStack par1ItemStack, int par2, int par3) {
 		GL11.glTranslatef(0.0F, 0.0F, 32.0F);
 		zLevel = 200.0F;
