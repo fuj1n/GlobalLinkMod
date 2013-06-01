@@ -14,7 +14,9 @@ import fuj1n.globalLinkMod.common.inventory.InventoryGlobalChest;
 public class ManagerGlobalChest {
 
 	private ArrayList<Integer> stackList = new ArrayList();
+	private ArrayList<ItemStack> stackList2 = new ArrayList();
 	private ArrayList<Integer> priceList = new ArrayList();
+	private ArrayList<Integer> priceList2 = new ArrayList();
 	private ArrayList<Integer> banList = new ArrayList();
 
 	private ArrayList<String> oreDictStackList = new ArrayList();
@@ -24,6 +26,7 @@ public class ManagerGlobalChest {
 	private ArrayList<ItemStack> cheatItemList = new ArrayList();
 
 	private ArrayList<Integer> stackLimit = new ArrayList();
+	private ArrayList<Integer> stackLimit2 = new ArrayList();
 
 	public final int maxWeight;
 
@@ -280,9 +283,14 @@ public class ManagerGlobalChest {
 		addItemToList(Item.minecartTnt.itemID, 6);
 		addItemToList(Item.minecartHopper.itemID, 6);
 		// This mod items
-		addItemToList(GlobalChests.globalChest.blockID, -64, 1);
-		addItemToList(GlobalChests.globalLink.itemID, -16, 1);
-		addItemToList(GlobalChests.voidStone.itemID, -128, 2);
+		addItemToListWithLimit(GlobalChests.globalChest.blockID, -64, 1);
+		addItemToListWithLimit(GlobalChests.globalLink.itemID, -16, 1);
+		addItemToListWithLimit(GlobalChests.voidStone.itemID, -128, 2);
+		addItemToList(GlobalChests.bookLibrary.blockID, 128);
+		addItemToList(GlobalChests.decoBook.itemID, 4);
+		addItemToList(GlobalChests.satLink.blockID, 256);
+		addItemToBanList(GlobalChests.pocketLink.itemID);
+		addItemToList(GlobalChests.multiItem.itemID, MultiItemReference.VALUE_RETROPEARL, 140);
 
 		// Cheat/creative only stuff
 		addCheatToList(new ItemStack(GlobalChests.multiItem.itemID, 1, MultiItemReference.VALUE_CHEATSTORAGE));
@@ -305,19 +313,44 @@ public class ManagerGlobalChest {
 					}
 				}
 			}
-
 			if (stackList.contains(par1ItemStack.getItem().itemID)) {
 				int index = stackList.indexOf(par1ItemStack.getItem().itemID);
 				return priceList.get(index) * par1ItemStack.stackSize;
-			} else if (!banList.contains(par1ItemStack.getItem().itemID)) {
-				return 0;
+			} else if(canFind(new ItemStack(par1ItemStack.getItem(), 1, par1ItemStack.getItemDamage()))){
+				int index = getIndex(new ItemStack(par1ItemStack.getItem(), 1, par1ItemStack.getItemDamage()));
+				return priceList2.get(index) * par1ItemStack.stackSize;
+			}else if (!banList.contains(par1ItemStack.getItem().itemID)) {
+				return 1;
 			} else {
 				return maxWeight + 1;
 			}
 		}
-		return 0;
+		return 1;
 	}
 
+	public boolean canFind(ItemStack par1ItemStack){
+		int ID = par1ItemStack.itemID;
+		int meta = par1ItemStack.getItemDamage();
+		for(int i = 0; i < stackList2.size(); i++){
+			System.out.println(stackList2.get(i).itemID);
+			if(stackList2.get(i).itemID == ID && stackList2.get(i).getItemDamage() == meta){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public int getIndex(ItemStack par1ItemStack){
+		int ID = par1ItemStack.itemID;
+		int meta = par1ItemStack.getItemDamage();
+		for(int i = 0; i < stackList2.size(); i++){
+			if(stackList2.get(i).itemID == ID && stackList2.get(i).getItemDamage() == meta){
+				return i;
+			}
+		}
+		return 0;
+	}
+	
 	/**
 	 * Tests to see if the item is banned from the inventory.
 	 * 
@@ -349,6 +382,9 @@ public class ManagerGlobalChest {
 		if (stackList.contains(par1ItemStack.getItem().itemID)) {
 			int index = stackList.indexOf(par1ItemStack.getItem().itemID);
 			return stackLimit.get(index) > 0 ? true : false;
+		} else if (stackList2.contains(new ItemStack(par1ItemStack.getItem(), 1, par1ItemStack.getItemDamage()))){
+			int index = stackList2.indexOf(new ItemStack(par1ItemStack.getItem(), 1, par1ItemStack.getItemDamage()));
+			return stackLimit2.get(index) > 0 ? true : false;
 		} else {
 			return false;
 		}
@@ -365,6 +401,9 @@ public class ManagerGlobalChest {
 		if (stackList.contains(par1ItemStack.getItem().itemID)) {
 			int index = stackList.indexOf(par1ItemStack.getItem().itemID);
 			return stackLimit.get(index);
+		} else if(stackList2.contains(new ItemStack(par1ItemStack.getItem(), 1, par1ItemStack.getItemDamage()))){
+			int index = stackList2.indexOf(new ItemStack(par1ItemStack.getItem(), 1, par1ItemStack.getItemDamage()));
+			return stackLimit2.get(index);
 		} else {
 			return 0;
 		}
@@ -392,7 +431,7 @@ public class ManagerGlobalChest {
 	 * @param price
 	 *            The item weight
 	 */
-	public void addItemToList(int ID, int price, int stackLimit) {
+	public void addItemToListWithLimit(int ID, int price, int stackLimit) {
 		stackList.add(ID);
 		priceList.add(price);
 		this.stackLimit.add(stackLimit);
@@ -406,6 +445,18 @@ public class ManagerGlobalChest {
 		oreDictPriceList.add(price);
 	}
 
+	public void addItemToList(int ID, int meta, int price){
+		stackList2.add(new ItemStack(ID, 1, meta));
+		priceList2.add(price);
+		this.stackLimit2.add(0);
+	}
+	
+	public void addItemToListWithLimit(int ID, int meta, int price, int stackLimit){
+		stackList2.add(new ItemStack(ID, 1, meta));
+		priceList2.add(price);
+		this.stackLimit2.add(stackLimit);
+	}
+	
 	/**
 	 * Add an infinite storage item to list
 	 * 

@@ -2,12 +2,14 @@ package fuj1n.globalLinkMod;
 
 //May(should) be renamed to Global Links once this mod progresses.
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -96,6 +98,8 @@ public class GlobalChests {
 	public static Block globalChest;
 	public static Block bookLibrary;
 	public static Block satLink;
+	
+	public static Block enderChest;
 
 	// Items
 	public static Item globalLink;
@@ -115,6 +119,9 @@ public class GlobalChests {
 	// Compatibility Stuff
 	public static ModCompatibilityGlobalChests modCompat;
 
+	// Removed recipe array
+	private ArrayList<Integer> removedRecipes = new ArrayList<Integer>();
+	
 	// Reference Classes
 	MultiItemReference multiItemReference = new MultiItemReference();
 	DecoBookReference decoBookReference = new DecoBookReference();
@@ -128,6 +135,11 @@ public class GlobalChests {
 
 	@PreInit
 	public void PreInit(FMLPreInitializationEvent event) {
+		//Forced to override the ender chest until the BlockDropEvent PR gets approved(assuming it does)
+		Block.blocksList[Block.enderChest.blockID] = null;
+		enderChest = new fuj1n.globalLinkMod.common.blocks.BlockEnderChest(Block.enderChest.blockID).setHardness(22.5F).setResistance(1000.0F).setStepSound(Block.soundStoneFootstep).setUnlocalizedName("enderChest").setLightValue(0.5F);;
+		
+		addAllRemovedRecipes();
 		modLocation = event.getSourceFile();
 		proxy.PreInit();
 		configPreInit();
@@ -158,6 +170,10 @@ public class GlobalChests {
 		modCompat = new ModCompatibilityGlobalChests();
 	}
 
+	public void addAllRemovedRecipes(){
+		removedRecipes.add(Block.enderChest.blockID);
+	}
+	
 	public void configPreInit() {
 		rangeEnchantmentId = getNextAvailableID(Enchantment.enchantmentsList);
 	}
@@ -246,12 +262,13 @@ public class GlobalChests {
 	}
 
 	public void removeUnwantedRecipes() {
-		for (int i = 0; i < CraftingManager.getInstance().getRecipeList().size(); i++) {
-			IRecipe recipe = (IRecipe) CraftingManager.getInstance().getRecipeList().get(i);
-			if (recipe.getRecipeOutput() != null) {
-				switch (recipe.getRecipeOutput().itemID) {
-				case 130:
-					CraftingManager.getInstance().getRecipeList().remove(i);
+		Iterator<IRecipe> i1 = CraftingManager.getInstance().getRecipeList().iterator();
+		
+		while(i1.hasNext()){
+			IRecipe recipe = i1.next();
+			if(recipe.getRecipeOutput() != null){
+				if(removedRecipes.contains(recipe.getRecipeOutput().itemID)){
+					i1.remove();
 				}
 			}
 		}
