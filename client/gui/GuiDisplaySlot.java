@@ -3,6 +3,7 @@ package fuj1n.globalLinkMod.client.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.resources.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
@@ -27,6 +28,8 @@ public class GuiDisplaySlot extends Gui {
 	public boolean draw;
 	protected boolean field_82253_i;
 
+	ResourceLocation background = new ResourceLocation("globalChestMod:textures/gui/library.png");
+	
 	public GuiDisplaySlot(int par1, int par2) {
 		this(par1, par2, 18, 18);
 	}
@@ -44,7 +47,7 @@ public class GuiDisplaySlot extends Gui {
 	public void draw(Minecraft par1Minecraft, int par2, int par3) {
 		if (this.draw) {
 			FontRenderer fontrenderer = par1Minecraft.fontRenderer;
-			par1Minecraft.renderEngine.bindTexture("/gui/library.png");
+			par1Minecraft.renderEngine.func_110577_a(background);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			this.field_82253_i = par2 >= this.xPosition && par3 >= this.yPosition && par2 < this.xPosition + this.width && par3 < this.yPosition + this.height;
 			this.drawTexturedModalRect(this.xPosition, this.yPosition, 238, 0, this.width, this.height);

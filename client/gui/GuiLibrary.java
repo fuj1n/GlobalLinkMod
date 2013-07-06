@@ -6,6 +6,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -34,6 +35,8 @@ public class GuiLibrary extends GuiContainer {
 
 	public int downScrollFactor = 0;
 
+	ResourceLocation background = new ResourceLocation("globalChestMod:textures/gui/library.png");
+	
 	public GuiLibrary(EntityPlayer player, TileEntityLibrary library, int par3Type) {
 		super(new ContainerBookLibrary(player, library));
 		te = library;
@@ -52,7 +55,7 @@ public class GuiLibrary extends GuiContainer {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.bindTexture("/gui/library.png");
+		mc.renderEngine.func_110577_a(background);
 		int x = (width - xSize) / 2 - shiftX;
 		int y = (height - ySize) / 2;
 		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);

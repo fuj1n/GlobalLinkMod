@@ -12,7 +12,7 @@ public class TileEntitySatLinkRenderer extends TileEntitySpecialRenderer {
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f) {
 		if (tileentity.getBlockMetadata() == 1) {
-			model.render((TileEntitySatLink) tileentity, d0, d1, d2);
+			//TODO model.render((TileEntitySatLink) tileentity, d0, d1, d2);
 		}
 	}
 }

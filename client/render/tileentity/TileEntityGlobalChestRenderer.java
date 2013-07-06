@@ -2,6 +2,7 @@ package fuj1n.globalLinkMod.client.render.tileentity;
 
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.tileentity.TileEntity;
 
 import org.lwjgl.opengl.GL11;
@@ -14,6 +15,8 @@ public class TileEntityGlobalChestRenderer extends TileEntitySpecialRenderer {
 
 	private ModelGlobalChest globalChestModel = new ModelGlobalChest();
 
+	ResourceLocation texture = new ResourceLocation("globalChestMod:textures/entity/chest/globalchest.png");
+	
 	@Override
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f) {
 		tileEntityRenderer = TileEntityRenderer.instance;
@@ -25,7 +28,7 @@ public class TileEntityGlobalChestRenderer extends TileEntitySpecialRenderer {
 
 		i = par1TileEntityGlobalChest.getBlockMetadata();
 
-		this.bindTextureByName("/item/globalchest.png");
+		this.func_110628_a(texture);
 		GL11.glPushMatrix();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

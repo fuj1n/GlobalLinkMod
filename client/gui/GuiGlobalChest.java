@@ -5,6 +5,7 @@ import java.util.List;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -31,6 +32,8 @@ class GuiGlobalChest extends GuiContainer {
 
 	public GuiButton cheatButton;
 
+	ResourceLocation background = new ResourceLocation("globalChestMod:textures/gui/globalChest.png");
+	
 	public GuiGlobalChest(EntityPlayer player, TileEntityGlobalChest tileEnity, boolean isPocket) {
 		super(container = new ContainerGlobalChest(player, tileEnity, isPocket));
 		tileEntity = tileEnity;
@@ -158,7 +161,7 @@ class GuiGlobalChest extends GuiContainer {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.bindTexture("/gui/globalChest.png");
+		mc.renderEngine.func_110577_a(background);
 		int x = (width - xSize) / 2;
 		int y = (height - ySize) / 2;
 		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);

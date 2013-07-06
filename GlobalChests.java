@@ -168,6 +168,13 @@ public class GlobalChests {
 		config.save();
 		libraryStorageReference.populateBooksList();
 		modCompat = new ModCompatibilityGlobalChests();
+		
+		initCreativeTab();
+		initAllBlocks();
+		initAllItems();
+		initAllEnchantments();
+		registerAllBlocks();
+		mapAllTileEntities();
 	}
 
 	public void addAllRemovedRecipes(){
@@ -181,12 +188,6 @@ public class GlobalChests {
 	@Init
 	public void Init(FMLInitializationEvent event) {
 		proxy.Init();
-		initCreativeTab();
-		initAllBlocks();
-		initAllItems();
-		initAllEnchantments();
-		registerAllBlocks();
-		mapAllTileEntities();
 		addAllNames();
 		removeUnwantedRecipes();
 		addAllRecipes();

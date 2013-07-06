@@ -33,7 +33,7 @@ public class NBTData {
 			NBTLocation = new File("null");
 			NBTFile = new File("null");
 		} else {
-			NBTLocation = new File(Minecraft.getMinecraftDir(), "globalChestMod");
+			NBTLocation = new File(Minecraft.getMinecraft().mcDataDir, "globalLinkMod");
 			NBTFile = new File(NBTLocation, fileName + postfix + ".dat");
 			NBTLocation.mkdirs();
 			try {

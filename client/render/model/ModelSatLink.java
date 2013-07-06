@@ -2,6 +2,7 @@ package fuj1n.globalLinkMod.client.render.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.resources.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
 
@@ -14,8 +15,10 @@ public class ModelSatLink extends ModelBase {
 
 	private IModelCustom modelSatlink;
 
+	ResourceLocation texture = new ResourceLocation("globalChestMod:textures/entity/satLink.png");
+	
 	public ModelSatLink() {
-		modelSatlink = AdvancedModelLoader.loadModel("/mods/globalChestMod/models/satlink.obj");
+		//modelSatlink = AdvancedModelLoader.loadModel("/assets/globalChestMod/textures/models/satlink.obj");
 	}
 
 	public void render(TileEntitySatLink te, double x, double y, double z) {
@@ -23,7 +26,7 @@ public class ModelSatLink extends ModelBase {
 		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glTranslatef((float) x + 0.5f, (float) y, (float) z + 0.5f);
 		GL11.glScalef(0.5f, 0.5f, 0.5f);
-		FMLClientHandler.instance().getClient().renderEngine.bindTexture("/mods/globalChestMod/textures/models/satLink.png");
+		FMLClientHandler.instance().getClient().renderEngine.func_110577_a(texture);
 		te.topBitRotationAngle++;
 		this.render(te);
 		GL11.glPopMatrix();

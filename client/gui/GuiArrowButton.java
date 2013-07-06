@@ -3,6 +3,7 @@ package fuj1n.globalLinkMod.client.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.resources.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
@@ -34,6 +35,8 @@ public class GuiArrowButton extends GuiButton {
 	/** Hides the button completely if false. */
 	public boolean drawButton;
 	protected boolean field_82253_i;
+	
+	ResourceLocation background = new ResourceLocation("globalChestMod:textures/gui/library.png");
 
 	public GuiArrowButton(int par1, int par2, int par3, int par4) {
 		this(par1, par2, par3, 16, 20, par4);
@@ -77,7 +80,7 @@ public class GuiArrowButton extends GuiButton {
 	public void drawButton(Minecraft par1Minecraft, int par2, int par3) {
 		if (this.drawButton) {
 			FontRenderer fontrenderer = par1Minecraft.fontRenderer;
-			par1Minecraft.renderEngine.bindTexture("/gui/library.png");
+			par1Minecraft.renderEngine.func_110577_a(background);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			this.field_82253_i = par2 >= this.xPosition && par3 >= this.yPosition && par2 < this.xPosition + this.width && par3 < this.yPosition + this.height;
 			int k = this.getHoverState(this.field_82253_i);

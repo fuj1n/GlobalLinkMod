@@ -1,6 +1,7 @@
 package fuj1n.globalLinkMod.client.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
@@ -14,6 +15,8 @@ public class GuiVoidStone extends GuiContainer {
 
 	private static ContainerVoidStone container;
 
+	ResourceLocation background = new ResourceLocation("globalChestMod:textures/gui/voidStone.png");
+	
 	public GuiVoidStone(InventoryPlayer par1InventoryPlayer) {
 		super(container = new ContainerVoidStone(par1InventoryPlayer));
 	}
@@ -27,7 +30,7 @@ public class GuiVoidStone extends GuiContainer {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.bindTexture("/gui/voidStone.png");
+		mc.renderEngine.func_110577_a(background);
 		int x = (width - xSize) / 2;
 		int y = (height - ySize) / 2;
 		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
