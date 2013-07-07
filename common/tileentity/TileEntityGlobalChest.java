@@ -85,7 +85,7 @@ public class TileEntityGlobalChest extends TileEntity {
 		worldObj.addBlockEvent(xCoord, yCoord, zCoord, Block.enderChest.blockID, 1, numUsingPlayers);
 		double d0 = xCoord + 0.5D;
 		double d2 = zCoord + 0.5D;
-		worldObj.playSoundEffect(d0, yCoord + 0.5D, d2, "random.chestclosed", 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
+		worldObj.playSoundEffect(d0, yCoord + 0.5D, d2, "random.chestclose", 0.5F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
 	}
 
 	public boolean isUseableByPlayer(EntityPlayer par1EntityPlayer) {

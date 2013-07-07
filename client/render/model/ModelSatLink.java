@@ -1,5 +1,6 @@
 package fuj1n.globalLinkMod.client.render.model;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.resources.ResourceLocation;
@@ -18,7 +19,7 @@ public class ModelSatLink extends ModelBase {
 	ResourceLocation texture = new ResourceLocation("globalChestMod:textures/entity/satLink.png");
 	
 	public ModelSatLink() {
-		//modelSatlink = AdvancedModelLoader.loadModel("/assets/globalChestMod/textures/models/satlink.obj");
+		modelSatlink = AdvancedModelLoader.loadModel("/assets/globalchestmod/entity/satlink.obj");
 	}
 
 	public void render(TileEntitySatLink te, double x, double y, double z) {
