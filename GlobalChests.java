@@ -21,6 +21,7 @@ import net.minecraftforge.common.EnumHelper;
 import net.minecraftforge.common.Property;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.Mod.PostInit;
@@ -133,7 +134,7 @@ public class GlobalChests {
 	@Instance("fuj1n.GlobalChests")
 	public static GlobalChests instance;
 
-	@PreInit
+	@EventHandler
 	public void PreInit(FMLPreInitializationEvent event) {
 		//Forced to override the ender chest until the BlockDropEvent PR gets approved(assuming it does)
 		Block.blocksList[Block.enderChest.blockID] = null;
@@ -185,7 +186,7 @@ public class GlobalChests {
 		rangeEnchantmentId = getNextAvailableID(Enchantment.enchantmentsList);
 	}
 
-	@Init
+	@EventHandler
 	public void Init(FMLInitializationEvent event) {
 		proxy.Init();
 		addAllNames();
@@ -195,7 +196,7 @@ public class GlobalChests {
 		NetworkRegistry.instance().registerGuiHandler(instance, new GuiHandler());
 	}
 
-	@PostInit
+	@EventHandler
 	public void PostInit(FMLPostInitializationEvent event) {
 		proxy.PostInit();
 		modCompat.postInit();

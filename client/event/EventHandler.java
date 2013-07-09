@@ -28,8 +28,8 @@ public class EventHandler {
 	@ForgeSubscribe
 	public void onSound(SoundLoadEvent event) {
 		try {
-			 //event.manager.soundPoolSounds.addSound("assets/globalchestmod/sound/globalchestopen.wav");
-			 //event.manager.soundPoolSounds.addSound("assets/globalchestmod/sound/globalchestclose.wav");
+			 event.manager.soundPoolSounds.addSound("globalchestmod:globalopen.wav");
+			 event.manager.soundPoolSounds.addSound("globalchestmod:globalclose.wav");
 		} catch (Exception e) {
 			GlobalChests.log("Failed to register one or more sounds.", Level.WARNING);
 		}
