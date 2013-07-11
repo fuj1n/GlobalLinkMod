@@ -239,7 +239,7 @@ public class ItemPocketLink extends Item {
 
 				if (flag) {
 					for (int i1 = enchantment.getMinLevel(); i <= enchantment.getMaxLevel(); i++) {
-						par1List.add(Item.enchantedBook.func_92111_a(new EnchantmentData(enchantment, i1)));
+						par1List.add(Item.enchantedBook.getEnchantedItemStack(new EnchantmentData(enchantment, i1)));
 					}
 				}
 			}

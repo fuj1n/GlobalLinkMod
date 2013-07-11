@@ -121,7 +121,7 @@ public class TileEntityLibrary extends TileEntity implements IInventory {
 	}
 
 	@Override
-	public boolean isStackValidForSlot(int i, ItemStack itemstack) {
+	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
 		int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 		return meta == 0 && BookLibraryReference.books.contains(itemstack.getItem());
 	}

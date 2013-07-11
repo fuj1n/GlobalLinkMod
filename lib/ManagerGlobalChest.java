@@ -222,7 +222,7 @@ public class ManagerGlobalChest {
 		addItemToList(Item.compass.itemID, 37);
 		addItemToList(Item.fishingRod.itemID, 3);
 		addItemToList(Item.pocketSundial.itemID, 49);
-		addItemToList(Item.lightStoneDust.itemID, 1);
+		addItemToList(Item.glowstone.itemID, 1);
 		addItemToList(Item.fishRaw.itemID, 1);
 		addItemToList(Item.fishCooked.itemID, 1);
 		addItemToList(Item.dyePowder.itemID, 1);
