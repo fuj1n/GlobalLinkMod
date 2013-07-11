@@ -6,6 +6,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 import fuj1n.globalLinkMod.common.inventory.InventoryLibraryDecoration;
 import fuj1n.globalLinkMod.lib.BookLibraryReference;
@@ -23,17 +26,29 @@ public class TileEntityLibrary extends TileEntity implements IInventory {
 	@Override
 	public void readFromNBT(NBTTagCompound par1NBTTagCompound) {
 		super.readFromNBT(par1NBTTagCompound);
-		System.out.println("Read called");
 		decoInventory.readFromNBT(par1NBTTagCompound);
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound par1NBTTagCompound) {
 		super.writeToNBT(par1NBTTagCompound);
-		System.out.println("Write called");
 		decoInventory.writeToNBT(par1NBTTagCompound);
 	}
 
+	@Override
+    public Packet getDescriptionPacket(){
+		NBTTagCompound var1NBTTagCompound = new NBTTagCompound();
+		writeToNBT(var1NBTTagCompound);
+        return new Packet132TileEntityData(xCoord, yCoord, zCoord, 0, var1NBTTagCompound);
+    }
+	
+	@Override
+	public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt){
+		readFromNBT(pkt.customParam1);
+		
+		worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+	}
+	
 	@Override
 	public int getSizeInventory() {
 		return inventory.size();

@@ -21,35 +21,32 @@ public class InventoryLibraryDecoration extends InventoryBasic{
     }
 	
 	public void readFromNBT(NBTTagCompound par1NBTTagCompound){
-		NBTTagList tagList = par1NBTTagCompound.getTagList("Decorations");
-		inventoryContents = new ItemStack[this.getSizeInventory()];
-		System.out.println("Read Got" + tagList.tagCount());
-		for(int i = 0; i < tagList.tagCount(); i++){
-			NBTTagCompound nbttagcompound1 = (NBTTagCompound) tagList.tagAt(i);
-			
+		NBTTagList nbttaglist = par1NBTTagCompound.getTagList("Deco");
+		this.inventoryContents = new ItemStack[this.getSizeInventory()];
+
+		for (int i = 0; i < nbttaglist.tagCount(); ++i) {
+			NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.tagAt(i);
 			byte b0 = nbttagcompound1.getByte("Slot");
-			System.out.println("Get" + b0);
-			if (b0 >= 0 && b0 < inventoryContents.length) {
-				inventoryContents[b0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
+
+			if (b0 >= 0 && b0 < this.inventoryContents.length) {
+				this.inventoryContents[b0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
 			}
 		}
-		
 	}
 	
 	public void writeToNBT(NBTTagCompound par1NBTTagCompound){
-		NBTTagList tagList = new NBTTagList();
-		System.out.println("Write Got" + inventoryContents.length);
-		for (int i = 0; i < inventoryContents.length; i++) {
-			if (inventoryContents[i] != null) {
+		NBTTagList nbttaglist = new NBTTagList();
+
+		for (int i = 0; i < this.inventoryContents.length; ++i) {
+			if (this.inventoryContents[i] != null) {
 				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 				nbttagcompound1.setByte("Slot", (byte) i);
-				System.out.println("Send" + (byte) i);
-				inventoryContents[i].writeToNBT(nbttagcompound1);
-				tagList.appendTag(nbttagcompound1);
+				this.inventoryContents[i].writeToNBT(nbttagcompound1);
+				nbttaglist.appendTag(nbttagcompound1);
 			}
 		}
 
-		par1NBTTagCompound.setTag("Decorations", tagList);
+		par1NBTTagCompound.setTag("Deco", nbttaglist);
 	}
 
 }
