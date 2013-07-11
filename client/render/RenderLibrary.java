@@ -1,14 +1,13 @@
 package fuj1n.globalLinkMod.client.render;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.IBlockAccess;
+
+import org.lwjgl.opengl.GL11;
+
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import fuj1n.globalLinkMod.GlobalChests;
 import fuj1n.globalLinkMod.client.ClientProxyGlobalChests;
 import fuj1n.globalLinkMod.common.inventory.InventoryLibraryDecoration;
 import fuj1n.globalLinkMod.common.tileentity.TileEntityLibrary;
@@ -16,18 +15,21 @@ import fuj1n.globalLinkMod.lib.DecoBookReference;
 
 public class RenderLibrary implements ISimpleBlockRenderingHandler {
 
+	@Deprecated
 	public int[][] bookCoords;
 	
 	public RenderLibrary(){
-		getBookCoords();
 	}
 	
+	/**
+	 * @deprecated - new system used instead
+	 * @unused - this system not used at all
+	 */
 	public void getBookCoords(){
 		bookCoords = new int[DecoBookReference.NAMES.length][2];
 		for(int j = 0; j < DecoBookReference.NAMES.length / 7; j++){
 			for(int i = 0; i < DecoBookReference.NAMES.length / (DecoBookReference.NAMES.length / 7); i++){
 				bookCoords[i * (j + 1)] = new int[] { i * 2 , j * 6 };
-				System.out.println(bookCoords[i * (j + 1)][0] + " " + bookCoords[i * (j + 1)][1]);
 			}
 		}
 	}
@@ -78,7 +80,7 @@ public class RenderLibrary implements ISimpleBlockRenderingHandler {
 	public void renderBooks(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer){
 		TileEntityLibrary te = (TileEntityLibrary)world.getBlockTileEntity(x, y, z);
 		InventoryLibraryDecoration inv = te.decoInventory;
-		Tessellator tessellator = Tessellator.instance;
+		
 	}
 	
 	@Override

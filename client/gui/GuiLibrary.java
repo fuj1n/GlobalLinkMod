@@ -25,7 +25,7 @@ public class GuiLibrary extends GuiContainer {
 	public int type;
 	
 	//Used for the fancy 3D item renderer
-	EntityItem renderItem;
+	EntityGuiItem renderItem;
 	int renderItemTickLimit = 0;
 
 	public GuiArrowButton upArrow;
@@ -41,7 +41,7 @@ public class GuiLibrary extends GuiContainer {
 		super(new ContainerBookLibrary(player, library));
 		te = library;
 		type = par3Type;
-		renderItem = new EntityItem(Minecraft.getMinecraft().theWorld, 0F, 0F, 0F, new ItemStack(Item.enchantedBook));
+		renderItem = new EntityGuiItem(Minecraft.getMinecraft().theWorld, 0F, 0F, 0F, new ItemStack(Item.enchantedBook));
 	}
 
 	@Override
