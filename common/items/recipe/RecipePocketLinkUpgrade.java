@@ -25,7 +25,7 @@ public class RecipePocketLinkUpgrade implements IRecipe{
 			}
 		}
 		
-		if(stacks[4] != null && stacks[4].getItem() == GlobalChests.pocketLink){
+		if(stacks.length > 4 && stacks[4] != null && stacks[4].getItem() == GlobalChests.pocketLink){
 			NBTTagList enchantments = stacks[4].getEnchantmentTagList();
 			NBTTagCompound nbt1 = null;
 			if(enchantments != null && enchantments.tagAt(0) != null){
